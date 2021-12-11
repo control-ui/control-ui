@@ -9,7 +9,7 @@ export const LoadingLinear = (
             loadingColor?: LinearProgressProps['color']
             textColor?: TypographyTypeMap<{}>['props']['color']
             width?: string
-        }
+        },
 ): React.ReactElement => {
     return <div style={{
         display: 'flex',

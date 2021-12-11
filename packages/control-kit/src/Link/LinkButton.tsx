@@ -8,7 +8,7 @@ export interface LinkButtonProps {
 }
 
 export const LinkButton = (
-    {children, to, size = 'small', ...p}: React.PropsWithChildren<ButtonProps & LinkButtonProps>
+    {children, to, size = 'small', ...p}: React.PropsWithChildren<ButtonProps & LinkButtonProps>,
 ): React.ReactElement => {
     // @ts-ignore
     return <Button component={RenderLink} to={to} size={size} {...p}>

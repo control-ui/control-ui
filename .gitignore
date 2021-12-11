@@ -4,6 +4,7 @@
 
 # default upload dir
 /upload
+/coverage
 
 # default tmp dir
 /tmp

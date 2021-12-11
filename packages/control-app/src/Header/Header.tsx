@@ -22,7 +22,7 @@ export const Header = (
         children, noDrawerToggle,
         labelMenu = (open: boolean) => (open ? 'Close' : 'Open') + ' Menu',
         toolbarVariant = 'dense', appBarVariant, appBarSquare = false,
-    }: React.PropsWithChildren<HeaderProps>
+    }: React.PropsWithChildren<HeaderProps>,
 ): React.ReactElement => {
     const {open, setOpen} = useDrawer()
 

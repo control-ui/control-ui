@@ -50,7 +50,7 @@ export const AppTheme = (
         light = {id: 'light', other: 'dark'},
         fallback = 'dark',
         children,
-    }: React.PropsWithChildren<AppThemeProps>
+    }: React.PropsWithChildren<AppThemeProps>,
 ): React.ReactElement => {
     const [theme, setTheme] = React.useState(() => {
         const initial =

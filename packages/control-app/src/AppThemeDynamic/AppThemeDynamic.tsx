@@ -13,7 +13,7 @@ export const AppThemeDynamic: React.ComponentType<React.PropsWithChildren<AppThe
         children,
         themes,
         ...props
-    }
+    },
 ) => {
     const [dynThemes, setThemes] = React.useState<ThemeSettings>(themes)
 

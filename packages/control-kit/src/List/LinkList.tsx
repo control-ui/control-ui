@@ -27,7 +27,7 @@ export function ListItemLink(
     {
         icon, primary, to, onClick, disableNavLink = true,
         dense, style, classes = {}, children, exact,
-    }: React.PropsWithChildren<ListItemLinkProps>
+    }: React.PropsWithChildren<ListItemLinkProps>,
 ): React.ReactElement {
     const renderLink: React.ComponentType<React.PropsWithChildren<{
         disableNavLink?: boolean

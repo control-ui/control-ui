@@ -14,7 +14,7 @@ export const PageTitle: React.ComponentType<PageTitleProps> = (
     {
         title,
         level = 1,
-    }
+    },
 ) => {
     const theme = useTheme()
     return <Box m={2}>
@@ -36,7 +36,7 @@ export const PageContent: React.ComponentType<ContainerProps> = (
     {
         children,
         maxWidth = 'lg',
-    }
+    },
 ) => {
     const {spacing} = useTheme()
     return <Container fixed maxWidth={maxWidth} style={{paddingBottom: spacing(4)}}>

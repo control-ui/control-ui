@@ -29,7 +29,7 @@ export const NavListNested = (
         routes, routeId = '', filter,
         dense, itemStyle = {}, divider = false,
         onClick, level = 1, disableNavLink = false,
-    }: NavListNestedProps
+    }: NavListNestedProps,
 ): React.ReactElement => {
     const {spacing, palette} = useTheme()
     const {location} = useHistory()

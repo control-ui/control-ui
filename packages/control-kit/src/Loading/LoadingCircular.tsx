@@ -10,7 +10,7 @@ export const LoadingCircular = (
             textColor?: TypographyTypeMap<{}>['props']['color']
             loadingColor?: CircularProgressProps['color']
             width?: string
-        }
+        },
 ): React.ReactElement => {
     const {spacing} = useTheme()
     return <div style={{

@@ -26,7 +26,7 @@ export function App(
     {
         Layout, Provider, routes,
         i18n, routerBasename = '/',
-    }: AppProps
+    }: AppProps,
 ): React.ReactElement {
     return <Router basename={routerBasename}>
         <I18nProvider

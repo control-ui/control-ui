@@ -38,7 +38,7 @@ export const Layout: React.ComponentType<LayoutProps> = (
         mainContentStyle = {},
         mainContentRef,
         routeId = 'content',
-    }
+    },
 ) => {
     const ref = mainContentRef ? mainContentRef : React.useRef(undefined)
     const history = useHistory()
