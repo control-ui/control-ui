@@ -1,0 +1,44 @@
+{
+	"name": "@control-ui/kit",
+	"version": "0.0.15",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Michael Becker",
+			"email": "michael@bemit.codes",
+			"homepage": "https://mlbr.xyz",
+			"role": "Developer"
+		}
+	],
+	"scripts": {
+		"dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-app && merge-dirs build/control-kit/src build && rm -rf build/control-kit"
+	},
+	"main": "index.js",
+	"module": "esm/index.js",
+	"dependencies": {
+		"clsx": "^1.0",
+		"react-helmet": "^5.0",
+		"react-uid": "^2.0"
+	},
+	"devDependencies": {
+		"@material-ui/core": "^4.8",
+		"@material-ui/icons": "^4.8",
+		"@material-ui/styles": "^4.8",
+		"react": "^16.8",
+		"react-dom": "^16.8",
+		"react-router": "^5.0",
+		"react-router-dom": "^5.0"
+	},
+	"peerDependencies": {
+		"@material-ui/core": "^4.8",
+		"@material-ui/icons": "^4.8",
+		"react": "^16.8",
+		"react-dom": "^16.8",
+		"react-router": "^5.0",
+		"react-router-dom": "^5.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"gitHead": "eec39eda3c04650123d88d189d085851f1bd05a4"
+}

@@ -1,0 +1,112 @@
+{
+  "file-folder": {
+    "close-explorer": "Auswahl Schließen",
+    "open-explorer": "Auswahl Öffnen",
+    "add-item": "Element hinzufügen",
+    "replace-item": "Element austauschen",
+    "add-items": "Elemente hinzufügen",
+    "add-file": "Datei Hinzufügen",
+    "replace-file": "Datei Ersetzen",
+    "add-files": "Dateien Hinzufügen",
+    "add-dir": "Ordner Wählen",
+    "replace-dir": "Ordner Ersetzen",
+    "add-dirs": "Ordner Wählen"
+  },
+  "article-meta": {
+    "group--_date": "Datum",
+    "_date": {
+      "create": "Erstellt am",
+      "update": "Letzte Aktualisierung"
+    },
+    "group--meta": "Meta",
+    "meta": {
+      "lang": "Sprache",
+      "description": "Beschreibung",
+      "keywords": "Schlagwörter"
+    },
+    "author": "Autor",
+    "group--head": "Head",
+    "head": {
+      "title": "Titel",
+      "author": "Autor"
+    }
+  },
+  "doc-tree": {
+    "block": {
+      "_content-common": {
+        "text": "Text",
+        "items": "Elemente",
+        "name": "Name",
+        "date": "Datum",
+        "time": "Zeit",
+        "price": "Preis",
+        "location": "Ort",
+        "location_link": "Ort Link",
+        "overlay": "Überlagerung",
+        "mainImage": "Hauptbild",
+        "image": "Bild",
+        "group--images": "Bilder",
+        "images": {
+          "main": "Hauptbild",
+          "teaser": "Teaser Bild",
+          "banner": "Banner Bild"
+        },
+        "group--btn": "Buttons",
+        "btn": {
+          "e_mail": "E-Mail",
+          "online": "Online",
+          "tel": "Tel.",
+          "mobile": "Mobil"
+        },
+        "group--order": "Bestellung",
+        "order": {
+          "e_mail": "E-Mail",
+          "online": "Online",
+          "tel": "Tel.",
+          "mobile": "Mobil"
+        }
+      }
+    }
+  },
+  "product": {
+    "simple": {
+      "rrp": "UVP"
+    },
+    "wine-product": {
+      "group--info": {
+      },
+      "info": {
+        "name": "Name",
+        "name_short": "Kurzname",
+        "desc": "Beschreibung",
+        "mainImage": "Hauptbild",
+        "icon": "Icon"
+      },
+      "group--size": "Menge",
+      "size": {
+        "unit": "Einheit",
+        "value": "Wert"
+      },
+      "grape_variety": "Rebsorte",
+      "sweetness": "Geschmack",
+      "type": "Typ",
+      "recomd": "Empfehlung",
+      "country": "Land",
+      "origin": "Herkunft",
+      "year": "Jahrgang",
+      "wine_type": "Wein Typ",
+      "ap_nr": "AP Nr.",
+      "l_nr": "L Nr.",
+      "alcohol": "Alkohol",
+      "temperature": "Temperatur",
+      "chill-time": "Zeit zum Atmen",
+      "group--statement": "Deklaration",
+      "statement": {
+        "has_sulfid": "Hat Sulfide"
+      },
+      "products": "Enthaltene Produkte",
+      "product_no": "Produkt Nummer",
+      "qty": "Anzahl"
+    }
+  }
+}

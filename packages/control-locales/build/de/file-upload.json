@@ -1,0 +1,13 @@
+{
+  "duplicate-files": "Doppelte Dateien, nicht nochmal hinzugefügt:",
+  "upload-new--select": "Durchsuche Lokal",
+  "upload-new--or": "oder",
+  "upload-new--dragndrop": "per Drag & Drop hinzufügen",
+  "upload-to-dir": "In Ordner Hochladen",
+  "clear-all": "Liste komplett erneuern",
+  "clear-finished": "Fertige aus Liste entfernen",
+  "total": {
+    "size": "Gesamtgröße",
+    "qty": "Anzahl"
+  }
+}

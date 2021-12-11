@@ -1,0 +1,62 @@
+{
+  "title": "Edit Article",
+  "loading": "Loading Article Data",
+  "date": {
+    "created": "Created",
+    "updated": "Updated"
+  },
+  "saved-msg": "✓ Saved Successfully",
+  "saved-fail-msg": "✘ Saving Failed",
+  "view-error": {
+    "meta": "Meta could not be loaded",
+    "main-text": "Main-Text could not be loaded",
+    "article-without-doctree": "Article has no DocTree.",
+    "no-articles-in-section": "none existing",
+    "no-editable-meta": "Meta not editable."
+  },
+  "locale": {
+    "universal-locale": "Universal View",
+    "delete": "Delete Language Version",
+    "switch-to": "Switch Language",
+    "active-not-existing": "Active language is not existing right now:",
+    "active-not-valid": "Active language is not a valid selection:",
+    "active-is": "Active language is: ",
+    "new-locale": {
+      "choose-page-type": "Choose Page-Type",
+      "btn-create": "Create Language Version"
+    }
+  },
+  "edit-base": {
+    "article-name": "Internal Article Name",
+    "article-tag": "Unique Article Tag",
+    "in-section": "In Section",
+    "btn-update-article": "Update Base Information",
+    "btn-delete-article": "Delete Article",
+    "btn-create-article": "Create Article"
+  },
+  "sidebar": {
+    "section-list": "Sections",
+    "article-list": "Articles"
+  },
+  "nav": {
+    "editmeta": "Edit Meta",
+    "editmeta-hide": "Hide Meta",
+    "openhelp": "Help"
+  },
+  "editmeta": {
+    "title": "General Information + Meta Data",
+    "save": "Save Meta"
+  },
+  "maintxt": {
+    "title": "Main Text",
+    "save": "Save",
+    "exportHtml": "Export HTML",
+    "exportMd": "Export Md",
+    "reset": "Reset"
+  },
+  "doctree": {
+    "title": "Article Document",
+    "loading": "Loading Article Document",
+    "save": "Save Document"
+  }
+}

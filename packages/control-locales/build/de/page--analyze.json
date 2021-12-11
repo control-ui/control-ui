@@ -1,0 +1,38 @@
+{
+  "title": "Analyse",
+  "title-query-manager": "Abfragen Erstellung",
+  "title-qm-types": "Events",
+  "title-qm-props": "Properties",
+  "title-qm-queries": "Letzte Abfragen",
+  "title-qm-query-name": "Abfragen Name",
+  "show-query-manager": "Abfragen Erstellung",
+  "show-as-table": "als Tabelle",
+  "show-table": "Tabelle",
+  "show-diagram": "Diagramme",
+  "add-diagram": "neues Diagramm",
+  "total-counted": "Anzahl Events",
+  "total-counted-columns": "Anzahl max. Spalten",
+  "list": {
+    "id": "ID",
+    "time": "Time",
+    "type": "Type",
+    "loading-result": "Lade dein Ergebnis",
+    "no-result": "Kein Ergebnis für die Abfrage"
+  },
+  "qm-base": {
+    "title": "Abfrage Basis",
+    "between": "Zwischen Zeit",
+    "between-since": "Seit",
+    "between-till": "Bis",
+    "limit": "Limitierung",
+    "limit-length": "Menge",
+    "limit-offset": "Anfang"
+  },
+  "qm-custom": {
+    "title": "Abfrage Spezifisch",
+    "add-field": "neues Feld",
+    "add-conjunction": "neue Logikverknüpfung",
+    "add-sort": "neue Sortierung",
+    "add-group": "neue Gruppierung"
+  }
+}

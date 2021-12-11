@@ -1,0 +1,79 @@
+{
+  "title": "Order Overview",
+  "controls": {
+    "qty": "Quantity",
+    "time-range": "Time Range",
+    "time-range-from": "From",
+    "time-range-to": "To",
+    "by-country": "Country"
+  },
+  "list": {
+    "change-hooks": "Change Hooks",
+    "load-for-hooks": "For which hooks should the orders be loaded:",
+    "load-for-hook-btn": "Load orders for hook",
+    "load-for-hook-btn-pl": "Load orders for hooks",
+    "are-loaded-hook": "Hook is loaded",
+    "are-loaded-hook-pl": "Hooks are loaded",
+    "are-loading-hook": "Hook is loading",
+    "are-loading-hook-pl": "Hooks are loading",
+    "head": {
+      "date": "Date",
+      "customer": "Customer",
+      "qty": "Products",
+      "state": "State",
+      "shipping": "Shipping",
+      "locale": "Hook Locale",
+      "hook": "Hook",
+      "details": "Details"
+    },
+    "errors": {
+      "no-orders": "No Orders.",
+      "no-orders-in-state": "No Orders in choosen state."
+    },
+    "state": {
+      "none": "none",
+      "open": "open",
+      "payment-pending": "Payment Pending",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "returned": "Returned",
+      "finished": "Finished"
+    },
+    "item": {
+      "customer-no-data": "no-data",
+      "shipping-none": "none",
+      "detail": {
+        "order_no": {
+          "title": "Order No."
+        },
+        "customer": {
+          "title": "Customer",
+          "none": "No Data",
+          "not-set": "not set",
+          "name": "Name:",
+          "email": "E-Mail:",
+          "street": "Street:",
+          "street_no": "No.:",
+          "post_code": "Post Code:",
+          "city": "City:",
+          "country": "Country:"
+        },
+        "product": {
+          "title": "Ordered Products",
+          "id": "ID:",
+          "no-info": "No Information",
+          "name": "Name:",
+          "product_no": "Product No.:",
+          "product_no-missing": "missing"
+        },
+        "state-log": {
+          "title": "State Transition Log",
+          "time": "Time:",
+          "from": "From:",
+          "to": "To:",
+          "none": "no state transition so far"
+        }
+      }
+    }
+  }
+}

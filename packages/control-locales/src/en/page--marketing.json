@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "newsletter": "Newsletter",
+    "campaign": "Campaign",
+    "nav-newsletter": {
+      "user": "User",
+      "create": "Create",
+      "history": "History"
+    },
+    "nav-campaign": {
+      "hot": "Hot",
+      "planner": "Planner",
+      "calendar": "Calendar",
+      "history": "History"
+    }
+  },
+  "view-error": {
+  }
+}

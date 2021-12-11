@@ -1,0 +1,21 @@
+{
+    "username": "Username",
+    "password": "Password",
+    "login": {
+        "title": "Login Hydro",
+        "description": ""
+    },
+    "menu-account": "Account Menu",
+    "do_login": "Login",
+    "do_logout": "Logout",
+    "account": "Account",
+    "account_page": {
+        "title": "Account Settings"
+    },
+    "dev_mode": {
+        "title": "Developer",
+        "disable_dev": "Disable Developer-Mode",
+        "enable_dev": "Enable Developer-Mode"
+    },
+    "clear_browsercache": "Clear Browser Cache"
+}

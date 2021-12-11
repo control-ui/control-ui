@@ -1,0 +1,65 @@
+{
+  "title": "Edit Shop Product",
+  "title-variation": "Edit Shop Variation Product",
+  "title-bundle": "Edit Shop Bundle Product",
+  "title-inventory": "Inventory",
+  "is-bundle": "This product bundles multiple others.",
+  "is-variation": "This product has optional variations.",
+  "loading": "Loading Product Data",
+  "btn-delete-product": "Delete Complete Product",
+  "btn-create-product": "Create Product",
+  "btn-update-product": "Update Product",
+  "btn-save-data": "Save Data",
+  "btn-save-data-master": "Master Save Data",
+  "btn-save-data-variation": "Variation Save Data",
+  "btn-inventory-activate": "Activate Inventory",
+  "edit-master": "Edit Master",
+  "edit-product": "Edit Product",
+  "edit-variations": "Edit Variations",
+  "inventory": "Inventory",
+  "date": {
+    "created": "Created",
+    "updated": "Updated"
+  },
+  "edit-base": {
+    "product-name": "Product Name",
+    "in-group": "In Group",
+    "is-product-type": "Product Type"
+  },
+  "editbasedata": {
+    "title": "Base-Data",
+    "title-master": "Master Base-Data",
+    "title-variation": "Variation Base-Data",
+    "variation-title": "Variations of Product",
+    "loading-schema": "Loading Product Schema",
+    "product_no": "Product No.",
+    "active": "Active",
+    "hidden": "Hidden",
+    "buy_able": "Buy-Able",
+    "tax_group": "Tax Group",
+    "price": "Price",
+    "checking-inventory": "Checking Inventory"
+  },
+  "editdata": {
+    "title": "Information",
+    "title-master": "Master Information",
+    "title-variation": "Variation Information"
+  },
+  "locale": {
+    "universal-locale": "Universal View",
+    "delete": "Delete Language Product",
+    "switch-to": "Switch Language",
+    "active-not-existing": "Active language is not existing right now:",
+    "active-not-valid": "Active language is not a valid selection:",
+    "active-is": "Active language is:",
+    "new-locale": {
+      "choose-page-type": "Choose Page-Type",
+      "btn-create": "Create Language Version"
+    }
+  },
+  "defaults": {
+    "types": {
+      "wine-item": "Wine"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Benutzer Übersicht",
+  "create-user": "Benutzer erstellen",
+  "create-user-btn": "erstellen",
+  "api": {
+    "loading-user": "Lade Benutzer",
+    "saving-user": "Speichere Benutzer",
+    "loading-user-list": "Lade Benutzer Liste",
+    "loading-roles-list": "Lade Rollen Liste"
+  },
+  "edit": {
+    "name": "Benutzername",
+    "password": "Passwort",
+    "password-has-already": "Benutzer hat ein Passwort, zum Aktualisieren ausfüllen.",
+    "password-not-existing": "Benutzer ohne Password, zum Erstellen ausfüllen.",
+    "active": "aktiv",
+    "roles": "Rollen",
+    "no-role": "keine Rolle",
+    "btn-create": "erstellen",
+    "btn-update": "aktualisieren",
+    "btn-delete": "löschen"
+  },
+  "list": {
+    "head": {
+      "username": "Benutzername",
+      "roles": "Rollen",
+      "has-password": "Password",
+      "active": "Aktiv"
+    },
+    "errors": {
+      "no-orders": "Keine Benutzer vorhanden."
+    },
+    "item": {
+      "yes": "ja",
+      "no": "nein",
+      "detail": {
+        "customer": {
+          "title": "Kunde",
+          "none": "keine Daten",
+          "not-set": "nicht angegeben",
+          "name": "Name:",
+          "email": "E-Mail:",
+          "street": "Straße:",
+          "street_no": "Nr.:",
+          "post_code": "PLZ:",
+          "city": "Stadt:",
+          "country": "Land:"
+        },
+        "product": {
+          "title": "Bestellte Produkte",
+          "id": "ID:",
+          "no-info": "Keine Informationen",
+          "name": "Name:",
+          "product_no": "Produkt Nr.:",
+          "product_no-missing": "fehlt"
+        }
+      }
+    }
+  }
+}

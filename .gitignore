@@ -1,0 +1,29 @@
+# env variables
+.env
+.npmrc
+
+# default upload dir
+/upload
+
+# default tmp dir
+/tmp
+/dist
+
+# Composer
+/vendor
+
+# NodeJS
+node_modules
+
+# Mac
+.DS_Store
+
+lerna-debug.log
+profile.json
+
+#
+## JetBrains IDE's
+
+.idea/
+*.iml
+*.iws

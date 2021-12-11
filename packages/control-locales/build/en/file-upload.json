@@ -1,0 +1,13 @@
+{
+  "duplicate-files": "Duplicate files, not added again:",
+  "upload-new--select": "Choose from local",
+  "upload-new--or": "or",
+  "upload-new--dragndrop": "Drag & Drop to this area",
+  "upload-to-dir": "Upload to Directory",
+  "clear-all": "Clear All",
+  "clear-finished": "Clear Finished",
+  "total": {
+    "size": "total size",
+    "qty": "files"
+  }
+}

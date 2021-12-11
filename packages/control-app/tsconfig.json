@@ -1,0 +1,22 @@
+{
+    "extends": "../tsconfig.json",
+    //"baseUrl": "./src",
+    //"include": [
+    //"src/**/*"
+    //],
+    "include": [
+        "src"
+        //"src/**/*"
+    ],
+    "compilerOptions": {
+        "outDir": "build"
+        //        "paths": {
+        //            "@control-ui/kit": [
+        //                "../control/src"
+        //            ],
+        //            "@control-ui/kit/*": [
+        //                "../control/src/*"
+        //            ]
+        //        }
+    }
+}

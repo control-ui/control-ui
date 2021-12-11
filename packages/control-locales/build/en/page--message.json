@@ -1,0 +1,63 @@
+{
+  "title": "Messages Overview",
+  "title-details": "Message Details",
+  "create-message": "Create Message",
+  "create-message-btn": "create",
+  "api": {
+    "loading-message": "Loading Message",
+    "saving-message": "Saving Message",
+    "loading-message-list": "Loading Message List"
+  },
+  "edit": {
+    "name": "Messagename",
+    "password": "Password",
+    "password-has-already": "Message has password, fill out to update.",
+    "password-not-existing": "Message without password, fill out to create.",
+    "active": "active",
+    "roles": "Roles",
+    "no-role": "no role",
+    "btn-create": "create",
+    "btn-update": "update",
+    "btn-delete": "delete"
+  },
+  "list": {
+    "head": {
+      "time": "Time",
+      "id": "Id",
+      "subject": "Subject",
+      "sender": "Sender",
+      "recipient": "Recipient",
+      "type": "Type",
+      "hook": "Hook"
+    },
+    "errors": {
+      "no-orders": "No Messages."
+    },
+    "item": {
+      "yes": "yes",
+      "no": "no",
+      "detail": {
+        "customer": {
+          "title": "Customer",
+          "none": "No Data",
+          "not-set": "not set",
+          "name": "Name:",
+          "email": "E-Mail:",
+          "street": "Street:",
+          "street_no": "No.:",
+          "post_code": "Post Code:",
+          "city": "City:",
+          "country": "Country:"
+        },
+        "product": {
+          "title": "Ordered Products",
+          "id": "ID:",
+          "no-info": "No Information",
+          "name": "Name:",
+          "product_no": "Product No.:",
+          "product_no-missing": "missing"
+        }
+      }
+    }
+  }
+}

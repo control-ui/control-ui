@@ -1,0 +1,15 @@
+{
+  "title": "Übersicht Sektionen",
+  "choosen-section-is": "Aktive Sektion: ",
+  "choose-section": "Wähle eine Sektion um mit der Artikelbearbeitung zu beginnen.",
+  "create-article-in-section": "Erstelle einen neuen Artikel in der Sektion",
+  "create-section": "Erstelle eine neue Sektion",
+  "update-section": "Aktualisiere aktuelle Sektion",
+  "delete-section-warning": "Löscht die komplette Sektion und alle enthaltenen Artikel",
+  "edit": {
+    "section-name": "Name",
+    "btn-create-section": "Erstelle Sektion",
+    "btn-delete-section": "Lösche komplette Sektion",
+    "btn-update-section": "Aktualisiere Sektion"
+  }
+}

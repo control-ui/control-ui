@@ -1,0 +1,60 @@
+{
+  "title": "Users Overview",
+  "create-user": "Create User",
+  "create-user-btn": "create",
+  "api": {
+    "loading-user": "Loading User",
+    "saving-user": "Saving User",
+    "loading-user-list": "Loading User List",
+    "loading-roles-list": "Loading Roles List"
+  },
+  "edit": {
+    "name": "Username",
+    "password": "Password",
+    "password-has-already": "User has password, fill out to update.",
+    "password-not-existing": "User without password, fill out to create.",
+    "active": "active",
+    "roles": "Roles",
+    "no-role": "no role",
+    "btn-create": "create",
+    "btn-update": "update",
+    "btn-delete": "delete"
+  },
+  "list": {
+    "head": {
+      "username": "Username",
+      "roles": "Roles",
+      "has-password": "Password",
+      "active": "Active"
+    },
+    "errors": {
+      "no-orders": "No Users."
+    },
+    "item": {
+      "yes": "yes",
+      "no": "no",
+      "detail": {
+        "customer": {
+          "title": "Customer",
+          "none": "No Data",
+          "not-set": "not set",
+          "name": "Name:",
+          "email": "E-Mail:",
+          "street": "Street:",
+          "street_no": "No.:",
+          "post_code": "Post Code:",
+          "city": "City:",
+          "country": "Country:"
+        },
+        "product": {
+          "title": "Ordered Products",
+          "id": "ID:",
+          "no-info": "No Information",
+          "name": "Name:",
+          "product_no": "Product No.:",
+          "product_no-missing": "missing"
+        }
+      }
+    }
+  }
+}

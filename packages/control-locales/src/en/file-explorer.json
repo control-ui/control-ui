@@ -1,0 +1,10 @@
+{
+  "create-dir": "Create Directory",
+  "enter-new-dir": "New Directory Name",
+  "nothing-in-dir": "Nothing in current dir.",
+  "selected-qty": "Items selected:",
+  "nothing-selected": "Nothing selected.",
+  "choose-selected": "Add selected items",
+  "choose-selected-single": "Add selected item",
+  "replace-with-selected": "Replace with selected item"
+}

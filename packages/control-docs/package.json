@@ -1,0 +1,43 @@
+{
+    "name": "@control-ui/docs",
+    "version": "0.0.21",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Becker",
+            "email": "michael@bemit.codes",
+            "homepage": "https://mlbr.xyz",
+            "role": "Developer"
+        }
+    ],
+    "scripts": {
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && rm -rf build/control-app && merge-dirs build/control-docs/src build && rm -rf build/control-docs"
+    },
+    "main": "index.js",
+    "module": "esm/index.js",
+    "dependencies": {
+        "prop-types": "^15.0"
+    },
+    "devDependencies": {
+        "@material-ui/core": "^4.8",
+        "@material-ui/icons": "^4.8",
+        "@material-ui/styles": "^4.8",
+        "react": "^16.8",
+        "react-dom": "^16.8",
+        "react-markdown": "^7.0",
+        "react-router-dom": "^5.0"
+    },
+    "peerDependencies": {
+        "@control-ui/kit": "0.0.x",
+        "@material-ui/core": "^4.8",
+        "@material-ui/icons": "^4.8",
+        "react": "^16.8",
+        "react-dom": "^16.8",
+        "react-markdown": "^7.0",
+        "react-router-dom": "^5.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "096425ddfb8fedd48fd77895f3d7e0fe4fcb21c4"
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Section Overview",
+  "choosen-section-is": "Active section is: ",
+  "choose-section": "Choose some section to start editing articles.",
+  "create-article-in-section": "Create a new article in this section",
+  "create-section": "Create a new section",
+  "update-section": "Update current section",
+  "delete-section-warning": "Deletes the complete section and all articles within",
+  "edit": {
+    "section-name": "Name",
+    "btn-create-section": "Create Section",
+    "btn-delete-section": "Delete Complete Section",
+    "btn-update-section": "Update Section"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "settings": "Settings",
+    "orders": "Orders",
+    "products": "Products",
+    "inventory": "Inventory",
+    "settings-nav": {
+      "store": "Shop",
+      "shipping": "Shipping",
+      "taxes": "Taxes"
+    },
+    "orders-nav": {
+      "all": "All",
+      "open": "Open",
+      "payment-pending": "Payment pending",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "returned": "Returned",
+      "finished": "Finished"
+    },
+    "group-list": "Groups",
+    "product-list": "Products",
+    "scan": "Scan"
+  },
+  "group": {
+    "title": "Shop Groups",
+    "create-product-in-group": "Create a new product in group",
+    "choosen-group-is": "Choosen group is:",
+    "choose": "Choose a group.",
+    "create": "Create a new group",
+    "update": "Update current group",
+    "delete-warning": "Deletes the complete group and all products within",
+    "edit": {
+      "name": "Name",
+      "btn-create": "Create Group",
+      "btn-delete": "Delete Complete Group",
+      "btn-update": "Update Group"
+    }
+  },
+  "inventory": {
+    "loading-warehouses": "Loading Warehouses",
+    "loading-stocks": "Loading Stocks",
+    "loading-stock-items": "Loading Stock-Items",
+    "not-activated": "Inventory not activated",
+    "not-activated-in-bundle": "Inventory not activated in bundled products",
+    "no-stock-items-for-stock": "There are no stock items in this stock, switch or create a new stock item.",
+    "no-stock": "No Stock",
+    "no-stock-items": "No Stock Items",
+    "warehouse": "Warehouse",
+    "stock": "Stock",
+    "stock-item": "Stock-Item",
+    "stock-item-create": "Create Stock Item",
+    "stock-item-create-desc": "Automatic generates the name and sku out of this localized product.",
+    "stock-item-select-existing": "Select Existing",
+    "stock-item-create-new": "Create New",
+    "stock-item-name-manual": "Manual Naming",
+    "stock-item-name-automatic": "Automatic Naming",
+    "sku": "SKU",
+    "name": "Name",
+    "amount_available": "Amount Available",
+    "create-item": "Create Item",
+    "available": "Available",
+    "reserved": "Reserved",
+    "reserve": "Reserve",
+    "unreserve": "Unreserve",
+    "delete-stock-item": "Delete Stock Item",
+    "bundled-stat": {
+      "total": "Total Bundles Available",
+      "per_bundle": "per Bundle",
+      "max_bundle": "max. Bundles",
+      "product_possible": "Possible Bundle per Product"
+    },
+    "titles": {
+      "available-add": "Add Available",
+      "available-remove": "Remove Available",
+      "available-reserve": "Reserve Available",
+      "reserved-remove": "Remove Reserved",
+      "edit-location": "Edit Location",
+      "stock-item-location": "Location",
+      "bundled-stat": "Bundled Overview",
+      "bundled-products": "Bundled Produkte"
+    },
+    "list": {
+      "head": {
+        "shop_products": "Bound Products"
+      }
+    }
+  },
+  "scan": {
+    "title": "Scan",
+    "desc": "Activate your camera and scan a code to start an action.",
+    "no-qr": "No code found.",
+    "found-qr": "Code:"
+  },
+  "view-error": {
+    "no-product-in-group": "No Products"
+  }
+}

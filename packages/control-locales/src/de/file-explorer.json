@@ -1,0 +1,10 @@
+{
+  "create-dir": "Ordner Erstellen",
+  "enter-new-dir": "Neuer Ordner Name",
+  "nothing-in-dir": "Kein Inhalt in aktuellem Ordner.",
+  "selected-qty": "Anzahl ausgewählte Elemente:",
+  "nothing-selected": "Nichts ausgewählt.",
+  "choose-selected": "Füge ausgewählte hinzu",
+  "choose-selected-single": "Füge ausgewähltes hinzu",
+  "replace-with-selected": "Ersetze mit ausgewähltem"
+}

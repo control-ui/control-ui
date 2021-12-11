@@ -1,0 +1,8 @@
+{
+  "group--info": "Hauptdaten",
+  "info": {
+    "name": "Name",
+    "desc": "Beschreibung",
+    "mainImage": "Bild"
+  }
+}

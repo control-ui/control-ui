@@ -1,0 +1,29 @@
+{
+  "selection": {
+    "title": "Selection"
+  },
+  "block": {
+    "mainText": "Main Text",
+    "contentBlock": "Content Block:"
+  },
+  "defaults": {
+    "root": {
+      "main_content": "Main Content"
+    },
+    "selection": {
+      "intro": "Intro",
+      "title": "Title",
+      "gallery": "Gallery",
+      "code": "Code",
+      "raw": "Text Raw",
+      "headline-bold": "Headline Bold",
+      "event": "Event",
+      "opening": "Opening Times",
+      "btn-block": "Button Block",
+      "banner": "Banner",
+      "text": "Text",
+      "text-image": "Text w/ Image",
+      "image": "Image"
+    }
+  }
+}

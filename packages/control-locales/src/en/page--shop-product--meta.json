@@ -1,0 +1,8 @@
+{
+  "group--info": "Main Info",
+  "info": {
+    "name": "Name",
+    "desc": "Description",
+    "mainImage": "Main Image"
+  }
+}

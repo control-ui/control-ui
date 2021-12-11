@@ -1,0 +1,35 @@
+{
+  "title": "Admin",
+  "login": {
+    "name": "Login",
+    "submit": "Login Now",
+    "process-sending": "Logging you in...",
+    "process-sended": "✓ You are logged in.",
+    "process-sending+error": "✘ Error while logging you in, please try again later.",
+    "process-already": "You are already logged in, logout to change your account."
+  },
+  "register": {
+    "name": "Register",
+    "submit": "Register",
+    "sending": "Getting your account ready...",
+    "sended": "✓ Everything is ready, you are now logged in.",
+    "sending+error": "✘ Error while registering you in, please try again later."
+  },
+  "reset": {
+    "open": "Forgot your Password?"
+  },
+  "username": "Username",
+  "name": "Name",
+  "email": "E-Mail",
+  "pass": "Password",
+  "pass-check": "Confirm Password",
+  "action": {
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "process": {
+    "sending": "checking...",
+    "sending+error": "Wrong username or password",
+    "connection-error": "Connection error, no network or server not reachable."
+  }
+}
