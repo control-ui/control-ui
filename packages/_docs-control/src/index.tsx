@@ -6,7 +6,7 @@ import {AppLoader} from "@control-ui/app/AppLoader"
 const App = AppLoader(
     {themes},
     () => import('./App'),
-    'Loading'
+    'Loading',
 )
 
 ReactDOM.render(<App/>, document.getElementById('root'))

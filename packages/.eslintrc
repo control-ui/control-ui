@@ -1,5 +1,5 @@
 {
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "root": true,
     "extends": [
         "eslint:recommended"
@@ -115,7 +115,10 @@
                 ],
                 "indent": [
                     "error",
-                    4
+                    4,
+                    {
+                        "SwitchCase": 1
+                    }
                 ],
                 "no-trailing-spaces": "warn",
                 "comma-dangle": [
@@ -125,13 +128,14 @@
                         "objects": "always-multiline",
                         "imports": "always-multiline",
                         "exports": "always-multiline",
-                        "functions": "never"
+                        "functions": "always-multiline"
                     }
                 ],
                 "react/prop-types": "off",
                 "no-redundant-jsdoc": "off",
                 "@typescript-eslint/ban-types": "off",
                 "@typescript-eslint/ban-ts-comment": "off",
+                "@typescript-eslint/no-inferrable-types": "off",
                 "@typescript-eslint/no-explicit-any": "off",
                 "@typescript-eslint/semi": [
                     "warn",

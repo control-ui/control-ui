@@ -57,7 +57,6 @@ packer({
                 name: '@control-ui/locales',
                 root: path.resolve(__dirname, 'packages', 'control-locales'),
                 entry: path.resolve(__dirname, 'packages', 'control-locales/src/'),
-                externals: {},
             },
         },
     },

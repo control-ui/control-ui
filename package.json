@@ -22,7 +22,7 @@
         "tdd": "npm test -- --watch --watchman --coverage=false",
         "release": "lerna publish from-package --contents build --no-git-reset",
         "sloc": "node ./sloc.js",
-        "license-crawler": "npm-license-crawler --start ./packages/control --dependencies --/relativeLicensePath --production --json ./licenses.json",
+        "license-crawler": "!TODO CHECK! somehoe the package exists no more! npm-license-crawler --start ./packages/control --dependencies --/relativeLicensePath --production --json ./licenses.json",
         "license-own": "npm run license-crawler -- --onlyDirectDependencies"
     },
     "author": "",
@@ -36,7 +36,6 @@
         "cross-env": "^6.0.3",
         "lerna": "^3.22.1",
         "merge-dirs": "^0.2.1",
-        "npm-license-crawler": "^0.2.1",
         "sloc": "^0.2.1",
         "symlink-dir": "^3.1.1"
     },
