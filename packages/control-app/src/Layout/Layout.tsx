@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Routes } from '@control-ui/kit/Route/RouteCascaded'
@@ -41,10 +41,10 @@ export const Layout: React.ComponentType<LayoutProps> = (
     },
 ) => {
     const ref = mainContentRef ? mainContentRef : React.useRef(undefined)
-    const history = useHistory()
+    const location = useLocation()
     const classes = useStyles()
 
-    const loc = history.location.pathname
+    const loc = location.pathname
     React.useEffect(() => {
         // @ts-ignore
         if(ref.current && ref.current.scrollTo) {

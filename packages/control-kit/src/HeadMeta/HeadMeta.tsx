@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 export interface HeadMetaProps {
     title: string
@@ -15,7 +15,7 @@ export interface HeadMetaProps {
 export function HeadMeta(
     {title, description, twitterSite = '', twitterImage = '', ogType = 'website', ogImage = '', ogTtl = 604800}: HeadMetaProps,
 ): React.ReactElement {
-    const history = useHistory()
+    const location = useLocation()
 
     return (
         <Helmet>
@@ -32,8 +32,8 @@ export function HeadMeta(
             <meta property="og:title" content={title}/>
             <meta
                 property="og:url"
-                content={window.location.protocol + '//' + window.location.host + history.location.pathname +
-                (history.location.hash ? history.location.hash : '')}
+                content={window.location.protocol + '//' + window.location.host + location.pathname +
+                    (location.hash ? location.hash : '')}
             />
             {description ? <meta property="og:description" content={description}/> : null}
             {ogImage ? <meta property="og:image" content={ogImage}/> : null}

@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { ListCollapse } from '@control-ui/kit/List/ListCollapse'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
-import { useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { Route } from '@control-ui/app'
 
 export interface NavListNestedProps {
@@ -32,7 +32,7 @@ export const NavListNested = (
     }: NavListNestedProps,
 ): React.ReactElement => {
     const {spacing, palette} = useTheme()
-    const {location} = useHistory()
+    const location = useLocation()
 
     // @ts-ignore
     return <>{routes?.filter(filter).map((route, i) => <React.Fragment key={i}>
@@ -50,7 +50,10 @@ export const NavListNested = (
                                 darken(palette.background.paper, 0.05)
                             : 'transparent',
                     }}
-                    initialOpen={route?.nav?.initialOpen || location.pathname.indexOf(route?.nav?.to || '') === 0}
+                    initialOpen={
+                        route?.nav?.initialOpen ||
+                        route?.nav?.to ? location.pathname.indexOf(route.nav.to + '/') === 0 : undefined
+                    }
                 >
                     <NavListNested
                         /* @ts-ignore */

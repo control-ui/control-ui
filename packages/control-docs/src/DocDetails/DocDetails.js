@@ -1,5 +1,5 @@
 import React from 'react'
-import {useHistory, useRouteMatch} from 'react-router-dom'
+import {useHistory, useLocation, useRouteMatch} from 'react-router-dom'
 import {useContentLoader} from '@control-ui/docs/ContentLoader'
 import {Head} from '@control-ui/kit/Head'
 import {PROCESS_SUCCESS} from '@control-ui/kit/Process'
@@ -43,7 +43,7 @@ export const DocDetails = ({
                            }) => {
     const {routes} = useRouter()
     const match = useRouteMatch()
-    const history = useHistory()
+    const location = useLocation()
     const docId = scope + match.params[matchDocKey]
     const activeDoc = docId ? findDoc(routes, docId)[0] : undefined
 
@@ -59,7 +59,7 @@ export const DocDetails = ({
             activeDoc={activeDoc}
             Content={Content}
             match={match}
-            hash={history.location.hash}
+            hash={location.hash}
         /> : <NotFound/>}
     </React.Fragment>
 }
