@@ -1,5 +1,5 @@
 import React from 'react'
-import {useHistory, useLocation, useRouteMatch} from 'react-router-dom'
+import {useLocation, useRouteMatch} from 'react-router-dom'
 import {useContentLoader} from '@control-ui/docs/ContentLoader'
 import {Head} from '@control-ui/kit/Head'
 import {PROCESS_SUCCESS} from '@control-ui/kit/Process'

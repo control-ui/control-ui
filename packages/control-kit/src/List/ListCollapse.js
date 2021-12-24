@@ -13,7 +13,7 @@ export const ListCollapseContent = (
         style = undefined,
     },
 ) => {
-    const [open, setOpen] = React.useState(initialOpen)
+    const [open, setOpen] = React.useState(forceOpen || initialOpen)
 
     React.useEffect(() => {
         if(forceOpen) {

@@ -36,17 +36,19 @@ export const NavListNested = (
 
     // @ts-ignore
     return <>{routes?.filter(filter).map((route, i) => {
+        // @ts-ignore
+        const hasRoutes = route.routes || (routeId && route[routeId] && route[routeId].routes)
         const active = route.nav?.toSection ?
             route.nav.toSection instanceof RegExp ? route.nav.toSection.test(location.pathname) :
                 location.pathname.indexOf(route.nav.toSection + '/') === 0 ||
                 location.pathname === route.nav.toSection :
             typeof route.nav?.to === 'string' ?
-                location.pathname.indexOf(route.nav.to + '/') === 0 ||
+                (hasRoutes && location.pathname.indexOf(route.nav.to + '/') === 0) ||
                 location.pathname === route.nav.to
                 : false
+
         return <React.Fragment key={i}>
-            {/* @ts-ignore */}
-            {route.routes || (routeId && route[routeId] && route[routeId].routes) ?
+            {hasRoutes ?
                 <>
                     {divider || route?.nav?.divider ? <Divider/> : null}
                     <ListCollapse
