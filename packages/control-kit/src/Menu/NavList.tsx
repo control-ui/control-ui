@@ -38,8 +38,12 @@ export const NavListNested = (
     return <>{routes?.filter(filter).map((route, i) => {
         const active = route.nav?.toSection ?
             route.nav.toSection instanceof RegExp ? route.nav.toSection.test(location.pathname) :
-                location.pathname.indexOf(route.nav.toSection + '/') === 0 :
-            typeof route.nav?.to === 'string' ? location.pathname.indexOf(route.nav.to + '/') === 0 : false
+                location.pathname.indexOf(route.nav.toSection + '/') === 0 ||
+                location.pathname === route.nav.toSection :
+            typeof route.nav?.to === 'string' ?
+                location.pathname.indexOf(route.nav.to + '/') === 0 ||
+                location.pathname === route.nav.to
+                : false
         return <React.Fragment key={i}>
             {/* @ts-ignore */}
             {route.routes || (routeId && route[routeId] && route[routeId].routes) ?
@@ -56,10 +60,8 @@ export const NavListNested = (
                                     darken(palette.background.paper, 0.05)
                                 : 'transparent',
                         }}
-                        initialOpen={
-                            route?.nav?.initialOpen ||
-                            route?.nav?.to || route?.nav?.toSection ? active : undefined
-                        }
+                        initialOpen={route?.nav?.initialOpen ? true : undefined}
+                        forceOpen={(route?.nav?.to || route?.nav?.toSection ? active : undefined)}
                     >
                         <NavListNested
                             /* @ts-ignore */
