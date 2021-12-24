@@ -7,6 +7,7 @@ export interface routeComponent<T> {
 
 export interface RouteNav {
     to: string
+    toSection?: string | RegExp
     label: string
     divider?: boolean
     initialOpen?: boolean
