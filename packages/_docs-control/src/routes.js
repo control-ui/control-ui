@@ -8,11 +8,13 @@ const createDocsTree = (scope, label, routes, loading) => ({
         label,
         initialOpen: false,
     },
-    content: {
-        component: Loadable({
-            loader: () => import('./page/DocsDetails'),
-            loading,
-        }),
+    config: {
+        content: {
+            component: Loadable({
+                loader: () => import('./page/DocsDetails'),
+                loading,
+            }),
+        },
     },
     routes,
 })
@@ -25,12 +27,14 @@ export const routes = (loading) => ({
                 to: '/',
                 label: 'Home',
             },
-            content: {
-                exact: true,
-                component: Loadable({
-                    loader: () => import('./page/PageMain'),
-                    loading: loading('Loading Home'),
-                }),
+            config: {
+                content: {
+                    exact: true,
+                    component: Loadable({
+                        loader: () => import('./page/PageMain'),
+                        loading: loading('Loading Home'),
+                    }),
+                },
             },
         },
         createDocsTree('how-to', 'How-Tos', docsHowTo(''), loading('Loading Docs')),

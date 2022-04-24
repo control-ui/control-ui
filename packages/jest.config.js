@@ -1,4 +1,4 @@
-const packages = ['control'];
+const packages = ['control-app', 'control-kit', 'control-docs']
 
 const testMatches = []
 const testMatchesLint = []
@@ -17,7 +17,7 @@ packages.forEach(pkg => {
 
 const base = {
     transformIgnorePatterns: [
-        'node_modules/?!(@control-ui)'
+        'node_modules/?!(@control-ui)',
     ],
     moduleNameMapper: {
         '^@control-ui/kit(.*)$': '<rootDir>/control/src$1',
@@ -28,14 +28,14 @@ const base = {
         'js',
         'jsx',
         'json',
-        'node'
+        'node',
     ],
     collectCoverage: true,
     coveragePathIgnorePatterns: [
-        '(tests/.*.mock).(jsx?|tsx?)$'
+        '(tests/.*.mock).(jsx?|tsx?)$',
     ],
     verbose: true,
-};
+}
 
 module.exports = {
     ...base,
@@ -53,4 +53,4 @@ module.exports = {
         },
     ],
     coverageDirectory: '<rootDir>/../coverage',
-};
+}

@@ -1,8 +1,12 @@
 import React from 'react'
 
-export interface routeComponent<T> {
+//
+// todo: unify interfaces in `app`/`kit`, currently `RouteComponent`, `RouteNav`, `Route` are duplicated
+//
+
+export interface RouteComponent<C> {
     exact?: boolean
-    component: Promise<T>
+    component: Promise<C>
 }
 
 export interface RouteNav {
@@ -14,19 +18,20 @@ export interface RouteNav {
     icon?: any
 }
 
-export interface Route {
+export interface Route<C = any> {
     'path'?: string
     nav?: RouteNav
-    routes?: Route[]
+    routes?: Route<C>[]
+    config?: { [k: string]: RouteComponent<C> }
 }
 
-export interface RouterProviderContext {
-    routes: Route
+export interface RouterProviderContext<C = any> {
+    routes: Route<C>
 }
 
 const RouterContext = React.createContext<RouterProviderContext>({routes: {routes: []}})
 
-export const useRouter = (): RouterProviderContext => {
+export function useRouter<C = any>(): RouterProviderContext<C> {
     return React.useContext(RouterContext)
 }
 
@@ -37,11 +42,11 @@ export const RouterProvider = ({children, routes}: React.PropsWithChildren<Route
 }
 
 export const filterRoutes = (route: Route, filter: (route: Route) => boolean, found: Route[] = []): Route[] => {
-    if (filter(route)) {
+    if(filter(route)) {
         found.push(route)
     }
 
-    if (route.routes) {
+    if(route.routes) {
         route.routes.forEach(route =>
             filterRoutes(route, filter, found))
     }

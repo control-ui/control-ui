@@ -50,6 +50,10 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://control-ui.bemit.codes/app/components/RouteCascade</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://control-ui.bemit.codes/app/components/RouterProvider</loc>
         <changefreq>weekly</changefreq>
     </url>

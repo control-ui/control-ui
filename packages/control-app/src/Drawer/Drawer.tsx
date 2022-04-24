@@ -1,13 +1,8 @@
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles, Drawer as MuiDrawer } from '@material-ui/core'
+import MuiDrawer, { DrawerProps } from '@material-ui/core/Drawer'
+import { makeStyles } from '@material-ui/core/styles'
 import { useDrawer } from '../DrawerProvider'
-
-export type drawerWidth = number | 170
-
-export interface DrawerProps {
-    drawerWidth?: drawerWidth
-}
 
 const useStyles = makeStyles(theme => ({
     drawerRoot: {
@@ -24,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     drawerPaper: {
         position: 'relative',
         whiteSpace: 'nowrap',
-        width: ({drawerWidth = 170}: { drawerWidth?: drawerWidth }) => drawerWidth,
+        width: ({drawerWidth = 170}: { drawerWidth?: number }) => drawerWidth,
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -43,17 +38,28 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export const Drawer = ({drawerWidth, children}: React.PropsWithChildren<DrawerProps>): React.ReactElement => {
+export interface CustomDrawerProps {
+    drawerWidth?: number
+}
+
+export const Drawer: React.ComponentType<React.PropsWithChildren<CustomDrawerProps & Omit<DrawerProps, 'open' | 'classes' | 'className'>>> = (
+    {
+        variant = 'persistent',
+        drawerWidth, children,
+        ...props
+    },
+) => {
     const classes = useStyles({drawerWidth})
     const {open} = useDrawer()
     return <MuiDrawer
-        variant="persistent"
+        variant={variant}
         className={open ? undefined : 'sr-only'}
         classes={{
             root: clsx(classes.drawerRoot),
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={open}
+        {...props}
     >
         {children}
     </MuiDrawer>

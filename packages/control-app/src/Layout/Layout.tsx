@@ -2,7 +2,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { Routes } from '@control-ui/kit/Route/RouteCascaded'
+import { RouteCascade } from '@control-ui/app/RouteCascade'
+import { RouteComponentProps } from 'react-router'
 
 const useStyles = makeStyles(() => ({
     '@global': {
@@ -19,11 +20,11 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-export interface LayoutProps {
-    Header?: React.ComponentType
-    Drawer?: React.ComponentType
-    NotFound: React.ComponentType
-    Footer?: React.ComponentType
+export interface LayoutProps<NFP = any> {
+    Header?: React.ComponentType<{}>
+    Drawer?: React.ComponentType<{}>
+    NotFound: React.ComponentType<RouteComponentProps<NFP>>
+    Footer?: React.ComponentType<{}>
     mainContentStyle?: React.CSSProperties
     mainContentRef?: React.Ref<HTMLDivElement>
     routeId?: string
@@ -70,7 +71,7 @@ export const Layout: React.ComponentType<LayoutProps> = (
                     ...mainContentStyle,
                 }}
             >
-                <Routes
+                <RouteCascade
                     routeId={routeId}
                     childProps={{scrollContainer: ref}}
                     Fallback={NotFound}

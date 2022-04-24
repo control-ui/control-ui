@@ -20,7 +20,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node-version: [12.x]
+                node-version: [14.x]
         steps:
             -   uses: actions/checkout@v2
             -   name: Set Branch
@@ -45,7 +45,8 @@ jobs:
                 #env:
                 run: |
                     npm ci
-                    npm run bootstrap && npm run hoist
+                    npm run bootstrap
+                    npm run link
                     npm run build
 
             -   name: Send code coverage report to Codecov.io

@@ -6,16 +6,16 @@ const createDoc = (path, label, routes, prefix) => ({
         initialOpen: false,
         label,
     },
-    routes
-});
+    routes,
+})
 
-const compCreator = (prefix) => (path, label, routes = undefined) => createDoc(prefix + '/' + path, label || path, routes, '');
+const compCreator = (prefix) => (path, label = undefined, routes = undefined) => createDoc(prefix + '/' + path, label || path, routes, '')
 
 export const docsHowTo = (prefix = '') => [
     createDoc('how-to/overview', 'How-To Overview', undefined, prefix),
-];
+]
 
-const compApp = compCreator('app/components');
+const compApp = compCreator('app/components')
 export const docsApp = (prefix = '') => [
     createDoc('app/overview', 'App Overview', undefined, prefix),
     createDoc('app/components', 'Components', [
@@ -28,11 +28,12 @@ export const docsApp = (prefix = '') => [
         compApp('Header'),
         compApp('I18nProvider'),
         compApp('Layout'),
+        compApp('RouteCascade'),
         compApp('RouterProvider'),
     ], prefix),
-];
+]
 
-const compKit = compCreator('kit/components');
+const compKit = compCreator('kit/components')
 export const docsKit = (prefix = '') => [
     createDoc('kit/overview', 'Kit Overview', undefined, prefix),
     createDoc('kit/components', 'Components', [
@@ -49,9 +50,9 @@ export const docsKit = (prefix = '') => [
         compKit('Settings'),
         compKit('Tooltip'),
     ], prefix),
-];
+]
 
-const compDocs = compCreator('docs/components');
+const compDocs = compCreator('docs/components')
 export const docsDocs = (prefix = '') => [
     createDoc('docs/overview', 'Docs Overview', undefined, prefix),
     createDoc('docs/components', 'Components', [
@@ -61,8 +62,8 @@ export const docsDocs = (prefix = '') => [
         compDocs('LinkableHeadline'),
         compDocs('Markdown'),
     ], prefix),
-];
+]
 
 export const docsLocales = (prefix = '') => [
     createDoc('locales/overview', 'Locales Overview', undefined, prefix),
-];
+]

@@ -9,7 +9,31 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { ListCollapse } from '@control-ui/kit/List/ListCollapse'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import { useLocation } from 'react-router-dom'
-import { Route } from '@control-ui/app'
+
+//
+// todo: unify interfaces in `app`/`kit`, currently `RouteComponent`, `RouteNav`, `Route` are duplicated
+//
+
+export interface RouteComponent<C> {
+    exact?: boolean
+    component: Promise<C>
+}
+
+export interface RouteNav {
+    to: string
+    toSection?: string | RegExp
+    label: string
+    divider?: boolean
+    initialOpen?: boolean
+    icon?: any
+}
+
+export interface Route<C = any> {
+    'path'?: string
+    nav?: RouteNav
+    routes?: Route<C>[]
+    config?: { [k: string]: RouteComponent<C> }
+}
 
 export interface NavListNestedProps {
     routes: Route[]
