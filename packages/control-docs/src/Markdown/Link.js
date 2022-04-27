@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 import {LinkInternal} from "@control-ui/kit/Link/LinkInternal";
 
 export const MdLink = (p) => {

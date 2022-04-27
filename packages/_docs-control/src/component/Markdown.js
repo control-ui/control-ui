@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import {LinkableHeadline} from '@control-ui/docs/LinkableHeadline'
 
 const renderersContent = renderers(false)
-renderersContent.h1 = renderersContent.h2 = renderersContent.h3 = renderersContent.h4 = renderersContent.h5 = LinkableHeadline
+renderersContent.h1 = renderersContent.h2 = renderersContent.h3 = renderersContent.h4 = renderersContent.h5 = p => <LinkableHeadline {...p} levelOffset={1}/>
 
 const rehypePlugins = [rehypeRaw]
 const remarkPlugins = [remarkGfm]

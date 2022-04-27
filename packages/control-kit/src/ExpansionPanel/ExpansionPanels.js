@@ -1,14 +1,14 @@
 import React from "react";
 import {useUID} from "react-uid";
 
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import Typography from '@material-ui/core/Typography';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import Typography from '@mui/material/Typography';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 
-export const ExpansionPanels = ({initial = [], panels}) => {
+export const Accordions = ({initial = [], panels}) => {
     const uid = useUID();
     const [selected, setSelected] = React.useState(initial);
 
@@ -21,8 +21,8 @@ export const ExpansionPanels = ({initial = [], panels}) => {
     );
 
     return panels.map(panel => (
-        <ExpansionPanel key={panel.id} expanded={selected.indexOf(panel.id) !== -1} onChange={toggle(panel.id)}>
-            <ExpansionPanelSummary
+        <Accordion key={panel.id} expanded={selected.indexOf(panel.id) !== -1} onChange={toggle(panel.id)}>
+            <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
                 aria-controls={'cui-' + uid + '-' + panel.id + '-content'}
                 id={'cui-' + uid + '-' + panel.id + '-header'}
@@ -30,13 +30,13 @@ export const ExpansionPanels = ({initial = [], panels}) => {
                 <Typography style={{fontWeight: 'bold'}}>
                     {panel.headline}
                 </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails id={'cui-' + uid + '-' + panel.id + '-content'}>
+            </AccordionSummary>
+            <AccordionDetails id={'cui-' + uid + '-' + panel.id + '-content'}>
                 {panel.content}
-            </ExpansionPanelDetails>
-            {panel.actions ? <ExpansionPanelActions>
+            </AccordionDetails>
+            {panel.actions ? <AccordionActions>
                 {panel.actions}
-            </ExpansionPanelActions> : null}
-        </ExpansionPanel>
+            </AccordionActions> : null}
+        </Accordion>
     ))
 };

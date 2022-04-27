@@ -1,34 +1,47 @@
-import React from "react";
-import {Typography} from "@material-ui/core";
-import {PageBox, PageContent} from "@control-ui/kit/PageContent";
-import NavProject from "../component/NavProject";
-import {Head} from "@control-ui/kit/Head";
-import {Logo} from '../asset/logo';
-import {LinkButton} from "@control-ui/kit/Link/LinkButton";
-import {MdCode} from "@control-ui/docs/Markdown/Code";
+import React from 'react'
+import {Alert, Box, Typography} from '@mui/material'
+import {PageBox, PageContent} from '@control-ui/kit/PageContent'
+import NavProject from '../component/NavProject'
+import {HeadMeta} from '@control-ui/kit/HeadMeta'
+import {Logo} from '../asset/Logo'
+import {LinkButton} from '@control-ui/kit/Link/LinkButton'
+import {MdCode} from '@control-ui/docs/Markdown/Code'
+import useTheme from '@mui/material/styles/useTheme'
 
-const H = ({level, ...p}) => <Typography component={'h' + level} variant={'h' + level} gutterBottom style={{marginTop: 36 / (level / 2)}} {...p}/>;
-const P = (p) => <Typography component={'p'} variant={'body1'} gutterBottom {...p}/>;
+const H = ({level, ...p}) => <Typography component={'h' + level} variant={'h' + level} gutterBottom style={{marginTop: 36 / (level / 2)}} {...p}/>
+const P = (p) => <Typography component={'p'} variant={'body1'} gutterBottom {...p}/>
 
 export default function PageMain() {
+    const {palette} = useTheme()
     return (
         <>
-            <Head
+            <HeadMeta
                 title={'Control-UI'}
                 description={'React Components for Web-Apps, with or without API, using the Material-UI Design-System.'}
             />
             <PageContent>
-                <Logo width={150} style={{marginTop: 24}}/>
-                <PageBox
-                    title={'Control-UI'}
-                >
+                <Box style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <Logo width={150} style={{marginTop: 24, marginBottom: 8}}/>
+                    <Typography
+                        variant={'h1'}
+                        style={{
+                            color: palette.mode === 'dark' ? palette.primary.light : palette.primary.dark,
+                            fontWeight: 'bold',
+                        }}
+                    >Control-UI</Typography>
+                </Box>
 
+                <PageBox>
                     <P>
                         <strong>React Components</strong> for Web-Apps, built with Material-UI.
                     </P>
                     <P>
                         Jump start your progressive web app with translation, layout, routing and a lot more.
                     </P>
+
+                    <Box my={2}>
+                        <Alert severity={'info'} variant={'outlined'} style={{borderRadius: 5}}>🚧 currently not intended for general usage / missing documentation / not following semver</Alert>
+                    </Box>
 
                     <H level={2}>Control-UI: App</H>
                     <P>Layout Components and App starter for any PWA. Initializes provider for i18n, router, drawer and theme.</P>
@@ -54,5 +67,5 @@ export default function PageMain() {
                 </PageBox>
             </PageContent>
         </>
-    );
+    )
 }

@@ -1,13 +1,13 @@
 import React from 'react'
-import CircularProgress, { CircularProgressProps } from '@material-ui/core/CircularProgress'
-import Typography, { TypographyTypeMap } from '@material-ui/core/Typography'
-import useTheme from '@material-ui/core/styles/useTheme'
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
+import Typography, { TypographyTypeMap } from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
 
 export const LoadingCircular = (
     {title, loadingColor, textColor, width = '100%'}:
         {
             title: string
-            textColor?: TypographyTypeMap<{}>['props']['color']
+            textColor?: TypographyTypeMap['props']['color']
             loadingColor?: CircularProgressProps['color']
             width?: string
         },
@@ -21,7 +21,7 @@ export const LoadingCircular = (
         alignItems: 'center',
         width,
     }}>
-        <CircularProgress color={loadingColor || 'secondary'} style={{margin: spacing(2) + 'px auto'}} disableShrink/>
+        <CircularProgress color={loadingColor || 'secondary'} style={{margin: spacing(2) + ' auto'}} disableShrink/>
         {title ? <Typography
             component={'p'} variant={'overline'}
             style={{

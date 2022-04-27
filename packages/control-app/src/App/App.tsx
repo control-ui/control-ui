@@ -22,24 +22,14 @@ export interface AppProps {
     routerBasename?: string
 }
 
-export function App(
+export const App: React.ComponentType<AppProps> = (
     {
         Layout, Provider, routes,
         i18n, routerBasename = '/',
-    }: AppProps,
-): React.ReactElement {
+    },
+) => {
     return <Router basename={routerBasename}>
-        <I18nProvider
-            allLanguages={i18n.allLanguages}
-            defaultLanguage={i18n.defaultLanguage}
-            detection={i18n.detection}
-            pathIndex={i18n.pathIndex}
-            loader={i18n.loader}
-            // eslint-disable-next-line
-            expiration={process.env.NODE_ENV === 'production' ? 2 * 24 * 60 * 60 * 1000 : 100}
-            debug={i18n.debug}
-            parse={i18n.parse}
-        >
+        <I18nProvider {...i18n}>
             <React.Suspense fallback={null}>
                 <DefaultProvider routes={routes}>
                     {Provider ?

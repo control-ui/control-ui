@@ -1,8 +1,8 @@
 import React from "react";
-import Switch from '@material-ui/core/Switch';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import Switch from '@mui/material/Switch';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 export const SettingSwitch = ({label, checked, dense, onChange}) => <ListItem component={'label'} dense={dense}>
     <ListItemIcon><Switch

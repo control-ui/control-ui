@@ -1,6 +1,6 @@
 import React from "react";
 import GithubLogo from "../asset/GithubLogo";
-import {Link, Typography} from "@material-ui/core";
+import {Link, Typography} from "@mui/material";
 
 export default () => <React.Fragment>
     <Typography component={'p'} variant={'body1'}>

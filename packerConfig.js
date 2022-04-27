@@ -18,6 +18,7 @@ packer({
             },
             publicPath: '/',
             vendors: [],
+            noParse: [require.resolve('typescript/lib/typescript.js')],
         },
     },
     packages: {

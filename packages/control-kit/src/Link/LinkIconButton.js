@@ -1,5 +1,5 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import {RenderLink} from "@control-ui/kit/Route/RenderLink";
 
 export const LinkIconButton = ({children, to, color, style, size = 'small'}) => {

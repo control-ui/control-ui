@@ -1,4 +1,10 @@
-import createMuiTheme from "@material-ui/core/styles/createTheme";
+import { createTheme, adaptV4Theme } from '@mui/material/styles'
+import { Theme } from '@mui/material/styles'
+
+// @ts-ignore
+declare module '@mui/styles' {
+    type DefaultTheme = Theme
+}
 
 const universal = {
     breakpoints: {
@@ -8,51 +14,59 @@ const universal = {
             md: 760,
             lg: 1280,
             xl: 1920,
-        }
+        },
     },
     typography: {
         fontSize: 14,
         h1: {
-            fontSize: '2.7rem'
+            fontSize: '2.7rem',
         },
         h2: {
-            fontSize: '2.3rem'
+            fontSize: '2.25rem',
         },
         h3: {
-            fontSize: '2.1rem'
+            fontSize: '1.9rem',
         },
         h4: {
-            fontSize: '1.75rem'
+            fontSize: '1.75rem',
         },
         h5: {
-            fontSize: '1.75rem'
+            fontSize: '1.75rem',
         },
         h6: {
-            fontSize: '1.25rem'
+            fontSize: '1.25rem',
+        },
+        subtitle1: {
+            fontWeight: 'bold',
+            fontSize: '1.125rem',
+        },
+        subtitle2: {
+            fontWeight: 'bold',
         },
         body1: {
-            letterSpacing: '0.0185em'
+            letterSpacing: '0.0185em',
         },
         body2: {
-            letterSpacing: '0.01em'
-        }
+            letterSpacing: '0.01em',
+        },
     },
     shape: {
         borderRadius: 0,
-    }
-};
+    },
+}
 
-const themeDark = createMuiTheme({
+// eslint-disable-next-line deprecation/deprecation
+const themeDark = createTheme({
     palette: {
-        type: "dark",
+        mode: 'dark',
         primary: {
-            main: "#05aeca",
+            main: '#05aeca',
             dark: '#033944',
         },
         secondary: {
             light: '#d8eed4',
             main: '#bbe1b4',
-            dark: "#002634",
+            dark: '#002634',
         },
         background: {
             paper: '#04252f',
@@ -66,20 +80,26 @@ const themeDark = createMuiTheme({
             hoverOpacity: 0.2,
         },
     },
+    components: {
+        MuiPaper: {
+            styleOverrides: {root: {backgroundImage: 'unset'}},
+        },
+    },
     ...universal,
-});
+})
 
-const themeLight = createMuiTheme({
+// eslint-disable-next-line deprecation/deprecation
+const themeLight = createTheme(adaptV4Theme({
     palette: {
-        type: "light",
+        mode: 'light',
         primary: {
-            main: "#0590a7",
+            main: '#0590a7',
             dark: '#033944',
         },
         secondary: {
             light: '#d8eed4',
             main: '#37936c',
-            dark: "#002634",
+            dark: '#002634',
         },
         background: {
             paper: '#e8e8e8',
@@ -94,9 +114,9 @@ const themeLight = createMuiTheme({
         },
     },
     ...universal,
-});
+}))
 
 export const themes = {
     dark: themeDark,
     light: themeLight,
-};
+}

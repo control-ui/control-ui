@@ -1,8 +1,9 @@
-import React from "react";
-import useTheme from "@material-ui/core/styles/useTheme";
+import React from 'react'
+import useTheme from '@mui/material/styles/useTheme'
 
-export const Logo = ({width, style = {enableBackground: 'new 0 0 150 150'}}) => {
-    const {palette} = useTheme();
+// @ts-ignore
+export const Logo: React.ComponentType<{ width?: string | number, style?: React.CSSProperties }> = ({width, style = {enableBackground: 'new 0 0 150 150'}}) => {
+    const {palette} = useTheme()
     return <svg
         style={style} width={width}
         version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -30,5 +31,5 @@ export const Logo = ({width, style = {enableBackground: 'new 0 0 150 150'}}) => 
         <g>
             <path fill={'#033944'} d="M109.2,139.6L110,75l33,19l0.3,45.6H109.2z"/>
         </g>
-    </svg>;
-};
+    </svg>
+}

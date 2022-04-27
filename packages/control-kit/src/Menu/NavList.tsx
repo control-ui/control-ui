@@ -1,11 +1,10 @@
 import React from 'react'
-import Divider from '@material-ui/core/Divider'
-import { lighten, darken } from '@material-ui/core/styles/colorManipulator'
-import useTheme from '@material-ui/core/styles/useTheme'
-import List, { ListProps } from '@material-ui/core/List'
+import Divider from '@mui/material/Divider'
+import useTheme from '@mui/material/styles/useTheme'
+import List, { ListProps } from '@mui/material/List'
 import { ListItemLink, ListItemLinkProps } from '@control-ui/kit/List/LinkList'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
 import { ListCollapse } from '@control-ui/kit/List/ListCollapse'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import { useLocation } from 'react-router-dom'
@@ -78,13 +77,10 @@ export const NavListNested = (
                     <ListCollapse
                         label={route?.nav?.label} component={'nav'} dense={dense}
                         toggleSelected={active}
+                        // @ts-ignore
                         style={{
                             paddingLeft: spacing(level + 1),
-                            background: active ?
-                                palette.type === 'dark' ?
-                                    lighten(palette.background.paper, 0.05) :
-                                    darken(palette.background.paper, 0.05)
-                                : 'transparent',
+                            background: active ? palette.background.paper : 'transparent',
                         }}
                         initialOpen={route?.nav?.initialOpen ? true : undefined}
                         forceOpen={(route?.nav?.to || route?.nav?.toSection ? active : undefined)}

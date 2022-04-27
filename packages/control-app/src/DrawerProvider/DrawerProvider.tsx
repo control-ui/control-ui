@@ -1,6 +1,6 @@
 import React from 'react'
-import useTheme from '@material-ui/core/styles/useTheme'
-import { BreakpointDefaults } from '@material-ui/core/styles/createBreakpoints'
+import useTheme from '@mui/material/styles/useTheme'
+import { Breakpoint } from '@mui/system/createTheme/createBreakpoints'
 
 export type setOpenHandler = (currentOpen: boolean) => boolean
 export type setOpen = (open: boolean | setOpenHandler) => void
@@ -12,7 +12,7 @@ export interface DrawerProviderContext {
 
 export interface DrawerProviderProps {
     // from this breakpoint onwards the drawer is open by default on initial mount
-    breakpointOpen?: keyof BreakpointDefaults
+    breakpointOpen?: Breakpoint
 }
 
 const DrawerContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([false, o => o])

@@ -32,6 +32,22 @@
         ],
         "@babel/plugin-proposal-class-properties"
     ],
+    "overrides": [
+        {
+            "test": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "plugins": [
+                [
+                    "const-enum",
+                    {
+                        "transform": "constObject"
+                    }
+                ]
+            ]
+        }
+    ],
     "env": {
         "cjs": {
             "presets": [

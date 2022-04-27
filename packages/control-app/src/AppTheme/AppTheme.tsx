@@ -1,6 +1,6 @@
-import React from 'react'
-import { DefaultTheme } from '@material-ui/styles/defaultTheme'
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
+import React, { ReactNode } from 'react'
+import { DefaultTheme } from '@mui/styles/defaultTheme'
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
 
 export interface ThemeDark {
     id: 'dark'
@@ -14,14 +14,6 @@ export interface ThemeLight {
 
 export type ThemeSettings = {
     [key: string]: DefaultTheme
-}
-
-export interface AppThemeProps {
-    themes: ThemeSettings
-    defaultDark?: boolean
-    dark?: ThemeDark
-    light?: ThemeLight
-    fallback?: string
 }
 
 const storeItem = 'theme'
@@ -40,8 +32,25 @@ export interface AppThemeContext {
     theme: DefaultTheme
 }
 
+/**
+ * Hook to consume the `AppThemeContext`
+ */
 export const useSwitchTheme = (): AppThemeContext => React.useContext(ThemeSwitchContext)
 
+/**
+ * Props for `AppTheme`
+ */
+export interface AppThemeProps {
+    themes: ThemeSettings
+    defaultDark?: boolean
+    dark?: ThemeDark
+    light?: ThemeLight
+    fallback?: string
+}
+
+/**
+ * Provides a switch between multiple themes, with auto-detection from browser and localStorage persistence
+ */
 export const AppTheme = (
     {
         themes,
@@ -50,7 +59,7 @@ export const AppTheme = (
         light = {id: 'light', other: 'dark'},
         fallback = 'dark',
         children,
-    }: React.PropsWithChildren<AppThemeProps>,
+    }: AppThemeProps & { children?: ReactNode | undefined },
 ): React.ReactElement => {
     const [theme, setTheme] = React.useState(() => {
         const initial =
@@ -68,7 +77,7 @@ export const AppTheme = (
     const switchTheme = React.useCallback((target = '') => {
         setTheme((currentTheme) => {
             let nextTheme
-            if (typeof target === 'string' && target) {
+            if(typeof target === 'string' && target) {
                 nextTheme =
                     Object.keys(themes)
                         .reduce((previous, current) =>

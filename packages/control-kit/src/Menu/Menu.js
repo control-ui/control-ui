@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink as RouterLink} from 'react-router-dom';
-import MuiMenuItem from '@material-ui/core/MenuItem';
+import MuiMenuItem from '@mui/material/MenuItem';
 import ListItemIcon from "@control-ui/kit/List/ListItemIcon";
-import ListItemText from '@material-ui/core/ListItemText';
+import ListItemText from '@mui/material/ListItemText';
 
 export function MenuItem({
                              icon, primary, component,

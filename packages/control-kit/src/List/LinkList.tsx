@@ -1,11 +1,11 @@
 import React from 'react'
 import clsx from 'clsx'
 import { Link as RouterLink, NavLink as RouterNavLink } from 'react-router-dom'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import List from '@mui/material/List'
+import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import * as H from 'history'
+import ListItemButton from '@mui/material/ListItemButton'
 
 export interface ListItemLinkProps {
     icon?: React.ReactNode
@@ -42,30 +42,42 @@ export function ListItemLink(
         />
     }), [to])
 
-    return <ListItem
-        button style={style} dense={dense}
-        // @ts-ignore
+    // @ts-ignore
+    return <ListItemButton
+        style={style} dense={dense}
         component={renderLink}
         onClick={onClick}
         className={clsx(classes.listItem)}
-        {...(disableNavLink ? {
-            disableNavLink: true,
-        } : {
-            exact: exact,
-            activeClassName: 'Mui-selected',
-        })}
+
+        {...(
+            disableNavLink ?
+                {
+                    disableNavLink: true,
+                } :
+                {
+                    exact: exact,
+                    activeClassName: 'Mui-selected',
+                }
+        )}
     >
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} className={clsx(classes.listItemText)}/>
         {children}
-    </ListItem>
+    </ListItemButton>
 }
 
 export interface LinkListProps {
     label?: string
     dense?: boolean
+    disablePadding?: boolean
+    style?: React.CSSProperties
 }
 
-export const LinkList = ({children, label, dense}: React.PropsWithChildren<LinkListProps>): React.ReactElement => {
-    return <List dense={dense} component="nav" aria-label={label}>{children}</List>
+export const LinkList: React.ComponentType<React.PropsWithChildren<LinkListProps>> = (
+    {
+        children, label,
+        style, disablePadding, dense,
+    },
+) => {
+    return <List dense={dense} component="nav" aria-label={label} style={style} disablePadding={disablePadding}>{children}</List>
 }

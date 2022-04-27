@@ -9,7 +9,7 @@ import LocalStorageBackend from 'i18next-localstorage-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 export type i18nLoader<T> = (url: string) => Promise<T>
-export type i18nParse = (lng: string, ns: string, data: {}) => {}
+export type i18nParse = (lng: string, ns: string, data: Object) => Object
 
 export type i18nDetections = 'path' | 'localStorage'
 

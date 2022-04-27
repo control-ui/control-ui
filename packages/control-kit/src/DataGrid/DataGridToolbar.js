@@ -1,12 +1,13 @@
-import React from 'react';
-import clsx from "clsx";
-import {lighten, makeStyles,} from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import {AccessTooltipIcon} from "@control-ui/kit/Tooltip";
+import React from 'react'
+import clsx from 'clsx'
+import {lighten} from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import DeleteIcon from '@mui/icons-material/Delete'
+import FilterListIcon from '@mui/icons-material/FilterList'
+import {AccessTooltipIcon} from '@control-ui/kit/Tooltip'
 
 const useToolbarStyles = makeStyles(theme => ({
     root: {
@@ -14,7 +15,7 @@ const useToolbarStyles = makeStyles(theme => ({
         paddingRight: theme.spacing(1),
     },
     highlight:
-        theme.palette.type === 'light'
+        theme.palette.mode === 'light'
             ? {
                 color: theme.palette.secondary.main,
                 backgroundColor: lighten(theme.palette.secondary.light, 0.85),
@@ -26,10 +27,10 @@ const useToolbarStyles = makeStyles(theme => ({
     title: {
         flex: '1 1 100%',
     },
-}));
+}))
 
 export const EnhancedTableToolbar = ({numSelected, title}) => {
-    const classes = useToolbarStyles();
+    const classes = useToolbarStyles()
 
     return (
         <Toolbar
@@ -61,5 +62,5 @@ export const EnhancedTableToolbar = ({numSelected, title}) => {
                 </IconButton>
             )}
         </Toolbar>
-    );
-};
+    )
+}

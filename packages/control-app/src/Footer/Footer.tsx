@@ -1,6 +1,6 @@
 import React from 'react'
-import useTheme from '@material-ui/core/styles/useTheme'
-import Container from '@material-ui/core/Container'
+import useTheme from '@mui/material/styles/useTheme'
+import Container from '@mui/material/Container'
 
 export const Footer = ({children}: React.PropsWithChildren<any>): React.ReactElement => {
     const {palette} = useTheme()

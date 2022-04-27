@@ -1,11 +1,16 @@
 import React from 'react'
 import { AppThemeProps } from '@control-ui/app/AppTheme'
 import Loadable from 'react-loadable'
-import useTheme from '@material-ui/core/styles/useTheme'
+import useTheme from '@mui/material/styles/useTheme'
 import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
 import { AppThemeDynamic } from '@control-ui/app/AppThemeDynamic'
 
-const AppWrapper = ({children}: React.PropsWithChildren<{}>): React.ReactElement => {
+/**
+ *
+ * @param children
+ * @constructor
+ */
+export const AppWrapper: React.ComponentType<React.PropsWithChildren<{}>> = ({children}) => {
     const {palette} = useTheme()
 
     return <div style={{

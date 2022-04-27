@@ -1,10 +1,10 @@
 import React from "react";
-import ListItemIc from '@material-ui/core/ListItemIcon';
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import ListItemIc from '@mui/material/ListItemIcon';
+import makeStyles from "@mui/styles/makeStyles";
 
 const useListItemStyles = makeStyles(theme => ({
     root: {
-        color: theme.palette.type === 'dark' ? theme.palette.primary.main : 'inherit',
+        color: theme.palette.mode === 'dark' ? theme.palette.primary.main : 'inherit',
     },
 }));
 

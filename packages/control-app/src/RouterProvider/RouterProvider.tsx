@@ -6,7 +6,7 @@ import React from 'react'
 
 export interface RouteComponent<C> {
     exact?: boolean
-    component: Promise<C>
+    component: C
 }
 
 export interface RouteNav {
@@ -41,14 +41,14 @@ export const RouterProvider = ({children, routes}: React.PropsWithChildren<Route
     </RouterContext.Provider>
 }
 
-export const filterRoutes = (route: Route, filter: (route: Route) => boolean, found: Route[] = []): Route[] => {
+export function filterRoutes<R extends Route = Route>(route: R, filter: (route: R) => boolean, found: R[] = []): R[] {
     if(filter(route)) {
         found.push(route)
     }
 
     if(route.routes) {
         route.routes.forEach(route =>
-            filterRoutes(route, filter, found))
+            filterRoutes<R>(route as R, filter, found))
     }
 
     return found

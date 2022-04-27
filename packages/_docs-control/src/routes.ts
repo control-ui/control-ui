@@ -1,7 +1,8 @@
-import Loadable from 'react-loadable'
-import {docsKit, docsDocs, docsHowTo, docsApp, docsLocales} from './content/docs'
+import * as Loadable from 'react-loadable'
+import { docsKit, docsDocs, docsHowTo, docsApp, docsLocales } from './content/docs'
+import { Route } from '@control-ui/app'
 
-const createDocsTree = (scope, label, routes, loading) => ({
+const createDocsTree = (scope: string, label: string, routes: any, loading: any): Route => ({
     path: '/' + scope + '/:docId+',
     nav: {
         to: '/' + scope,
@@ -19,7 +20,7 @@ const createDocsTree = (scope, label, routes, loading) => ({
     routes,
 })
 
-export const routes = (loading) => ({
+export const routes = (loading: any): Route => ({
     routes: [
         {
             path: '/',

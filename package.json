@@ -8,7 +8,7 @@
         "start": "npm run clean-dist && npm run serve",
         "docs": "npm run serve -- docs",
         "serve": "cross-env NODE_ENV=development node packerConfig.js --serve",
-        "prebuild": "npm run clean-dist && npm run sitemaps && npm test",
+        "prebuild": "npm run clean-dist && npm run sitemaps && npm run doc-gen && npm test",
         "build": "npm run build-all && npm run dtsgen",
         "build-all": "cross-env NODE_ENV=production CI=true node packerConfig.js --build --babel --webpack",
         "build-babel": "cross-env NODE_ENV=production CI=true node packerConfig.js --build --babel",
@@ -16,8 +16,9 @@
         "clean": "npm run clean-dist && lerna clean -y",
         "clean-dist": "node packerConfig.js --clean",
         "sitemaps": "lerna run sitemap",
+        "doc-gen": "lerna run doc-gen",
         "dtsgen": "lerna run dtsgen",
-        "bootstrap": "lerna bootstrap",
+        "bootstrap": "lerna bootstrap --force-local -- --legacy-peer-deps",
         "link": "lerna link --force-local",
         "hoist": "lerna bootstrap --hoist -- --legacy-peer-deps",
         "test": "jest -c=\"packages/jest.config.js\" --passWithNoTests",
@@ -33,7 +34,9 @@
         "@babel/plugin-proposal-optional-chaining": "^7.11.0",
         "@svgr/webpack": "^5.4.0",
         "@types/react-loadable": "^5.5.3",
+        "babel-plugin-const-enum": "^1.2.0",
         "cross-env": "^6.0.3",
+        "eslint-plugin-react-hooks": "^4.5.0",
         "lerna": "^3.22.1",
         "merge-dirs": "^0.2.1",
         "sloc": "^0.2.1",
@@ -45,7 +48,7 @@
         "lerna-packer": "~0.5.4",
         "rimraf": "~2.6.3",
         "scheduler": "^0.18.0",
-        "typescript": "~4.0.0",
+        "typescript": "^4.0.0",
         "webpack-merge": "^4.2.2"
     }
 }

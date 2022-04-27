@@ -10,15 +10,20 @@
 - `@control-ui/docs` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/docs?style=flat-square)](https://www.npmjs.com/package/@control-ui/docs) components for documentation apps
 
 todo:
+
 - `@control-ui/locales` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/locales?style=flat-square)](https://www.npmjs.com/package/@control-ui/locales) global multi purpose translations dictionary
+
+> 🚧 currently not intended for general usage / missing documentation / not following semver
 
 ## Web-App
 
-[![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/control-ui/demo-app-cra/tree/master/?module=%2Fsrc%2Froutes.js)
+[![Run on CodeSandbox](https://img.shields.io/badge/run%20on%20CodeSandbox-blue?labelColor=fff&logoColor=505050&style=for-the-badge&logo=codesandbox)](https://codesandbox.io/s/github/control-ui/demo-app-cra/tree/master/?module=%2Fsrc%2Froutes.ts)
 
 [![Clone on Repl.it](https://img.shields.io/badge/repl.it%20Clone-grey?labelColor=fff&style=for-the-badge&logo=repl.it)](https://repl.it/github/control-ui/demo-app-cra)
 
 ## Documentation App
+
+> todo: document this
 
 ## Contributing
 
@@ -31,6 +36,7 @@ todo:
 - `npm run serve -- controlUIDocs`
 
 Commands:
+
 - Build: `npm run build`
 - Clean node_modules and build dirs: `npm run clean`
 - Clean build dirs: `npm run clean-dist`
@@ -44,6 +50,7 @@ Publish, for main-repo only:
     1. `npm run build`
     2. `./publish.sh` or `bash ./publish.sh`
     3. `lerna publish from-package --contents build --no-git-reset`
+
     - all in one for M.B.: `npm run bootstrap && npm run build && wsl ./publish.sh && lerna publish from-package --contents build --no-git-reset`
 2. Then tag the commit with the same version
 3. No CI publishing is enabled atm.
@@ -54,15 +61,15 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2021 bemit UG (haftungsbeschränkt)
+© 2022 bemit UG (haftungsbeschränkt)
 
 ### License Icons
 
 The icons in the badges of the readme's are either from [simpleicons](https://simpleicons.org) or are licensed otherwise:
 
-- [Play Icon © Chanut is Industries, CC BY 3.0](https://www.iconfinder.com/icons/928430/go_media_music_play_playing_start_icon) 
-- [Experiment Icon © Ardiansyah Ardi, CC BY 3.0](https://www.iconfinder.com/icons/4951169/chemical_experiment_glass_lab_medical_icon) 
-- [Doc Icons © PICOL, CC BY 3.0](https://www.iconfinder.com/iconsets/picol-vector) 
+- [Play Icon © Chanut is Industries, CC BY 3.0](https://www.iconfinder.com/icons/928430/go_media_music_play_playing_start_icon)
+- [Experiment Icon © Ardiansyah Ardi, CC BY 3.0](https://www.iconfinder.com/icons/4951169/chemical_experiment_glass_lab_medical_icon)
+- [Doc Icons © PICOL, CC BY 3.0](https://www.iconfinder.com/iconsets/picol-vector)
 
 ### Contributors
 

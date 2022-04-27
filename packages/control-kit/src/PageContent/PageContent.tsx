@@ -1,9 +1,9 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Container, { ContainerProps } from '@material-ui/core/Container'
-import Paper from '@material-ui/core/Paper'
-import useTheme from '@material-ui/core/styles/useTheme'
-import Box from '@material-ui/core/Box'
+import Typography from '@mui/material/Typography'
+import Container, { ContainerProps } from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import useTheme from '@mui/material/styles/useTheme'
+import Box from '@mui/material/Box'
 
 export interface PageTitleProps {
     title: string | React.ReactElement

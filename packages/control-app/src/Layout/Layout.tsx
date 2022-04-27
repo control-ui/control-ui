@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import CssBaseline from '@mui/material/CssBaseline'
+import makeStyles from '@mui/styles/makeStyles'
 import { RouteCascade } from '@control-ui/app/RouteCascade'
 import { RouteComponentProps } from 'react-router'
 
@@ -20,13 +20,13 @@ const useStyles = makeStyles(() => ({
     },
 }))
 
-export interface LayoutProps<NFP = any> {
-    Header?: React.ComponentType<{}>
-    Drawer?: React.ComponentType<{}>
-    NotFound: React.ComponentType<RouteComponentProps<NFP>>
-    Footer?: React.ComponentType<{}>
+export interface LayoutProps {
+    Header?: React.ComponentType
+    Drawer?: React.ComponentType
+    NotFound: React.ComponentType<RouteComponentProps<{ scrollContainer: any }>>
+    Footer?: React.ComponentType
     mainContentStyle?: React.CSSProperties
-    mainContentRef?: React.Ref<HTMLDivElement>
+    mainContentRef?: React.MutableRefObject<HTMLDivElement | undefined>
     routeId?: string
 }
 
@@ -41,7 +41,7 @@ export const Layout: React.ComponentType<LayoutProps> = (
         routeId = 'content',
     },
 ) => {
-    const ref = mainContentRef ? mainContentRef : React.useRef(undefined)
+    const ref = React.useRef<undefined | HTMLDivElement>(undefined)
     const location = useLocation()
     const classes = useStyles()
 
@@ -52,7 +52,10 @@ export const Layout: React.ComponentType<LayoutProps> = (
             // @ts-ignore
             ref.current.scrollTo(0, 0)
         }
-    }, [loc, ref])
+        if(mainContentRef && ref) {
+            mainContentRef.current = ref.current
+        }
+    }, [loc, ref, mainContentRef])
 
     return <React.Fragment>
         <CssBaseline/>

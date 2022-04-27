@@ -1,10 +1,11 @@
 import React from 'react'
 import clsx from 'clsx'
-import MuiDrawer, { DrawerProps } from '@material-ui/core/Drawer'
-import { makeStyles } from '@material-ui/core/styles'
+import MuiDrawer, { DrawerProps } from '@mui/material/Drawer'
+import { Theme } from '@mui/material/styles'
+import { makeStyles } from '@mui/styles'
 import { useDrawer } from '../DrawerProvider'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
     drawerRoot: {
         overflow: 'auto',
         position: 'absolute',
@@ -42,7 +43,7 @@ export interface CustomDrawerProps {
     drawerWidth?: number
 }
 
-export const Drawer: React.ComponentType<React.PropsWithChildren<CustomDrawerProps & Omit<DrawerProps, 'open' | 'classes' | 'className'>>> = (
+export const Drawer: React.FC<React.PropsWithChildren<CustomDrawerProps & Omit<DrawerProps, 'open' | 'classes' | 'className'>>> = (
     {
         variant = 'persistent',
         drawerWidth, children,

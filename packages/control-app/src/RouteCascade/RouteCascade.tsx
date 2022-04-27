@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route as RouteType } from '@control-ui/app/RouterProvider'
 import { Route, Switch } from 'react-router-dom'
 import { useRouter } from '@control-ui/app/RouterProvider'
 import { RouteComponentProps } from 'react-router'
@@ -9,11 +10,19 @@ import { RouteComponentProps } from 'react-router'
  * @todo: add option to really `nest`/`cascade` the routes, so nested routes are not changing their parent route, (mb: like at orbiter-publish)
  */
 // @ts-ignore
-export const RouteCascadeNested = ({routeId, path, routes, childProps, component: Comp, render, ...props}) => {
+export const RouteCascadeNested = <CP, P>({routeId, path, routes, childProps, component: Comp, render, ...props}: {
+    routeId: string
+    path: string
+    childProps: CP
+    routes?: RouteType<any>
+    Comp?: React.ComponentType<RouteComponentProps<CP & P>>
+    render?: (props: RouteComponentProps<CP & P>) => React.ReactNode
+}) => {
     return <>
         {Comp || render ? <Route
             path={path}
             {...props}
+            // @ts-ignore
             render={render ? render :
                 // @ts-ignore
                 (props) =>
@@ -37,7 +46,7 @@ export const RouteCascadeNested = ({routeId, path, routes, childProps, component
     </>
 }
 
-export const RouteCascade = <CP, >(
+export const RouteCascade = <CP, P>(
     {routeId, childProps, Fallback}: {
         routeId: string
         childProps: CP
@@ -48,11 +57,11 @@ export const RouteCascade = <CP, >(
     return <Switch>
         {/* need to pass the exact same props to the first level of switch, RouteCascaded must be compatible with `Route` */}
         {routes?.routes?.map((route, i) => {
-            const routeConfig = route?.config?.[routeId] || {}
             // @ts-ignore
-            return <RouteCascadeNested
+            const routeConfig = route?.config?.[routeId] || {}
+            return <RouteCascadeNested<CP, P>
                 key={i}
-                path={route.path}
+                path={route.path as string}
                 routeId={routeId}
                 childProps={childProps}
                 {...routeConfig}

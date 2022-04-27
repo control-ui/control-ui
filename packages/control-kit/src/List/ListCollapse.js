@@ -1,9 +1,9 @@
 import React from 'react'
-import {List, Collapse} from '@material-ui/core'
-import {ExpandLess, ExpandMore} from '@material-ui/icons'
+import {List, Collapse} from '@mui/material'
+import {ExpandLess, ExpandMore} from '@mui/icons-material'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItem from '@mui/material/ListItem'
 
 export const ListCollapseContent = (
     {
