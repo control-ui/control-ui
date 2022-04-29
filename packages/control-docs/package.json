@@ -15,6 +15,9 @@
     },
     "main": "index.js",
     "module": "esm/index.js",
+    "dependencies": {
+        "@control-ui/routes": "~0.0.1"
+    },
     "devDependencies": {
         "@types/react": "^17.0.0",
         "@types/react-router-dom": "^5.1.5",
@@ -26,7 +29,6 @@
         "@emotion/styled": "^11.8.1",
         "react": "^17.0",
         "react-dom": "^17.0",
-        "react-markdown": "^7.0",
         "react-router-dom": "^5.0"
     },
     "peerDependencies": {
@@ -35,7 +37,6 @@
         "@mui/icons-material": "^5.6.2",
         "react": "^17.0",
         "react-dom": "^17.0",
-        "react-markdown": "^7.0",
         "react-router-dom": "^5.0"
     },
     "publishConfig": {

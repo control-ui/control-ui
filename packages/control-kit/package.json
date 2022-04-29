@@ -1,49 +1,50 @@
 {
-	"name": "@control-ui/kit",
-	"version": "0.0.20",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Michael Becker",
-			"email": "michael@bemit.codes",
-			"homepage": "https://mlbr.xyz",
-			"role": "Developer"
-		}
-	],
-	"scripts": {
-		"dtsgen": "tsc -d --emitDeclarationOnly --pretty"
-	},
-	"main": "index.js",
-	"module": "esm/index.js",
-	"dependencies": {
-		"clsx": "^1.0",
-		"react-helmet": "^6.1.0",
-		"react-uid": "^2.0"
-	},
-	"devDependencies": {
-		"@types/react": "^17.0.0",
-		"@types/react-helmet": "^6.1.0",
-		"@types/react-router-dom": "^5.1.5",
-		"@mui/material": "^5.6.2",
-		"@mui/styles": "^5.6.2",
-		"@mui/icons-material": "^5.6.2",
-		"@emotion/react": "^11.9.0",
-		"@emotion/styled": "^11.8.1",
-		"react": "^17.0",
-		"react-dom": "^17.0",
-		"react-router": "^5.0",
-		"react-router-dom": "^5.0"
-	},
-	"peerDependencies": {
-		"@mui/material": "^5.6.2",
-		"@mui/icons-material": "^5.6.2",
-		"react": "^17.0",
-		"react-dom": "^17.0",
-		"react-router": "^5.0",
-		"react-router-dom": "^5.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"gitHead": "eec39eda3c04650123d88d189d085851f1bd05a4"
+    "name": "@control-ui/kit",
+    "version": "0.0.20",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Becker",
+            "email": "michael@bemit.codes",
+            "homepage": "https://mlbr.xyz",
+            "role": "Developer"
+        }
+    ],
+    "scripts": {
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty"
+    },
+    "main": "index.js",
+    "module": "esm/index.js",
+    "dependencies": {
+        "@control-ui/routes": "~0.0.1",
+        "clsx": "^1.0",
+        "react-helmet": "^6.1.0",
+        "react-uid": "^2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.0",
+        "@types/react-helmet": "^6.1.0",
+        "@types/react-router-dom": "^5.1.5",
+        "@mui/material": "^5.6.2",
+        "@mui/styles": "^5.6.2",
+        "@mui/icons-material": "^5.6.2",
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "react": "^17.0",
+        "react-dom": "^17.0",
+        "react-router": "^5.0",
+        "react-router-dom": "^5.0"
+    },
+    "peerDependencies": {
+        "@mui/material": "^5.6.2",
+        "@mui/icons-material": "^5.6.2",
+        "react": "^17.0",
+        "react-dom": "^17.0",
+        "react-router": "^5.0",
+        "react-router-dom": "^5.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "eec39eda3c04650123d88d189d085851f1bd05a4"
 }

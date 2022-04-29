@@ -5,7 +5,6 @@ import { ScrollUpButton } from '@control-ui/kit/ScrollUpButton'
 import PageNotFound from './PageNotFound'
 import { DocDetails } from '@control-ui/docs/DocDetails'
 import { LinkableHeadlineMenu } from '@control-ui/docs/LinkableHeadline'
-import { PROCESS_ERROR, PROCESS_NOT_FOUND, PROCESS_PROGRESS, PROCESS_START, PROCESS_SUCCESS } from '@control-ui/kit/Process'
 import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
 import { Markdown } from '../component/Markdown'
 import { DocsDetailsModules } from './DocsDetailsModules'
@@ -32,12 +31,10 @@ const DocContent = ({content, doc, id, progress}) => {
             })
     }, [module])
 
-    console.log('modules', modules)
-
     return <>
-        {progress === PROCESS_NOT_FOUND ? <PageNotFound/> : null}
+        {progress === 'not-found' ? <PageNotFound/> : null}
 
-        {progress === PROCESS_SUCCESS && !loadingModuleDocs ?
+        {progress === 'success' && !loadingModuleDocs ?
             <>
                 <div style={{display: 'block', textAlign: 'right', margin: '0 12px'}}>
                     <Link
@@ -46,9 +43,9 @@ const DocContent = ({content, doc, id, progress}) => {
                     >Edit Page</Link>
                 </div>
                 <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column'}} elevation={4}>
-                    {progress === PROCESS_START || progress === PROCESS_PROGRESS ?
+                    {progress === 'start' || progress === 'progress' ?
                         <LoadingCircular title={'Loading Docs'}/> :
-                        progress === PROCESS_ERROR ?
+                        progress === 'error' ?
                             'error' :
                             <React.Fragment>
                                 <Markdown source={content}/>
@@ -70,21 +67,21 @@ const DocContent = ({content, doc, id, progress}) => {
                 </Paper>
             </> : null}
 
-        {progress === PROCESS_START || progress === PROCESS_PROGRESS || loadingModuleDocs ?
+        {progress === 'start' || progress === 'progress' || loadingModuleDocs ?
             <LoadingCircular title={'Loading Docs'}/> :
-            progress === PROCESS_ERROR ?
+            progress === 'error' ?
                 <Box m={2}>
                     <Alert severity={'error'}>Error loading page.</Alert>
                 </Box> : null}
     </>
 }
 
-const DocsDetails: React.ComponentType<{ scrollContainer?: React.RefObject<any> }> = ({scrollContainer}) => {
+const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject<HTMLDivElement | undefined> }> = ({scrollContainer}) => {
     const match = useRouteMatch()
     return <React.Fragment>
         <DocDetails
             scrollContainer={scrollContainer}
-            title={activeDoc => activeDoc && activeDoc.nav && activeDoc.nav.label ?
+            title={activeDoc => activeDoc?.nav?.label ?
                 activeDoc.nav.label + ' · Control-UI' : 'Control-UI Documentation'}
             NotFound={PageNotFound}
             scope={match.url.split('/')[1] + '/'}

@@ -3,15 +3,19 @@ import CircularProgress, { CircularProgressProps } from '@mui/material/CircularP
 import Typography, { TypographyTypeMap } from '@mui/material/Typography'
 import useTheme from '@mui/material/styles/useTheme'
 
-export const LoadingCircular = (
-    {title, loadingColor, textColor, width = '100%'}:
-        {
-            title: string
-            textColor?: TypographyTypeMap['props']['color']
-            loadingColor?: CircularProgressProps['color']
-            width?: string
-        },
-): React.ReactElement => {
+export const LoadingCircular: React.ComponentType<{
+    title: string
+    textColor?: TypographyTypeMap['props']['color']
+    loadingColor?: CircularProgressProps['color']
+    width?: string
+}> = (
+    {
+        title,
+        loadingColor,
+        textColor,
+        width = '100%',
+    },
+) => {
     const {spacing} = useTheme()
     return <div style={{
         display: 'flex',

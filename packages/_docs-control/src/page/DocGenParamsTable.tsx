@@ -7,7 +7,7 @@ import {
     PropType, isFunctionProp,
 } from '@structured-types/api'
 import { DocGenRendererUnion, DocGenRendererNameOrTypedValue, DocGenRendererFn, DocGenRendererGenerics } from './DocGenRenderer'
-import { MdInlineCode } from '@control-ui/docs'
+import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
 
 export const DocGenParamsTable: React.ComponentType<{
     module: DocModuleExport

@@ -81,6 +81,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
             setHeadlines((headlines) => {
                 const head = [...headlines]
                 const hI = headlines.findIndex(h => h.id === id)
+                // todo: autoincrement ID is the same already exists
                 if(hI === -1) {
                     head.push({
                         level,

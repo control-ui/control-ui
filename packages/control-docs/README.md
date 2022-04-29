@@ -28,7 +28,7 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2020 bemit UG (haftungsbeschränkt)
+© 2022 bemit UG (haftungsbeschränkt)
 
 ### License Icons
 

@@ -53,14 +53,21 @@ const files: DocFileReactSource[] = [
     makeFile('control-ui', 'app', 'control-app', 'Header'),
     makeFile('control-ui', 'app', 'control-app', 'I18nProvider'),
     makeFile('control-ui', 'app', 'control-app', 'Layout'),
-    makeFile('control-ui', 'app', 'control-app', 'RouteCascade'),
-    makeFile('control-ui', 'app', 'control-app', 'RouterProvider'),
     //
     makeFile('control-ui', 'docs', 'control-docs', 'ContentLoader'),
     makeFile('control-ui', 'docs', 'control-docs', 'DocDetails'),
     makeFile('control-ui', 'docs', 'control-docs', 'DocsProvider'),
     makeFile('control-ui', 'docs', 'control-docs', 'LinkableHeadline', ['LinkableHeadline.tsx', 'LinkableHeadlineMenu.tsx']),
-    makeFile('control-ui', 'docs', 'control-docs', 'Markdown'),
+    makeFile('control-ui', 'docs', 'control-docs', 'Markdown', [
+        'MarkdownRenderers.tsx',
+        'MdBlockquote.tsx',
+        'MdCode.tsx',
+        'MdHeading.tsx',
+        'MdInlineCode.tsx',
+        'MdLink.tsx',
+        'MdList.tsx',
+        'MdTable.tsx',
+    ]),
     //
     makeFile('control-ui', 'kit', 'control-kit', 'DataGrid'),
     makeFile('control-ui', 'kit', 'control-kit', 'ExpansionPanel'),
@@ -69,13 +76,25 @@ const files: DocFileReactSource[] = [
     makeFile('control-ui', 'kit', 'control-kit', 'Link'),
     makeFile('control-ui', 'kit', 'control-kit', 'List'),
     makeFile('control-ui', 'kit', 'control-kit', 'Loading'),
-    makeFile('control-ui', 'kit', 'control-kit', 'Menu'),
+    makeFile('control-ui', 'kit', 'control-kit', 'NavList'),
     makeFile('control-ui', 'kit', 'control-kit', 'PageContent'),
-    makeFile('control-ui', 'kit', 'control-kit', 'Process'),
-    makeFile('control-ui', 'kit', 'control-kit', 'Route'),
+    makeFile('control-ui', 'kit', 'control-kit', 'RenderLink'),
     makeFile('control-ui', 'kit', 'control-kit', 'ScrollUpButton'),
-    makeFile('control-ui', 'kit', 'control-kit', 'Settings'),
     makeFile('control-ui', 'kit', 'control-kit', 'Tooltip'),
+    //
+    makeFile('control-ui', 'routes', 'control-routes', 'filterRoutes'),
+    makeFile('control-ui', 'routes', 'control-routes', 'Route'),
+    makeFile('control-ui', 'routes', 'control-routes', 'RouteCascade'),
+    makeFile('control-ui', 'routes', 'control-routes', 'RouterProvider'),
+    //
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MarkdownRenderers'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdBlockquote'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdCode'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdHeading'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdInlineCode'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdLink'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdList'),
+    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdTable'),
 ]
 
 const makeIndexStore = () => {
@@ -182,7 +201,7 @@ parsed.forEach(docInfo => {
             fs.mkdirSync(dir, {recursive: true})
         }
 
-        fs.writeFile(path.join(dir, docInfo.fromPath + '.json'), JSON.stringify(docInfo, undefined, 4), (err) => {
+        fs.writeFile(path.join(dir, docInfo.fromPath + '.json'), JSON.stringify(docInfo), (err) => {
             if(err) {
                 console.error('Failed saving doc of ' + docInfo.package + '/' + docInfo.fromPath, err)
                 return

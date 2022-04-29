@@ -6,10 +6,12 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import * as H from 'history'
 import ListItemButton from '@mui/material/ListItemButton'
+import { TypographyProps } from '@mui/material/Typography'
 
 export interface ListItemLinkProps {
     icon?: React.ReactNode
-    primary: string
+    primary: string | React.ReactNode
+    secondary?: string | React.ReactNode
     to: string
     dense?: boolean
     // turn off `NavLink` as component, useful for same-page lists
@@ -21,12 +23,17 @@ export interface ListItemLinkProps {
         listItem?: string[]
         listItemText?: string[]
     }
+    primaryTypographyProps?: TypographyProps
+    secondaryTypographyProps?: TypographyProps
 }
 
 export function ListItemLink(
     {
-        icon, primary, to, onClick, disableNavLink = true,
+        icon,
+        to, onClick, disableNavLink = true,
         dense, style, classes = {}, children, exact,
+        primary, secondary,
+        primaryTypographyProps, secondaryTypographyProps,
     }: React.PropsWithChildren<ListItemLinkProps>,
 ): React.ReactElement {
     const renderLink: React.ComponentType<React.PropsWithChildren<{
@@ -48,7 +55,6 @@ export function ListItemLink(
         component={renderLink}
         onClick={onClick}
         className={clsx(classes.listItem)}
-
         {...(
             disableNavLink ?
                 {
@@ -61,7 +67,13 @@ export function ListItemLink(
         )}
     >
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-        <ListItemText primary={primary} className={clsx(classes.listItemText)}/>
+        <ListItemText
+            primary={primary}
+            secondary={secondary}
+            className={clsx(classes.listItemText)}
+            primaryTypographyProps={primaryTypographyProps}
+            secondaryTypographyProps={secondaryTypographyProps}
+        />
         {children}
     </ListItemButton>
 }

@@ -25,14 +25,13 @@ export const docsApp = (prefix = '') => [
         compApp('App', undefined, undefined, {package: '@control-ui/app', fromPath: 'App'}),
         compApp('AppLoader', undefined, undefined, {package: '@control-ui/app', fromPath: 'AppLoader'}),
         compApp('AppTheme', undefined, undefined, {package: '@control-ui/app', fromPath: 'AppTheme'}),
+        compApp('AppThemeDynamic', undefined, undefined, {package: '@control-ui/app', fromPath: 'AppThemeDynamic'}),
         compApp('Drawer', undefined, undefined, {package: '@control-ui/app', fromPath: 'Drawer'}),
         compApp('DrawerProvider', undefined, undefined, {package: '@control-ui/app', fromPath: 'DrawerProvider'}),
         compApp('Footer', undefined, undefined, {package: '@control-ui/app', fromPath: 'Footer'}),
         compApp('Header', undefined, undefined, {package: '@control-ui/app', fromPath: 'Header'}),
         compApp('I18nProvider', undefined, undefined, {package: '@control-ui/app', fromPath: 'I18nProvider'}),
         compApp('Layout', undefined, undefined, {package: '@control-ui/app', fromPath: 'Layout'}),
-        compApp('RouteCascade', undefined, undefined, {package: '@control-ui/app', fromPath: 'RouteCascade'}),
-        compApp('RouterProvider', undefined, undefined, {package: '@control-ui/app', fromPath: 'RouterProvider'}),
     ], prefix),
 ]
 
@@ -42,15 +41,15 @@ export const docsKit = (prefix = '') => [
     createDoc('kit/components', 'Components', [
         compKit('DataGrid', undefined, undefined, {package: '@control-ui/kit', fromPath: 'DataGrid'}),
         compKit('ExpansionPanel', undefined, undefined, {package: '@control-ui/kit', fromPath: 'ExpansionPanel'}),
+        compKit('HeadMeta', undefined, undefined, {package: '@control-ui/kit', fromPath: 'HeadMeta'}),
+        compKit('Helper', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Helper'}),
         compKit('Link', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Link'}),
         compKit('List', undefined, undefined, {package: '@control-ui/kit', fromPath: 'List'}),
         compKit('Loading', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Loading'}),
-        compKit('Menu', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Menu'}),
+        compKit('NavList', undefined, undefined, {package: '@control-ui/kit', fromPath: 'NavList'}),
         compKit('PageContent', undefined, undefined, {package: '@control-ui/kit', fromPath: 'PageContent'}),
-        compKit('Process', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Process'}),
-        compKit('Route', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Route'}),
+        compKit('RenderLink', undefined, undefined, {package: '@control-ui/kit', fromPath: 'RenderLink'}),
         compKit('ScrollUpButton', undefined, undefined, {package: '@control-ui/kit', fromPath: 'ScrollUpButton'}),
-        compKit('Settings', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Settings'}),
         compKit('Tooltip', undefined, undefined, {package: '@control-ui/kit', fromPath: 'Tooltip'}),
     ], prefix),
 ]
@@ -64,6 +63,32 @@ export const docsDocs = (prefix = '') => [
         compDocs('DocsProvider', undefined, undefined, {package: '@control-ui/docs', fromPath: 'DocsProvider'}),
         compDocs('LinkableHeadline', undefined, undefined, {package: '@control-ui/docs', fromPath: 'LinkableHeadline'}),
         compDocs('Markdown', undefined, undefined, {package: '@control-ui/docs', fromPath: 'Markdown'}),
+    ], prefix),
+]
+
+const compRoutes = compCreator('routes/components')
+export const docsRoutes = (prefix = '') => [
+    createDoc('routes/overview', 'Routes Overview', undefined, prefix),
+    createDoc('routes/components', 'Components', [
+        compRoutes('Route', undefined, undefined, {package: '@control-ui/routes', fromPath: 'Route'}),
+        compRoutes('RouteCascade', undefined, undefined, {package: '@control-ui/routes', fromPath: 'RouteCascade'}),
+        compRoutes('RouterProvider', undefined, undefined, {package: '@control-ui/routes', fromPath: 'RouterProvider'}),
+        compRoutes('filterRoutes', undefined, undefined, {package: '@control-ui/routes', fromPath: 'filterRoutes'}),
+    ], prefix),
+]
+
+const compMdMui = compCreator('md-mui/components')
+export const docsMdMui = (prefix = '') => [
+    createDoc('md-mui/overview', 'Markdown MUI Overview', undefined, prefix),
+    createDoc('md-mui/components', 'Components', [
+        compMdMui('MarkdownRenderers', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MarkdownRenderers'}),
+        compMdMui('MdBlockquote', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdBlockquote'}),
+        compMdMui('MdCode', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdCode'}),
+        compMdMui('MdHeading', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdHeading'}),
+        compMdMui('MdInlineCode', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdInlineCode'}),
+        compMdMui('MdLink', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdLink'}),
+        compMdMui('MdList', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdList'}),
+        compMdMui('MdTable', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdTable'}),
     ], prefix),
 ]
 

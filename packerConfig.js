@@ -39,10 +39,15 @@ packer({
             root: path.resolve(__dirname, 'packages', 'control-kit'),
             entry: path.resolve(__dirname, 'packages', 'control-kit/src/'),
         },
-        controlLocales: {
-            name: '@control-ui/locales',
-            root: path.resolve(__dirname, 'packages', 'control-locales'),
-            entry: path.resolve(__dirname, 'packages', 'control-locales/src/'),
+        controlRoutes: {
+            name: '@control-ui/routes',
+            root: path.resolve(__dirname, 'packages', 'control-routes'),
+            entry: path.resolve(__dirname, 'packages', 'control-routes/src/'),
+        },
+        controlMdMui: {
+            name: '@control-ui/md-mui',
+            root: path.resolve(__dirname, 'packages', 'control-md-mui'),
+            entry: path.resolve(__dirname, 'packages', 'control-md-mui/src/'),
         },
     },
 }, __dirname)

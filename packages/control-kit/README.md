@@ -10,18 +10,13 @@ Component kit built with [Material UI React](https://material-ui.com), create yo
 
 **🚀 Start Your:**
 
-[![Web-App](https://img.shields.io/badge/Web%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/docs/overview)
+[![Web-App](https://img.shields.io/badge/Web%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/app/overview)
 
     npx create-react-app my-app --template control-ui-app
 
-[![Documentation App](https://img.shields.io/badge/Documentation%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/app/overview)
+[![Documentation App](https://img.shields.io/badge/Documentation%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/docs/overview)
 
     npx create-react-app my-docs --template control-ui-docs
- 
-## Extensions
-
-- `@control-ui/app` for translation, routing and layout
-- `@control-ui/docs` components for documentation apps
 
 ## License
 
@@ -29,7 +24,7 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2020 bemit UG (haftungsbeschränkt)
+© 2022 bemit UG (haftungsbeschränkt)
 
 ### License Icons
 

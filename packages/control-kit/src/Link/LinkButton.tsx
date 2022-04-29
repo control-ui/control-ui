@@ -1,6 +1,6 @@
 import React from 'react'
 import Button, { ButtonProps } from '@mui/material/Button'
-import { RenderLink } from '@control-ui/kit/Route/RenderLink'
+import { RenderLink } from '@control-ui/kit/RenderLink'
 
 export interface LinkButtonProps {
     to: string
@@ -10,7 +10,6 @@ export interface LinkButtonProps {
 export const LinkButton = (
     {children, to, size = 'small', ...p}: React.PropsWithChildren<ButtonProps & LinkButtonProps>,
 ): React.ReactElement => {
-    // @ts-ignore
     return <Button component={RenderLink} to={to} size={size} {...p}>
         {children}
     </Button>

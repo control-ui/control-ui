@@ -1,0 +1,44 @@
+{
+    "name": "@control-ui/md-mui",
+    "version": "0.0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Becker",
+            "email": "michael@bemit.codes",
+            "homepage": "https://mlbr.xyz",
+            "role": "Developer"
+        }
+    ],
+    "scripts": {
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && merge-dirs build/control-md-mui/src build && rm -rf build/control-md-mui"
+    },
+    "main": "index.js",
+    "module": "esm/index.js",
+    "dependencies": {
+        "@control-ui/routes": "~0.0.1"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.0",
+        "@control-ui/kit": "0.0.x",
+        "@mui/material": "^5.6.2",
+        "@mui/styles": "^5.6.2",
+        "@mui/icons-material": "^5.6.2",
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "react": "^17.0",
+        "react-dom": "^17.0",
+        "react-markdown": "^7.0"
+    },
+    "peerDependencies": {
+        "@control-ui/kit": "0.0.x",
+        "@mui/material": "^5.6.2",
+        "@mui/icons-material": "^5.6.2",
+        "react": "^17.0",
+        "react-dom": "^17.0",
+        "react-markdown": "^7.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

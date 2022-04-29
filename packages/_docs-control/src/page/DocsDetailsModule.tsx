@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import IcWarn from '@mui/icons-material/Warning'
 import { Markdown } from '../component/Markdown'
-import { MdInlineCode } from '@control-ui/docs/Markdown'
+import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
 import { LinkableHeadline } from '@control-ui/docs/LinkableHeadline'
 import { DocModuleExport } from './DocGenModule'
 import { DocGenRendererNameOrTypedValue, DocGenRendererGenerics } from './DocGenRenderer'
@@ -55,8 +55,18 @@ export const DocsDetailsModule: React.ComponentType<{
                 {(isClassProp(module) || isInterfaceProp(module) || isTypeProp(module)) && (module as InterfaceProp).extends ? <Box mb={1}>
                     <Typography>extends <MdInlineCode>{(module as InterfaceProp)?.extends?.map(ex => ex.name).join(', ')}</MdInlineCode></Typography>
                 </Box> : null}
+
                 {module.alias ? <Box mb={1}>
                     <Typography>Alias of: <MdInlineCode>{module.alias}</MdInlineCode></Typography>
+                </Box> : null}
+
+                {module.see ? <Box mb={2}>
+                    <Typography variant={'subtitle1'}>See</Typography>
+                    <ul>
+                        {module.see.map(s => {
+                            <Box component={'li'} mb={1}><Markdown source={s}/></Box>
+                        })}
+                    </ul>
                 </Box> : null}
 
                 {module.description ? <Box mb={1}><Markdown source={module.description}/></Box> : null}

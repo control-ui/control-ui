@@ -1,0 +1,43 @@
+{
+    "name": "@control-ui/routes",
+    "version": "0.0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Becker",
+            "email": "michael@bemit.codes",
+            "homepage": "https://mlbr.xyz",
+            "role": "Developer"
+        }
+    ],
+    "scripts": {
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty"
+    },
+    "main": "index.js",
+    "module": "esm/index.js",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.0",
+        "@types/react-router-dom": "^5.1.5",
+        "react": "^17.0",
+        "react-router": "^5.0",
+        "react-router-dom": "^5.0"
+    },
+    "peerDependencies": {
+        "react": "^17.0",
+        "react-router": "^5.0",
+        "react-router-dom": "^5.0"
+    },
+    "peerDependenciesMeta": {
+        "react-router": {
+            "optional": true
+        },
+        "react-router-dom": {
+            "optional": true
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

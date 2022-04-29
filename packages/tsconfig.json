@@ -37,11 +37,17 @@
             "@control-ui/app/*": [
                 "control-app/src/*"
             ],
-            "@control-ui/locales": [
-                "control-locales/src"
+            "@control-ui/routes": [
+                "control-routes/src"
             ],
-            "@control-ui/locales/*": [
-                "control-locales/src/*"
+            "@control-ui/routes/*": [
+                "control-routes/src/*"
+            ],
+            "@control-ui/md-mui": [
+                "control-md-mui/src"
+            ],
+            "@control-ui/md-mui/*": [
+                "control-md-mui/src/*"
             ],
         }
     },

@@ -4,7 +4,7 @@ import IcSearch from '@mui/icons-material/Search'
 import InvertColorsIcon from '@mui/icons-material/InvertColors'
 import GithubLogo from '../asset/GithubLogo'
 import Loadable from 'react-loadable'
-import { Link as RouterLink, RouteComponentProps } from 'react-router-dom'
+import { Link as RouterLink, RouteComponentProps, useLocation } from 'react-router-dom'
 import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
 import { LinkIconButton } from '@control-ui/kit/Link/LinkIconButton'
 import { Header } from '@control-ui/app/Header'
@@ -13,11 +13,12 @@ import { Drawer } from '@control-ui/app/Drawer'
 import Nav from './Nav'
 import { Logo } from '../asset/Logo'
 import { LoadingCircular } from '@control-ui/kit/Loading'
-import { Layout } from '@control-ui/app/Layout'
+import { Layout, LayoutProps } from '@control-ui/app/Layout'
 import { useSearch } from './SearchProvider'
 import { SearchBox } from './SearchBox'
+import { RouteCascade } from '@control-ui/routes/RouteCascade'
 
-export const CustomHeader: React.ComponentType = () => {
+export const CustomHeaderBase: React.ComponentType = () => {
     const {switchTheme} = useSwitchTheme()
     const {setOpen} = useSearch()
     return <Header>
@@ -48,29 +49,39 @@ export const CustomHeader: React.ComponentType = () => {
         </IconButton>
     </Header>
 }
+export const CustomHeader: React.ComponentType = React.memo(CustomHeaderBase)
 
-export const CustomDrawer: React.ComponentType = () => {
+export const CustomDrawerBase: React.ComponentType = () => {
     return <Drawer drawerWidth={230}>
         <Nav/>
     </Drawer>
 }
+export const CustomDrawer: React.ComponentType = React.memo(CustomDrawerBase)
 
-export const CustomFooter: React.ComponentType = () => {
+/*export const CustomFooterBase: React.ComponentType = () => {
     return <>
-        <SearchBox/>
     </>
 }
+export const CustomFooter: React.ComponentType = React.memo(CustomFooterBase)*/
 
-
-const PageNotFound: React.ComponentType<RouteComponentProps<{ scrollContainer: any }>> = Loadable({
+const PageNotFound: React.ComponentType<RouteComponentProps & { scrollContainer: React.MutableRefObject<null | HTMLDivElement> }> = Loadable({
     loader: () => import('../page/PageNotFound'),
     loading: () => <LoadingCircular title={'Not Found'}/>,
 })
 
-export const CustomLayout: React.ComponentType = () =>
-    <Layout
+const RoutingBase: LayoutProps['Content'] = (p) =>
+    <RouteCascade routeId={'content'} childProps={p} Fallback={PageNotFound}/>
+export const Routing: LayoutProps['Content'] = React.memo(RoutingBase)
+
+export const CustomLayout: React.ComponentType = () => {
+    const location = useLocation()
+    return <Layout
         Header={CustomHeader}
         Drawer={CustomDrawer}
-        Footer={CustomFooter}
-        NotFound={PageNotFound}
-    />
+        // Footer={CustomFooter}
+        Content={Routing}
+        locationPath={location.pathname}
+    >
+        <SearchBox/>
+    </Layout>
+}

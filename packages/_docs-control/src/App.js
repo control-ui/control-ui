@@ -8,6 +8,7 @@ import merge from 'webpack-merge'
 import {loading} from './component/Loading'
 import {CustomLayout} from './component/Layout'
 import {SearchProvider} from './component/SearchProvider'
+import {BrowserRouter} from 'react-router-dom'
 
 const Provider = ({children}) => (
     <DocsProvider loader={(file) => import('./content/' + file + '.md')}>
@@ -40,11 +41,14 @@ const i18n = {
 }
 
 const routing = routes(loading)
-const CustomApp = () => <App
-    routes={routing}
-    Layout={CustomLayout}
-    i18n={i18n}
-    Provider={Provider}
-/>
+const CustomApp = () =>
+    <BrowserRouter basename={'/'}>
+        <App
+            routes={routing}
+            Layout={CustomLayout}
+            i18n={i18n}
+            Provider={Provider}
+        />
+    </BrowserRouter>
 
 export default CustomApp

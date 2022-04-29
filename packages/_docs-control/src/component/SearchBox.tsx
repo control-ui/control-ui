@@ -10,7 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { filterRoutes, Route, useRouter } from '@control-ui/app'
 import { DocRoute } from '@control-ui/docs'
 import Paper from '@mui/material/Paper'
 import FuseJs from 'fuse.js'
@@ -21,6 +20,9 @@ import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { Button } from '@mui/material'
+import { Route } from '@control-ui/routes/Route'
+import { useRouter } from '@control-ui/routes/RouterProvider'
+import { filterRoutes } from '@control-ui/routes/filterRoutes'
 
 export interface DocModuleRoute<C = any> extends DocRoute<C> {
     docModule?: { package: string, module: string, fromPath: string }

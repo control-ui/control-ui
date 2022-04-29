@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { MdInlineCode } from '@control-ui/docs/Markdown'
+import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
 import { LinkableHeadline } from '@control-ui/docs/LinkableHeadline'
 import { DocModule } from './DocGenModule'
 import { Alert, Link } from '@mui/material'

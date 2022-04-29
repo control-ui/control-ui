@@ -2,9 +2,11 @@ import React from 'react'
 import Divider from '@mui/material/Divider'
 import useTheme from '@mui/material/styles/useTheme'
 import {ListItemLink} from '@control-ui/kit/List/LinkList'
-import {useRouter} from '@control-ui/app/RouterProvider'
-import {NavListNested, NavList} from '@control-ui/kit/Menu/NavList'
+import {useRouter} from '@control-ui/routes/RouterProvider'
+import {NavListNested, NavList} from '@control-ui/kit/NavList'
 import {useDrawer} from '@control-ui/app/DrawerProvider'
+
+const filter = route => route.nav && !route.nav.footer
 
 export default ({dense = true}) => {
     const {routes} = useRouter()
@@ -20,7 +22,7 @@ export default ({dense = true}) => {
         <NavListNested
             routes={routes.routes}
             dense={dense}
-            filter={route => route.nav && !route.nav.footer}
+            filter={filter}
             onClick={closeOnClick}
         />
         <Divider/>

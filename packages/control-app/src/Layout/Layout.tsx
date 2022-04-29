@@ -1,9 +1,7 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import makeStyles from '@mui/styles/makeStyles'
-import { RouteCascade } from '@control-ui/app/RouteCascade'
-import { RouteComponentProps } from 'react-router'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(() => ({
     '@global': {
@@ -18,69 +16,73 @@ const useStyles = makeStyles(() => ({
             border: 0,
         },
     },
+    container: {
+        display: 'flex',
+        overflow: 'auto',
+        flexGrow: 1,
+    },
 }))
 
 export interface LayoutProps {
     Header?: React.ComponentType
     Drawer?: React.ComponentType
-    NotFound: React.ComponentType<RouteComponentProps<{ scrollContainer: any }>>
     Footer?: React.ComponentType
+    Content: React.ComponentType<{ scrollContainer: React.MutableRefObject<null | HTMLDivElement> }>
+    containerStyle?: React.CSSProperties
     mainContentStyle?: React.CSSProperties
-    mainContentRef?: React.MutableRefObject<HTMLDivElement | undefined>
-    routeId?: string
+    mainContentRef?: React.MutableRefObject<null | HTMLDivElement>
+    locationPath?: string
+    mainId?: string
 }
 
 export const Layout: React.ComponentType<LayoutProps> = (
     {
         Header,
         Drawer,
-        NotFound,
         Footer,
-        mainContentStyle = {},
+        Content,
+        mainContentStyle,
         mainContentRef,
-        routeId = 'content',
+        containerStyle,
+        locationPath,
+        mainId = 'main-content',
+        children,
     },
 ) => {
-    const ref = React.useRef<undefined | HTMLDivElement>(undefined)
-    const location = useLocation()
+    const ref = React.useRef<null | HTMLDivElement>(null)
     const classes = useStyles()
 
-    const loc = location.pathname
     React.useEffect(() => {
-        // @ts-ignore
-        if(ref.current && ref.current.scrollTo) {
-            // @ts-ignore
+        if(ref.current?.scrollTo) {
             ref.current.scrollTo(0, 0)
         }
         if(mainContentRef && ref) {
             mainContentRef.current = ref.current
         }
-    }, [loc, ref, mainContentRef])
+    }, [locationPath, ref, mainContentRef])
+
+    const mainStyles: React.CSSProperties = React.useMemo(() => ({
+        display: 'flex',
+        scrollBehavior: 'smooth',
+        flexDirection: 'column',
+        overflow: 'auto',
+        flexGrow: 1,
+        ...(mainContentStyle || {}),
+    }), [mainContentStyle])
 
     return <React.Fragment>
         <CssBaseline/>
         {Header ? <Header/> : null}
-        <div className={classes['@global']} style={{display: 'flex', overflow: 'auto', flexGrow: 1}}>
+        <div className={clsx(classes['@global'], classes.container)} style={containerStyle}>
             {Drawer ? <Drawer/> : null}
             <div
-                /* @ts-ignore */
-                ref={ref} id={'main-content'}
-                style={{
-                    display: 'flex',
-                    scrollBehavior: 'smooth',
-                    flexDirection: 'column',
-                    overflow: 'auto',
-                    flexGrow: 1,
-                    ...mainContentStyle,
-                }}
+                ref={ref} id={mainId}
+                style={mainStyles}
             >
-                <RouteCascade
-                    routeId={routeId}
-                    childProps={{scrollContainer: ref}}
-                    Fallback={NotFound}
-                />
+                <Content scrollContainer={ref}/>
             </div>
         </div>
         {Footer ? <Footer/> : null}
+        {children}
     </React.Fragment>
 }

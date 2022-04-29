@@ -1,6 +1,6 @@
 import * as Loadable from 'react-loadable'
-import { docsKit, docsDocs, docsHowTo, docsApp, docsLocales } from './content/docs'
-import { Route } from '@control-ui/app'
+import { docsKit, docsDocs, docsHowTo, docsApp, docsRoutes, docsMdMui } from './content/docs'
+import { Route } from '@control-ui/routes/Route'
 
 const createDocsTree = (scope: string, label: string, routes: any, loading: any): Route => ({
     path: '/' + scope + '/:docId+',
@@ -39,9 +39,10 @@ export const routes = (loading: any): Route => ({
             },
         },
         createDocsTree('how-to', 'How-Tos', docsHowTo(''), loading('Loading Docs')),
-        createDocsTree('app', 'Core: App', docsApp(''), loading('Loading Docs')),
-        createDocsTree('kit', 'Core: Kit', docsKit(''), loading('Loading Docs')),
-        createDocsTree('docs', 'Core: Docs', docsDocs(''), loading('Loading Docs')),
-        createDocsTree('locales', 'Locales', docsLocales(''), loading('Loading Docs')),
+        createDocsTree('app', '@control-ui/app', docsApp(''), loading('Loading Docs')),
+        createDocsTree('kit', '@control-ui/kit', docsKit(''), loading('Loading Docs')),
+        createDocsTree('docs', '@control-ui/docs', docsDocs(''), loading('Loading Docs')),
+        createDocsTree('routes', '@control-ui/routes', docsRoutes(''), loading('Loading Docs')),
+        createDocsTree('md-mui', '@control-ui/md-mui', docsMdMui(''), loading('Loading Docs')),
     ],
 })

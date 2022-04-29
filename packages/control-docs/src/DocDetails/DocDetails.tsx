@@ -2,9 +2,9 @@ import React from 'react'
 import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useContentLoader } from '@control-ui/docs/ContentLoader'
 import { HeadMeta, HeadMetaProps } from '@control-ui/kit/HeadMeta'
-import { PROCESS_SUCCESS } from '@control-ui/kit/Process'
-import { filterRoutes, useRouter } from '@control-ui/app/RouterProvider'
+import { useRouter } from '@control-ui/routes/RouterProvider'
 import { DocRoute } from '@control-ui/docs/DocsProvider'
+import { filterRoutes } from '@control-ui/routes/filterRoutes'
 
 // @ts-ignore
 const DocHandler = ({scrollContainer, id, activeDoc, match, hash, Content}) => {
@@ -15,7 +15,7 @@ const DocHandler = ({scrollContainer, id, activeDoc, match, hash, Content}) => {
         if(!scrollContainer.current) return
 
         const timer = window.setTimeout(() => {
-            if(hash && progress === PROCESS_SUCCESS) {
+            if(hash && progress === 'success') {
                 const target = scrollContainer.current.querySelector(hash)
                 if(target) {
                     target.scrollIntoView()

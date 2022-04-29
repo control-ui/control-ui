@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from '@control-ui/kit/Menu/NavList'
+import { Route } from '@control-ui/routes/Route'
 
 export interface DocRoute<C = any> extends Route<C> {
     doc: string
