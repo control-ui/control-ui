@@ -5,7 +5,7 @@ import NavProject from '../component/NavProject'
 import {HeadMeta} from '@control-ui/kit/HeadMeta'
 import {Logo} from '../asset/Logo'
 import {LinkButton} from '@control-ui/kit/Link/LinkButton'
-import {MdCode} from '@control-ui/md-mui/MdCode'
+import {MdCode} from '@control-ui/md/MdCode'
 import useTheme from '@mui/material/styles/useTheme'
 
 const H = ({level, ...p}) => <Typography component={'h' + level} variant={'h' + level} gutterBottom style={{marginTop: 36 / (level / 2)}} {...p}/>

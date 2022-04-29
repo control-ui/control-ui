@@ -1,7 +1,7 @@
 import React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 import Typography from '@mui/material/Typography'
-import { MdCodeProps } from '@control-ui/md-mui/MdCode'
+import { MdCodeProps } from '@control-ui/md/MdCode'
 
 // todo: fix invalid children for-non-markdown usage in `MdInlineCode`, `MdCode`
 

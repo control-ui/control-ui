@@ -1,13 +1,29 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
 import { LinkableHeadline } from '@control-ui/docs/LinkableHeadline'
-import { DocModule } from './DocGenModule'
-import { Alert, Link } from '@mui/material'
-import { DocsDetailsModule } from './DocsDetailsModule'
+import { Alert } from '@mui/material'
+import { TsDocModuleCollection } from '@control-ui/docs-ts/TsDocModule'
+import { TsDocsModuleRenderer, TsDocs } from '@control-ui/docs-ts/TsDocs'
+import { MdInlineCode } from '@control-ui/md/MdInlineCode'
+import { Markdown } from '../component/Markdown'
 
-export const DocsDetailsModules: React.ComponentType<{ modules: DocModule | undefined }> = ({modules}) => {
+const ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
+    id: string
+    level: number
+}>> = ({id, level, children}) => {
+    return <LinkableHeadline level={level} levelOffsetVariant={2} customId={id} mb={0} mt={0}>
+        {children}
+    </LinkableHeadline>
+}
+
+const renderer: TsDocsModuleRenderer = {
+    InlineCode: MdInlineCode,
+    Markdown: Markdown as React.ComponentType<{ source: string }>,
+    ModuleHeadline: ModuleHeadline,
+}
+
+export const DocsDetailsModules: React.ComponentType<{ modules: TsDocModuleCollection | undefined }> = ({modules}) => {
     const repoRoot = 'https://github.com/control-ui/control-ui/tree/main/packages/'
     return <>
         <LinkableHeadline level={1} customId={'module-apis'} mb={4} mt={0}>
@@ -21,37 +37,10 @@ export const DocsDetailsModules: React.ComponentType<{ modules: DocModule | unde
         </Box>
 
         {modules ?
-            <>
-                <Box mb={4}>
-                    <Typography variant={'body2'} gutterBottom>
-                        {'Package: '}
-                        <Link
-                            href={'https://www.npmjs.com/package/' + modules.package}
-                            target={'_blank'} rel={'noreferrer'}
-                        >
-                            {modules.package}
-                        </Link>
-                    </Typography>
-                    {/*<Typography variant={'body2'} gutterBottom>Rel Path: <MdInlineCode>{modules.relPath}</MdInlineCode></Typography>
-            <Typography variant={'body2'} gutterBottom>From Path: <MdInlineCode>{modules.fromPath}</MdInlineCode></Typography>*/}
-                    <Typography variant={'body2'} gutterBottom><MdInlineCode>@import * from {modules.package}/{modules.fromPath}</MdInlineCode></Typography>
-                    <Typography variant={'body2'} gutterBottom component={'div'}>
-                        Files:
-                        <ul style={{marginTop: 3, marginBottom: 0}}>
-                            {modules.files.map((f, i) =>
-                                <li key={i} style={{marginBottom: i < (modules.files?.length || 0) - 1 ? 3 : 0}}>
-                                    <Link
-                                        href={repoRoot + modules.relPath + f}
-                                        target={'_blank'} rel={'noreferrer'}
-                                    >
-                                        {f}
-                                    </Link>
-                                </li>,
-                            )}
-                        </ul>
-                    </Typography>
-                </Box>
-                {Object.keys(modules.docs).map(module => <DocsDetailsModule repoRoot={repoRoot} module={modules.docs[module]} id={module} key={module}/>)}
-            </> : null}
+            <TsDocs
+                modules={modules}
+                repoRoot={repoRoot}
+                renderer={renderer}
+            /> : null}
     </>
 }

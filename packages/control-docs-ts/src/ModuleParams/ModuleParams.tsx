@@ -1,38 +1,54 @@
 import React from 'react'
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Typography } from '@mui/material'
-import { Markdown } from '../component/Markdown'
-import { DocModuleExport } from './DocGenModule'
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import {
     isUnionProp, isTupleProp, PropKind,
-    PropType, isFunctionProp,
+    PropType, isFunctionProp, hasGenerics,
 } from '@structured-types/api'
-import { DocGenRendererUnion, DocGenRendererNameOrTypedValue, DocGenRendererFn, DocGenRendererGenerics } from './DocGenRenderer'
-import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
+import { TsDocsModuleRenderer } from '@control-ui/docs-ts/TsDocs'
+import { ModuleCodeFn, ModuleCodeGenerics, ModuleCodeNameOrTypedValue, ModuleCodeUnion } from '@control-ui/docs-ts/ModuleCode'
 
-export const DocGenParamsTable: React.ComponentType<{
-    module: DocModuleExport
-    definerList: PropType[]
+export interface ModuleParamsProps {
+    parent: PropType
+    params: PropType[]
     title?: string
     mt?: number
     mb?: number
-}> = ({module, mt, mb, definerList, title}) => {
+    renderer: TsDocsModuleRenderer
+}
+
+export const ModuleParams: React.ComponentType<ModuleParamsProps> = (
+    {
+        parent, mt, mb, params, title,
+        renderer,
+    },
+) => {
+    const {
+        InlineCode,
+        Markdown,
+    } = renderer
     return <Box
         mb={typeof mb === 'number' ? mb : 2} mt={typeof mt === 'number' ? mt : 0}
         style={{display: 'flex', flexDirection: 'column', overflow: 'auto'}}
     >
-        {title ? <Typography variant={'subtitle1'}>
-            {title}
-        </Typography> : null}
+        {title ? <Typography variant={'subtitle1'}>{title}</Typography> : null}
+
         <Table style={{overflow: 'auto'}}>
             <TableHead>
                 <TableRow>
-                    <TableCell size={'small'}>{isTupleProp(module) ? 'Type or Value' : isUnionProp(module) ? 'Value' : 'Name'}</TableCell>
+                    <TableCell size={'small'}>{isTupleProp(parent) ? 'Type or Value' : isUnionProp(parent) ? 'Value' : 'Name'}</TableCell>
                     <TableCell size={'small'}>Kind</TableCell>
                     <TableCell size={'small'}>Description</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                {definerList.filter(p => !p.name || !p.name.startsWith('aria-')).map((prop, i) =>
+                {params.filter(p => !p.name || !p.name.startsWith('aria-')).map((prop, i) =>
                     <TableRow key={i}>
                         <TableCell size={'small'}>
                             {prop.optional ? null :
@@ -42,26 +58,26 @@ export const DocGenParamsTable: React.ComponentType<{
                                         style={{width: 14, display: 'inline-block', marginLeft: -14}}
                                     ><small>R</small></Typography>
                                 </Tooltip>}
-                            <MdInlineCode>
-                                <DocGenRendererNameOrTypedValue prop={prop} parent={module}/>
-                            </MdInlineCode>
+                            <InlineCode>
+                                <ModuleCodeNameOrTypedValue prop={prop} parent={parent} renderer={renderer}/>
+                            </InlineCode>
                             {prop.parent ? <Typography style={{display: 'block', lineHeight: '1.25', opacity: 0.85}} variant={'caption'}>from: {prop.parent.name}</Typography> : null}
                         </TableCell>
                         <TableCell size={'small'}>
                             {prop.type || prop.kind ?
-                                <MdInlineCode>
+                                <InlineCode>
                                     {isFunctionProp(prop) ?
-                                        <DocGenRendererFn prop={prop}/> :
+                                        <ModuleCodeFn prop={prop} renderer={renderer}/> :
                                         isUnionProp(prop) ?
-                                            <DocGenRendererUnion props={prop.properties as PropType[]}/> :
+                                            <ModuleCodeUnion props={prop.properties as PropType[]}/> :
                                             prop.name && prop.type ?
                                                 <>
                                                     {prop.type}
-                                                    {// @ts-ignore
-                                                        prop.generics ? <DocGenRendererGenerics generics={prop.generics}/> : null}
+                                                    {hasGenerics(prop) && prop.generics ?
+                                                        <ModuleCodeGenerics generics={prop.generics}/> : null}
                                                 </> :
                                                 prop.kind ? PropKind[prop.kind] || prop.kind : prop.type}
-                                </MdInlineCode> : null}
+                                </InlineCode> : null}
                         </TableCell>
                         <TableCell size={'small'}>{prop.description ? <Markdown source={prop.description}/> : '-'}</TableCell>
                     </TableRow>,

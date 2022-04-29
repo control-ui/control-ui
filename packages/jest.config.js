@@ -1,4 +1,4 @@
-const packages = ['control-app', 'control-kit', 'control-docs']
+const packages = ['control-app', 'control-kit', 'control-docs', 'control-docs', 'control-md', 'control-routes']
 
 const testMatches = []
 const testMatchesLint = []

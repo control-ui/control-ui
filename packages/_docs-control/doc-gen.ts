@@ -82,19 +82,26 @@ const files: DocFileReactSource[] = [
     makeFile('control-ui', 'kit', 'control-kit', 'ScrollUpButton'),
     makeFile('control-ui', 'kit', 'control-kit', 'Tooltip'),
     //
-    makeFile('control-ui', 'routes', 'control-routes', 'filterRoutes'),
+    makeFile('control-ui', 'routes', 'control-routes', 'filterRoutes', ['filterRoutes.ts']),
     makeFile('control-ui', 'routes', 'control-routes', 'Route'),
     makeFile('control-ui', 'routes', 'control-routes', 'RouteCascade'),
     makeFile('control-ui', 'routes', 'control-routes', 'RouterProvider'),
     //
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MarkdownRenderers'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdBlockquote'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdCode'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdHeading'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdInlineCode'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdLink'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdList'),
-    makeFile('control-ui', 'md-mui', 'control-md-mui', 'MdTable'),
+    makeFile('control-ui', 'md', 'control-md', 'MarkdownRenderers'),
+    makeFile('control-ui', 'md', 'control-md', 'MdBlockquote'),
+    makeFile('control-ui', 'md', 'control-md', 'MdCode'),
+    makeFile('control-ui', 'md', 'control-md', 'MdHeading'),
+    makeFile('control-ui', 'md', 'control-md', 'MdInlineCode'),
+    makeFile('control-ui', 'md', 'control-md', 'MdLink'),
+    makeFile('control-ui', 'md', 'control-md', 'MdList'),
+    makeFile('control-ui', 'md', 'control-md', 'MdTable'),
+    //
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleCode'),
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleIntro'),
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleParams'),
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocModule', ['TsDocModule.ts']),
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocs'),
+    makeFile('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocsModule'),
 ]
 
 const makeIndexStore = () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer'
 import { Theme } from '@mui/material/styles'
-import { makeStyles } from '@mui/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import { useDrawer } from '../DrawerProvider'
 
 const useStyles = makeStyles<Theme>(theme => ({
@@ -18,7 +18,8 @@ const useStyles = makeStyles<Theme>(theme => ({
         },
     },
     drawerPaper: {
-        position: 'relative',
+        // todo: check why position is overwritten when using `useStyles` also in `AppLoader`
+        position: 'relative !important' as 'relative',
         whiteSpace: 'nowrap',
         width: ({drawerWidth = 170}: { drawerWidth?: number }) => drawerWidth,
         transition: theme.transitions.create('width', {

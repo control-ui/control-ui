@@ -51,6 +51,7 @@ const DocContent = ({content, doc, id, progress}) => {
                                 <Markdown source={content}/>
                             </React.Fragment>}
                 </Paper>
+
                 {doc.docModule ?
                     <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column'}} elevation={4}>
                         <DocsDetailsModules modules={modules}/>

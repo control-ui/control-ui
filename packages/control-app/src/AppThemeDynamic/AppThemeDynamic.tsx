@@ -4,7 +4,7 @@ import { ThemeSettings } from '@control-ui/app/AppTheme'
 
 export type setThemes = (themes: ThemeSettings | ((themes: ThemeSettings) => ThemeSettings)) => void
 
-export const AppThemeDynamicContext = React.createContext<setThemes>(() => null)
+export const AppThemeDynamicContext: React.Context<setThemes> = React.createContext<setThemes>(() => null)
 
 export const useAppThemeDynamic = (): setThemes => React.useContext(AppThemeDynamicContext)
 

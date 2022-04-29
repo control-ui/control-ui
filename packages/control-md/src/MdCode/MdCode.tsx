@@ -7,7 +7,7 @@ export interface MdCodeProps extends Omit<CodeProps, 'children' | 'node'> {
     variant?: TypographyProps['variant']
     language?: string
     fontFamily?: string
-    children: React.ReactNode | React.ReactNode[]
+    children?: React.ReactNode | React.ReactNode[]
 }
 
 export const MdCode: React.ComponentType<MdCodeProps> = (

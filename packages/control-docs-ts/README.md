@@ -2,11 +2,11 @@
   <a href="https://control-ui.bemit.codes" rel="noopener noreferrer" target="_blank"><img width="125" src="https://control-ui.bemit.codes/logo.svg" alt="Control-UI Logo"></a>
 </p>
 
-<h1 align="center">Control-UI Markdown MUI</h1>
+<h1 align="center">Control-UI Docs TS</h1>
 
-Binding of [MUI](https://mui.org) components for [react-markdown](https://github.com/remarkjs/react-markdown).
+ReactJS MUI renderers and helpers, for documentation based on generated TSdoc data.
 
-    npm i --save @control-ui/md-mui @control-ui/kit
+    npm i --save @control-ui/docs-ts @structured-types/api
 
 ## License
 

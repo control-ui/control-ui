@@ -130,6 +130,34 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/overview</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleCode</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleIntro</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleParams</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocModule</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocs</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocsModule</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
         <loc>https://control-ui.bemit.codes/routes/overview</loc>
         <changefreq>weekly</changefreq>
     </url>
@@ -150,39 +178,39 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/overview</loc>
+        <loc>https://control-ui.bemit.codes/md/overview</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MarkdownRenderers</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MarkdownRenderers</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdBlockquote</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdBlockquote</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdCode</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdCode</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdHeading</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdHeading</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdInlineCode</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdInlineCode</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdLink</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdLink</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdList</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdList</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/md-mui/components/MdTable</loc>
+        <loc>https://control-ui.bemit.codes/md/components/MdTable</loc>
         <changefreq>weekly</changefreq>
     </url>
 </urlset>

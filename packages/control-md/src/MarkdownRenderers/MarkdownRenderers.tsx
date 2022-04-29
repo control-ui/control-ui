@@ -1,16 +1,16 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
-import { MdList } from '@control-ui/md-mui/MdList'
-import { MdInlineCode } from '@control-ui/md-mui/MdInlineCode'
-import { MdBlockquote } from '@control-ui/md-mui/MdBlockquote'
-import { MdCode } from '@control-ui/md-mui/MdCode'
-import { MdLink } from '@control-ui/md-mui/MdLink'
+import { MdList } from '@control-ui/md/MdList'
+import { MdInlineCode } from '@control-ui/md/MdInlineCode'
+import { MdBlockquote } from '@control-ui/md/MdBlockquote'
+import { MdCode } from '@control-ui/md/MdCode'
+import { MdLink } from '@control-ui/md/MdLink'
 import {
     MdTable, MdTableHead, MdTableBody,
     MdTableRow, MdTableCell,
-} from '@control-ui/md-mui/MdTable'
-import { MdHeading } from '@control-ui/md-mui/MdHeading'
+} from '@control-ui/md/MdTable'
+import { MdHeading } from '@control-ui/md/MdHeading'
 import { Components } from 'react-markdown'
 
 /**
@@ -44,7 +44,7 @@ export const renderersBasic = (dense?: boolean): Components => ({
 
 /**
  * All renderers for basic HTML support
- * @see https://github.com/rexxars/react-markdown#node-types
+ * @see [remarkjs/react-markdown#node-types](https://github.com/remarkjs/react-markdown#node-types)
  */
 export const renderers = (dense?: boolean): Components => ({
     ...renderersBasic(dense),

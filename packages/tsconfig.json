@@ -31,6 +31,12 @@
             "@control-ui/docs/*": [
                 "control-docs/src/*"
             ],
+            "@control-ui/docs-ts": [
+                "control-docs-ts/src"
+            ],
+            "@control-ui/docs-ts/*": [
+                "control-docs-ts/src/*"
+            ],
             "@control-ui/app": [
                 "control-app/src"
             ],
@@ -43,17 +49,17 @@
             "@control-ui/routes/*": [
                 "control-routes/src/*"
             ],
-            "@control-ui/md-mui": [
-                "control-md-mui/src"
+            "@control-ui/md": [
+                "control-md/src"
             ],
-            "@control-ui/md-mui/*": [
-                "control-md-mui/src/*"
-            ],
+            "@control-ui/md/*": [
+                "control-md/src/*"
+            ]
         }
     },
-//    "include": [
-//        "**/*"
-//    ],
+    //    "include": [
+    //        "**/*"
+    //    ],
     "exclude": [
         "**/build/",
         "**/*.d.ts"

@@ -1,6 +1,6 @@
 import React from 'react'
 import CuiMarkdown from 'react-markdown'
-import { renderers } from '@control-ui/md-mui/MarkdownRenderers'
+import { renderers } from '@control-ui/md/MarkdownRenderers'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import { LinkableHeadline } from '@control-ui/docs/LinkableHeadline'

@@ -34,6 +34,11 @@ packer({
             root: path.resolve(__dirname, 'packages', 'control-docs'),
             entry: path.resolve(__dirname, 'packages', 'control-docs/src/'),
         },
+        controlDocsTs: {
+            name: '@control-ui/docs-ts',
+            root: path.resolve(__dirname, 'packages', 'control-docs-ts'),
+            entry: path.resolve(__dirname, 'packages', 'control-docs-ts/src/'),
+        },
         controlKit: {
             name: '@control-ui/kit',
             root: path.resolve(__dirname, 'packages', 'control-kit'),
@@ -45,9 +50,9 @@ packer({
             entry: path.resolve(__dirname, 'packages', 'control-routes/src/'),
         },
         controlMdMui: {
-            name: '@control-ui/md-mui',
-            root: path.resolve(__dirname, 'packages', 'control-md-mui'),
-            entry: path.resolve(__dirname, 'packages', 'control-md-mui/src/'),
+            name: '@control-ui/md',
+            root: path.resolve(__dirname, 'packages', 'control-md'),
+            entry: path.resolve(__dirname, 'packages', 'control-md/src/'),
         },
     },
 }, __dirname)

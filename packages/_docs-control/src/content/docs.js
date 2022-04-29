@@ -66,6 +66,19 @@ export const docsDocs = (prefix = '') => [
     ], prefix),
 ]
 
+const compDocsTs = compCreator('docs-ts/components')
+export const docsDocsTs = (prefix = '') => [
+    createDoc('docs-ts/overview', 'Docs TS Overview', undefined, prefix),
+    createDoc('docs-ts/components', 'Components', [
+        compDocsTs('ModuleCode', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'ModuleCode'}),
+        compDocsTs('ModuleIntro', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'ModuleIntro'}),
+        compDocsTs('ModuleParams', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'ModuleParams'}),
+        compDocsTs('TsDocModule', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'TsDocModule'}),
+        compDocsTs('TsDocs', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'TsDocs'}),
+        compDocsTs('TsDocsModule', undefined, undefined, {package: '@control-ui/docs-ts', fromPath: 'TsDocsModule'}),
+    ], prefix),
+]
+
 const compRoutes = compCreator('routes/components')
 export const docsRoutes = (prefix = '') => [
     createDoc('routes/overview', 'Routes Overview', undefined, prefix),
@@ -77,18 +90,18 @@ export const docsRoutes = (prefix = '') => [
     ], prefix),
 ]
 
-const compMdMui = compCreator('md-mui/components')
+const compMdMui = compCreator('md/components')
 export const docsMdMui = (prefix = '') => [
-    createDoc('md-mui/overview', 'Markdown MUI Overview', undefined, prefix),
-    createDoc('md-mui/components', 'Components', [
-        compMdMui('MarkdownRenderers', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MarkdownRenderers'}),
-        compMdMui('MdBlockquote', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdBlockquote'}),
-        compMdMui('MdCode', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdCode'}),
-        compMdMui('MdHeading', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdHeading'}),
-        compMdMui('MdInlineCode', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdInlineCode'}),
-        compMdMui('MdLink', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdLink'}),
-        compMdMui('MdList', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdList'}),
-        compMdMui('MdTable', undefined, undefined, {package: '@control-ui/md-mui', fromPath: 'MdTable'}),
+    createDoc('md/overview', 'Markdown MUI Overview', undefined, prefix),
+    createDoc('md/components', 'Components', [
+        compMdMui('MarkdownRenderers', undefined, undefined, {package: '@control-ui/md', fromPath: 'MarkdownRenderers'}),
+        compMdMui('MdBlockquote', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdBlockquote'}),
+        compMdMui('MdCode', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdCode'}),
+        compMdMui('MdHeading', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdHeading'}),
+        compMdMui('MdInlineCode', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdInlineCode'}),
+        compMdMui('MdLink', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdLink'}),
+        compMdMui('MdList', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdList'}),
+        compMdMui('MdTable', undefined, undefined, {package: '@control-ui/md', fromPath: 'MdTable'}),
     ], prefix),
 ]
 
