@@ -14,9 +14,9 @@ import Nav from './Nav'
 import { Logo } from '../asset/Logo'
 import { LoadingCircular } from '@control-ui/kit/Loading'
 import { Layout, LayoutProps } from '@control-ui/app/Layout'
-import { useSearch } from './SearchProvider'
 import { SearchBox } from './SearchBox'
 import { RouteCascade } from '@control-ui/routes/RouteCascade'
+import { useSearch } from '@control-ui/docs/DocsSearchProvider'
 
 export const CustomHeaderBase: React.ComponentType = () => {
     const {switchTheme} = useSwitchTheme()

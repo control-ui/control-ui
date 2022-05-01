@@ -17,7 +17,6 @@ import { ModuleCodeFn, ModuleCodeGenerics, ModuleCodeNameOrTypedValue, ModuleCod
 export interface ModuleParamsProps {
     parent: PropType
     params: PropType[]
-    title?: string
     mt?: number
     mb?: number
     renderer: TsDocsModuleRenderer
@@ -25,7 +24,7 @@ export interface ModuleParamsProps {
 
 export const ModuleParams: React.ComponentType<ModuleParamsProps> = (
     {
-        parent, mt, mb, params, title,
+        parent, mt, mb, params,
         renderer,
     },
 ) => {
@@ -37,8 +36,6 @@ export const ModuleParams: React.ComponentType<ModuleParamsProps> = (
         mb={typeof mb === 'number' ? mb : 2} mt={typeof mt === 'number' ? mt : 0}
         style={{display: 'flex', flexDirection: 'column', overflow: 'auto'}}
     >
-        {title ? <Typography variant={'subtitle1'}>{title}</Typography> : null}
-
         <Table style={{overflow: 'auto'}}>
             <TableHead>
                 <TableRow>

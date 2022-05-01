@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Collapse } from '@mui/material'
+import { Button, Collapse, Typography } from '@mui/material'
 import { LinkList, ListItemLink } from '@control-ui/kit/List/LinkList'
 import { useHeadlines } from '@control-ui/docs/LinkableHeadline'
 
@@ -15,6 +15,7 @@ export interface LinkableHeadlineMenuProps {
     disablePadding?: boolean
     dense?: boolean
     btnVariant?: 'text' | 'outlined' | 'contained'
+    bindKey?: string
 }
 
 export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps> = (
@@ -30,10 +31,30 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
         disablePadding = false,
         dense = false,
         btnVariant,
+        bindKey,
     },
 ) => {
+    const btnRef = React.useRef<null | HTMLButtonElement>(null)
     const [open, setOpen] = React.useState(initial)
     const [headlines] = useHeadlines()
+
+    React.useEffect(() => {
+        if(typeof bindKey === 'undefined') return
+        const onMenuOpen = (e: KeyboardEvent) => {
+            if(e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey.toLowerCase()) {
+                e.preventDefault()
+                setOpen(o => {
+                    const n = !o
+                    if(n && btnRef.current) {
+                        btnRef.current?.focus()
+                    }
+                    return n
+                })
+            }
+        }
+        document.addEventListener('keydown', onMenuOpen)
+        return () => document.removeEventListener('keydown', onMenuOpen)
+    }, [bindKey, setOpen, btnRef])
 
     return <LinkList label={title} style={linkListStyle} dense disablePadding={disablePadding}>
         <Button
@@ -42,8 +63,16 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
             style={titleStyle}
             startIcon={startIcon}
             variant={btnVariant}
-        >{open ? 'Hide' : 'Show'} {title}</Button>
-
+            ref={btnRef}
+        >
+            <span style={{marginRight: 'auto'}}>{open ? 'Hide' : 'Show'} {title}</span>
+            {typeof bindKey === 'string' ?
+                <Collapse in={!open} timeout="auto" unmountOnExit>
+                    <Typography variant={'caption'} style={{position: 'relative', zIndex: 2, textTransform: 'none', padding: '0 4px', display: 'block'}} align={'right'}>
+                        CMD + {bindKey.toUpperCase()}
+                    </Typography>
+                </Collapse> : null}
+        </Button>
         <Collapse in={open} timeout="auto" unmountOnExit>
             {headlines.map(headline => (
                 <ListItemLink

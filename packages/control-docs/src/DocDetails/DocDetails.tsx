@@ -40,7 +40,7 @@ export interface DocDetailsProps {
     title: (doc: DocRoute | undefined) => string
     description?: (doc: DocRoute | undefined) => string
     headProps?: Omit<HeadMetaProps, 'title' | 'description'>
-    scrollContainer: any
+    scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     scope: string
     Content: React.ComponentType
     NotFound: React.ComponentType
@@ -60,7 +60,11 @@ export const DocDetails: React.ComponentType<DocDetailsProps> = (
     const match = useRouteMatch<{ [k: string]: string }>()
     const location = useLocation()
     const docId = scope + match.params[matchDocKey]
-    const activeDoc = docId ? findDoc(routes as DocRoute, docId)[0] : undefined
+    const activeDoc = React.useMemo(
+        () =>
+            docId ? findDoc(routes as DocRoute, docId)[0] : undefined,
+        [docId, routes],
+    )
 
     return <React.Fragment>
         <HeadMeta

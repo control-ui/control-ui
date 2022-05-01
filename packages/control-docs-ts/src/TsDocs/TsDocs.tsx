@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import { TsDocModuleCollection } from '@control-ui/docs-ts/TsDocModule'
-import { TsDocsModule } from '@control-ui/docs-ts/TsDocsModule'
+import { TsDocsModule, TsDocsModuleProps } from '@control-ui/docs-ts/TsDocsModule'
 import { ModuleIntro } from '@control-ui/docs-ts/ModuleIntro'
 
 export type TsDocsModuleRenderer = {
@@ -12,10 +12,11 @@ export type TsDocsModuleRenderer = {
     }>>
     Markdown: React.ComponentType<{
         source: string
+        dense?: boolean
     }>
 }
 
-export interface DocsTsModulesProps {
+export interface DocsTsModulesProps extends Omit<TsDocsModuleProps, 'id' | 'module'> {
     modules: TsDocModuleCollection
     repoRoot: string
     registryRoot?: string
@@ -28,6 +29,7 @@ export const TsDocs: React.ComponentType<DocsTsModulesProps> = (
         repoRoot,
         registryRoot = 'https://www.npmjs.com/package/',
         renderer,
+        ...p
     },
 ) => {
     return <>
@@ -47,6 +49,7 @@ export const TsDocs: React.ComponentType<DocsTsModulesProps> = (
                 repoRoot={repoRoot}
                 module={modules.docs[module]}
                 renderer={renderer}
+                {...p}
             />,
         )}
     </>

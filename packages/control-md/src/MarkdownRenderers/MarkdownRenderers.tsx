@@ -29,7 +29,7 @@ export const renderersTable = (dense?: boolean): Components => ({
  * Renderers for the basic HTML text-elements
  */
 export const renderersBasic = (dense?: boolean): Components => ({
-    p: p => <Typography {...p} component={'p'} variant={'body1'} gutterBottom/>,
+    p: p => <Typography {...p} component={'p'} variant={dense ? 'body2' : 'body1'} gutterBottom/>,
     hr: p => <Divider {...p}/>,
     h1: MdHeading,
     h2: MdHeading,
@@ -39,7 +39,7 @@ export const renderersBasic = (dense?: boolean): Components => ({
     h6: MdHeading,
     ul: p => <MdList {...p} dense={dense}/>,
     ol: p => <MdList {...p} dense={dense}/>,
-    li: p => <Typography component={'li'} variant={'body1'} style={{fontWeight: 'bold'}}><span style={{fontWeight: 'normal', display: 'block'}}>{p.children}</span></Typography>,
+    li: p => <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold'}}><span style={{fontWeight: 'normal', display: 'block'}}>{p.children}</span></Typography>,
 })
 
 /**

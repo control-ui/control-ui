@@ -2,7 +2,7 @@
 
 Component to render Markdown using Material UI.
 
-## Examples of Docs
+## Examples of Markdown
 
 > [see Markdown-Cheatsheet of adam-p](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), the following are most of the examples there
 
@@ -86,6 +86,10 @@ print s
 No language indicated, so no syntax highlighting. 
 But let's throw in a <b>tag</b>.
 ```
+
+      some code with indention
+   
+      last code line with indention
 
 Colons can be used to align columns.
 

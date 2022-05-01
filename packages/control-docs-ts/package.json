@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/docs-ts",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
         }
     ],
     "scripts": {
-        "dtsgen": "tsc -d --emitDeclarationOnly --pretty"
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-docs && merge-dirs build/control-docs-ts/src build && rm -rf build/control-docs-ts"
     },
     "main": "index.js",
     "module": "esm/index.js",
@@ -26,8 +26,6 @@
         "@mui/material": "^5.6.2",
         "@mui/styles": "^5.6.2",
         "@mui/icons-material": "^5.6.2",
-        "@emotion/react": "^11.9.0",
-        "@emotion/styled": "^11.8.1",
         "react": "^17.0",
         "react-dom": "^17.0"
     },
@@ -41,6 +39,5 @@
     },
     "publishConfig": {
         "access": "public"
-    },
-    "gitHead": "096425ddfb8fedd48fd77895f3d7e0fe4fcb21c4"
+    }
 }

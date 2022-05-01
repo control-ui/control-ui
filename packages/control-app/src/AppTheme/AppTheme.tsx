@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { DefaultTheme } from '@mui/styles/defaultTheme'
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 export interface ThemeDark {
     id: 'dark'
@@ -96,8 +96,10 @@ export const AppTheme = (
     }, [setTheme, themes])
 
     return <ThemeSwitchContext.Provider value={{theme, themes, switchTheme}}>
-        <MuiThemeProvider theme={themes && themes[theme] ? themes[theme] : {}}>
-            {children}
-        </MuiThemeProvider>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={themes && themes[theme] ? themes[theme] : {}}>
+                {children}
+            </ThemeProvider>
+        </StyledEngineProvider>
     </ThemeSwitchContext.Provider>
 }

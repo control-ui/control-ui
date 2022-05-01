@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSearch, useSearchHistory, useSearchIndex } from './SearchProvider'
 import IcSearch from '@mui/icons-material/Search'
-import IcClear from '@mui/icons-material/Clear'
 import IcDelete from '@mui/icons-material/Delete'
+import IcPage from '@mui/icons-material/Article'
+import IcTag from '@mui/icons-material/Tag'
 import Dialog from '@mui/material/Dialog'
 import Collapse from '@mui/material/Collapse'
 import Box from '@mui/material/Box'
@@ -10,7 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import { DocRoute } from '@control-ui/docs'
 import Paper from '@mui/material/Paper'
 import FuseJs from 'fuse.js'
 import Highlighter from 'react-highlight-words'
@@ -20,123 +19,115 @@ import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { Button } from '@mui/material'
-import { Route } from '@control-ui/routes/Route'
 import { useRouter } from '@control-ui/routes/RouterProvider'
-import { filterRoutes } from '@control-ui/routes/filterRoutes'
+import { useSearch, useSearchHistory } from '@control-ui/docs/DocsSearchProvider'
+import { useDocsIndex } from '@control-ui/docs/DocsIndexProvider'
+import { DocsIndexValueModules, DocsIndexValuePackages, DocsIndexValuePages, DocsIndexValuesCombiner } from '@control-ui/docs/createDocsIndex'
+import { MatchMakerType, useSearchMatching } from '@control-ui/docs'
+import useTheme from '@mui/material/styles/useTheme'
 
-export interface DocModuleRoute<C = any> extends DocRoute<C> {
-    docModule?: { package: string, module: string, fromPath: string }
-}
-
-
-function flattenRoutes<R extends Route = Route, F = any>(
-    route: R,
-    filter: (route: R) => boolean,
-    flatter: (route: R, parent: F | undefined, parentRoute: R | undefined) => F,
-    parent?: F,
-    parentRoute?: R,
-    found: F[] = [],
-): F[] {
-    const flat = flatter(route, parent, parentRoute)
-    if(filter(route)) {
-        found.push(flat)
-    }
-
-    if(route.routes) {
-        route.routes.forEach(r =>
-            flattenRoutes<R>(r as R, filter, flatter, flat, route, found))
-    }
-
-    return found
+export type CustomDocsIndexModules = DocsIndexValuesCombiner<DocsIndexValueModules & DocsIndexValuePackages>
+export type CustomDocsIndex = {
+    modules: CustomDocsIndexModules
+    pages: DocsIndexValuesCombiner<DocsIndexValuePages>
 }
 
 const pid = {current: 0}
 
+const matchMaker: MatchMakerType<CustomDocsIndex> = {
+    modules: {
+        factory: (moduleIndex) =>
+            new FuseJs(moduleIndex.modules, {
+                includeScore: true,
+                includeMatches: true,
+                threshold: 0.29,
+                keys: ['module'],
+            }),
+    },
+    pages: {
+        factory: (data) =>
+            new FuseJs(data.pages, {
+                includeScore: true,
+                includeMatches: true,
+                threshold: 0.29,
+                keys: [
+                    'label',
+                    'headings.headline',
+                ],
+            }),
+    },
+}
+
 export const SearchBox: React.ComponentType = () => {
     const {open, setOpen} = useSearch()
+    const {palette} = useTheme()
     const [searchTerm, setSearchTerm] = React.useState('')
-    const index = useSearchIndex()
+    const searchRef = React.useRef<null | HTMLElement>(null)
+    const {index} = useDocsIndex<CustomDocsIndex>()
     const {routes} = useRouter()
-    const {history, addTerm, clearHistory} = useSearchHistory()
+    const {history, addTerm, clearHistory, bindKey} = useSearchHistory()
+    const searchFns = useSearchMatching<CustomDocsIndex>(index, matchMaker)
 
-    const fuseRoutes = React.useMemo(() => {
-        if(!routes.routes) return undefined
-        const flatRoutes = flattenRoutes(
-            routes,
-            (r) => !r.routes,
-            (r, parent) => ({
-                route: r.nav?.to,
-                label: r.nav?.label,
-                parentLabel: parent && parent.label ? [...parent.parentLabel, parent.label] : [],
-            }),
-        )
-        return new FuseJs(flatRoutes, {
-            includeScore: true,
-            includeMatches: true,
-            threshold: 0.29,
-            keys: ['label'],
-        })
-    }, [routes])
+    React.useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if(e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey?.toLowerCase()) {
+                searchRef.current?.focus()
+            }
+        }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [bindKey, searchRef])
 
-    const fuse = React.useMemo(() => {
-        if(!index.index) return undefined
-        return new FuseJs(index.index.modules, {
-            includeScore: true,
-            includeMatches: true,
-            threshold: 0.29,
-            keys: ['module'],
-        })
-    }, [index.index])
-
-    const [matches, setMatches] = React.useState<undefined | {
-        modules: any[]
-        pages: any[]
+    const [searchResult, setSearchResult] = React.useState<undefined | {
+        matches: { [k: string]: any[] }
         term: string
-        matches: number
+        found: number
     }>(undefined)
 
     React.useEffect(() => {
         if(open) return
         setSearchTerm('')
     }, [setSearchTerm, open])
+
     React.useEffect(() => {
         const ppid = pid.current = pid.current + 1
-        if(
-            !index.index || !fuse || !fuseRoutes ||
-            searchTerm.trim().length < 3
-        ) {
-            setMatches(undefined)
+        if(searchTerm.trim().length < 3) {
+            setSearchResult(undefined)
             return
         }
-        const found = fuse.search<{ fromPath: string, package: string }>(searchTerm)
-            .map(m => ({
-                ...m.item,
-                route:
-                filterRoutes<DocModuleRoute>(routes as DocModuleRoute,
-                    (route) => {
-                        if(!route.docModule) return false
-                        return route.docModule &&
-                            route.docModule.package === m.item.package && route.docModule.fromPath === m.item.fromPath
-                    })?.[0]?.nav?.to,
-                score: m.score,
-            }))
-            .filter(m => m.route)
 
-        const foundRoutes = fuseRoutes.search<{ fromPath: string, package: string }>(searchTerm)
-            .map(m => ({
-                ...m.item,
-                score: m.score,
-            }))
+        const result = searchFns.reduce((tmpResult, {matcher, id}) => {
+            const matched =
+                matcher.search(searchTerm)
+                    .map(m => ({
+                        ...m.item,
+                        matchKeys: m.matches.map((m: { key: string, refIndex: number }) => ({
+                            key: m.key,
+                            index: m.refIndex,
+                        })),
+                        // matches: m.matches,
+                        score: m.score,
+                    }))
+                    .filter(m => m.pagePath)
+            return {
+                matches: {
+                    ...tmpResult.matches,
+                    [id]: matched,
+                },
+                found: tmpResult.found + matched.length,
+            }
+        }, {matches: {}, found: 0} as {
+            matches: { [k: string]: any[] }
+            found: number
+        })
 
         if(ppid === pid.current) {
-            setMatches({
-                modules: found,
-                pages: foundRoutes,
+            setSearchResult({
+                ...result,
                 term: searchTerm.trim(),
-                matches: found.length + foundRoutes.length,
             })
         }
-    }, [index, searchTerm, routes, fuse, fuseRoutes])
+    }, [searchTerm, routes, searchFns])
 
     return <Dialog
         open={open} onClose={() => setOpen(false)}
@@ -155,6 +146,7 @@ export const SearchBox: React.ComponentType = () => {
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 autoFocus
+                inputRef={searchRef}
                 InputProps={{
                     style: {borderRadius: 5},
                     startAdornment: (
@@ -165,10 +157,10 @@ export const SearchBox: React.ComponentType = () => {
                 }}
                 onBlur={() => {
                     if(
-                        matches?.term === searchTerm &&
-                        matches?.matches > 0
+                        searchResult?.term === searchTerm &&
+                        searchResult?.found > 0
                     ) {
-                        addTerm(matches.term)
+                        addTerm(searchResult.term)
                     }
                 }}
             />
@@ -181,7 +173,7 @@ export const SearchBox: React.ComponentType = () => {
                 onClick={() => setOpen(false)}
                 variant={'contained'}
             >
-                <IcClear/>
+                <strong><small>ESC</small></strong>
             </Button>
         </Paper>
 
@@ -191,29 +183,32 @@ export const SearchBox: React.ComponentType = () => {
         </Box>
 
         <Collapse
-            in={Boolean(matches)} timeout="auto" unmountOnExit
+            in={Boolean(searchResult)} timeout="auto" unmountOnExit
             style={{overflow: 'auto', marginTop: 6}}
         >
             <Paper>
                 <Box p={2}>
                     <Typography variant={'subtitle1'}>Pages</Typography>
-                    <Typography variant={'caption'} gutterBottom>{matches?.pages.length} matches</Typography>
-                    {matches?.pages.map((match, i) => <Box key={i} mb={1}>
+                    <Typography variant={'caption'} gutterBottom>{searchResult?.matches.pages?.length} matches</Typography>
+                    {searchResult?.matches.pages?.map((match, i) => <Box key={i} mb={1}>
                         <Link
-                            to={match.route}
+                            to={match.pagePath}
                             onClick={() => setOpen(false)}
                             style={{textDecoration: 'none'}}
                         >
                             <Paper variant={'outlined'} style={{borderRadius: 5}}>
                                 <Box p={1}>
-                                    <Typography>
-                                        <Highlighter
-                                            searchWords={matches?.term.split(' ')}
-                                            textToHighlight={match.label}
-                                            highlightTag={Highlight}
-                                            autoEscape
-                                        />
-                                    </Typography>
+                                    <Box style={{display: 'flex', alignItems: 'center'}}>
+                                        <IcPage/>
+                                        <Typography style={{marginLeft: 12}}>
+                                            <Highlighter
+                                                searchWords={searchResult?.term.split(' ')}
+                                                textToHighlight={match.label}
+                                                highlightTag={Highlight}
+                                                autoEscape
+                                            />
+                                        </Typography>
+                                    </Box>
                                     <Box style={{display: 'flex'}}>
                                         {match.parentLabel ? <Typography variant={'body2'}>{match.parentLabel.join(' > ')}</Typography> : null}
                                         <Typography variant={'caption'} style={{marginLeft: 'auto', opacity: 0.6}}>Score: {match.score.toFixed(2)}</Typography>
@@ -221,14 +216,37 @@ export const SearchBox: React.ComponentType = () => {
                                 </Box>
                             </Paper>
                         </Link>
+
+                        {match.matchKeys?.filter((mk: any) => mk.key === 'headings.headline').map((mk: any) =>
+                            // todo: the headlines should be sorted by their level, not scoring / not random
+                            match.headings[mk.index].headline === match.label ? null :
+                                <Box key={mk.index} py={1} style={{borderLeft: '1px solid ' + palette.divider}}>
+                                    <Box key={mk.index} ml={1} py={1}>
+                                        <Link
+                                            to={match.pagePath + '#' + match.headings[mk.index].fragment}
+                                            onClick={() => setOpen(false)}
+                                            style={{textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center'}}
+                                        >
+                                            <IcTag/>
+                                            <Typography variant={'body2'} style={{marginLeft: 12}}>
+                                                <Highlighter
+                                                    searchWords={searchResult?.term.split(' ')}
+                                                    textToHighlight={match.headings[mk.index].headline}
+                                                    highlightTag={Highlight}
+                                                    autoEscape
+                                                />
+                                            </Typography>
+                                        </Link>
+                                    </Box>
+                                </Box>)}
                     </Box>)}
 
                     <Typography variant={'subtitle1'}>Module APIs</Typography>
-                    <Typography variant={'caption'} gutterBottom>{matches?.modules.length} matches</Typography>
-                    {matches?.modules.map((match, i) =>
+                    <Typography variant={'caption'} gutterBottom>{searchResult?.matches.modules?.length} matches</Typography>
+                    {searchResult?.matches.modules?.map((match, i) =>
                         <Box mb={1} key={i}>
                             <Link
-                                to={match.route + '#doc-module--' + match.module}
+                                to={match.pagePath + '#doc-module--' + match.module}
                                 onClick={() => {
                                     setOpen(false)
                                 }}
@@ -238,7 +256,7 @@ export const SearchBox: React.ComponentType = () => {
                                     <Box p={1}>
                                         <Typography>
                                             <Highlighter
-                                                searchWords={matches?.term.split(' ')}
+                                                searchWords={searchResult?.term.split(' ')}
                                                 textToHighlight={match.module}
                                                 autoEscape
                                                 highlightTag={Highlight}
@@ -257,7 +275,7 @@ export const SearchBox: React.ComponentType = () => {
         </Collapse>
 
         <Collapse
-            in={history.length > 0 && !matches} timeout="auto" unmountOnExit
+            in={history.length > 0 && !searchResult} timeout="auto" unmountOnExit
             style={{overflow: 'auto', marginTop: 6}}
         >
             <Paper>

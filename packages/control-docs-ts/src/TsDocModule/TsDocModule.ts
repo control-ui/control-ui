@@ -1,4 +1,5 @@
 import { PropType } from '@structured-types/api'
+import { SourceLocation } from '@structured-types/api/dist/types'
 
 export interface TsDocModuleCollection {
     package: string
@@ -10,7 +11,6 @@ export interface TsDocModuleCollection {
 
 /**
  * @see [structured-types PropType](https://github.com/ccontrols/structured-types/blob/master/packages/api/README.md#proptype)
- * @internal only for internal usage
  */
 export interface TsDocModuleDefinition extends PropType {
     name: string
@@ -25,4 +25,27 @@ export interface TsDocModuleDefinition extends PropType {
     properties?: PropType[]
     parameters?: PropType[]
     returns?: PropType
+}
+
+
+export interface TsDocModule {
+    // pagePath: string
+    relPath: string
+    package: string
+    fromPath: string
+    files: string[]
+}
+
+export interface TsDocModuleFileSource extends TsDocModule {
+    pagePath: string
+}
+
+export interface PropTypeWithLoc extends PropType {
+    loc: SourceLocation
+}
+
+export interface TsDocModuleFileParsed extends TsDocModuleFileSource {
+    docs: {
+        [moduleId: string]: PropTypeWithLoc
+    }
 }

@@ -3,7 +3,8 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import IcWarn from '@mui/icons-material/Warning'
-import { Chip, Link, Tooltip } from '@mui/material'
+import Chip from '@mui/material/Chip'
+import Link from '@mui/material/Link'
 import { InterfaceProp, isClassProp, isInterfaceProp, isTupleProp, isTypeProp, isUnionProp, PropKind, PropType } from '@structured-types/api'
 import { TsDocModuleDefinition } from '@control-ui/docs-ts/TsDocModule'
 import { TsDocsModuleRenderer } from '@control-ui/docs-ts/TsDocs'
@@ -17,6 +18,7 @@ export interface TsDocsModuleProps {
     renderer: TsDocsModuleRenderer
     headlineIdPrefix?: string
     hideMainKind?: boolean
+    warnOnTag?: string[]
 }
 
 export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
@@ -27,6 +29,7 @@ export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
         renderer,
         headlineIdPrefix = 'doc-module--',
         hideMainKind,
+        warnOnTag,
     },
 ) => {
     const {
@@ -37,26 +40,28 @@ export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
         type,
         generics, types, see,
         loc,
-        deprecated, internal,
+        deprecated, tags,
         properties, parameters,
         returns,
     } = module
+    const tagsWithDesc = tags?.filter(t => typeof t.content === 'string')
+    const tagsWithWarn = warnOnTag ? tags?.filter(t => warnOnTag.indexOf(t.tag) !== -1) : undefined
     return <Box mb={2}>
         <Paper variant={'outlined'} style={{borderRadius: 5}}>
-            <Box px={1} py={2}>
-                <Box mb={2}>
-                    <ModuleHeadline level={2} id={headlineIdPrefix + id}>
-                        {id}
-                        {!hideMainKind && module.kind ? ' (' + PropKind[module.kind] + ')' : null}
-                    </ModuleHeadline>
+            <Box my={1} px={1}>
+                <ModuleHeadline level={2} id={headlineIdPrefix + id}>
+                    {id}
+                    {!hideMainKind && module.kind ? ' (' + PropKind[module.kind] + ')' : null}
+                </ModuleHeadline>
 
-                    {loc?.loc && typeof loc.loc?.start.line === 'number' ?
-                        <Link
-                            href={repoRoot + loc.filePath + '#L' + loc.loc?.start.line}
-                            target={'_blank'} rel={'noreferrer'}
-                        ><small>src</small></Link> : null}
-                </Box>
+                {loc?.loc && typeof loc.loc?.start.line === 'number' ?
+                    <Link
+                        href={repoRoot + loc.filePath + '#L' + loc.loc?.start.line}
+                        target={'_blank'} rel={'noreferrer'}
+                    ><small>src</small></Link> : null}
+            </Box>
 
+            <Box px={1} style={{overflow: 'auto'}}>
                 {generics || types || type ?
                     <Typography gutterBottom>
                         <InlineCode>
@@ -66,13 +71,18 @@ export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
                         </InlineCode>
                     </Typography> : null}
 
-                {deprecated || internal ?
+                {deprecated || tagsWithWarn?.length ?
                     <Box mb={1}>
-                        {deprecated ?
-                            <Tooltip title={typeof deprecated === 'string' ? deprecated : 'no alternative given'}>
-                                <Chip label={'deprecated'} color={'warning'} size={'small'} icon={<IcWarn/>}/>
-                            </Tooltip> : null}
-                        {internal ? <Chip label={'internal'} color={'warning'} size={'small'} icon={<IcWarn/>}/> : null}
+                        {deprecated ? <Chip label={'deprecated'} color={'warning'} size={'small'} icon={<IcWarn/>}/> : null}
+                        {tagsWithWarn?.map(
+                            (tag, i) =>
+                                <Chip
+                                    key={i}
+                                    label={tag.tag}
+                                    color={'warning'} size={'small'}
+                                    icon={<IcWarn/>}
+                                />,
+                        )}
                     </Box> : null}
 
                 {(isClassProp(module) || isInterfaceProp(module) || isTypeProp(module)) && (module as InterfaceProp).extends ? <Box mb={1}>
@@ -87,6 +97,21 @@ export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
                     <Markdown source={module.description}/>
                 </Box> : null}
 
+                {typeof deprecated === 'string' ? <Box mb={2}>
+                    <Typography variant={'subtitle1'} gutterBottom>Deprecated</Typography>
+                    <Markdown source={deprecated}/>
+                </Box> : null}
+
+                {(tagsWithDesc?.length || 0) > 0 ? <Box mb={2}>
+                    <Typography variant={'subtitle1'} gutterBottom>Tags</Typography>
+                    {tagsWithDesc?.map((s, i) =>
+                        <Box key={i} mb={1} ml={2}>
+                            <Typography variant={'subtitle2'} gutterBottom>{s.tag}</Typography>
+                            <Markdown source={s.content as string} dense/>
+                        </Box>,
+                    )}
+                </Box> : null}
+
                 {(see?.length || 0) > 0 ? <Box mb={2}>
                     <Typography variant={'subtitle1'}>See</Typography>
                     <ul style={{margin: 0}}>
@@ -95,28 +120,34 @@ export const TsDocsModule: React.ComponentType<TsDocsModuleProps> = (
                         )}
                     </ul>
                 </Box> : null}
-
-                {properties ?
-                    <ModuleParams
-                        parent={module}
-                        params={properties}
-                        title={isTupleProp(module) || isUnionProp(module) ? 'Values' : 'Props'}
-                        renderer={renderer}
-                    /> : null}
-
-                {parameters ?
-                    <ModuleParams
-                        parent={module}
-                        params={parameters}
-                        title={'Parameters'}
-                        renderer={renderer}
-                    /> : null}
-
-                {returns ? <Box mb={2}>
-                    <Typography variant={'subtitle1'}>Returns</Typography>
-                    <ModuleCodeReturns returns={returns} parent={module} renderer={renderer}/>
-                </Box> : null}
             </Box>
+
+            {properties ? <>
+                <Box mt={2} px={1}>
+                    <Typography variant={'subtitle1'}>{isTupleProp(module) || isUnionProp(module) ? 'Values' : 'Props'}</Typography>
+                </Box>
+                <ModuleParams
+                    parent={module}
+                    params={properties}
+                    renderer={renderer}
+                />
+            </> : null}
+
+            {parameters ? <>
+                <Box mt={2} px={1}>
+                    <Typography variant={'subtitle1'}>Parameters</Typography>
+                </Box>
+                <ModuleParams
+                    parent={module}
+                    params={parameters}
+                    renderer={renderer}
+                />
+            </> : null}
+
+            {returns ? <Box mt={2} mb={2} px={1} style={{overflow: 'auto'}}>
+                <Typography variant={'subtitle1'}>Returns</Typography>
+                <ModuleCodeReturns returns={returns} parent={module} renderer={renderer}/>
+            </Box> : null}
         </Paper>
     </Box>
 }

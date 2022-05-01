@@ -64,9 +64,9 @@ const themeDark = createTheme({
             dark: '#033944',
         },
         secondary: {
-            light: '#d8eed4',
-            main: '#bbe1b4',
-            dark: '#002634',
+            // light: '#d8eed4',
+            main: '#bd90e0',
+            // dark: '#002634',
         },
         background: {
             paper: '#04252f',

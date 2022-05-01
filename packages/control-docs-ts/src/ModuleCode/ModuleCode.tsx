@@ -61,11 +61,13 @@ export const ModuleCodeFn: React.ComponentType<{
     </span>
 }
 
-export const ModuleCodeNameOrTypedValue: React.ComponentType<{
+export interface ModuleCodeNameOrTypedValueProps {
     prop: PropType
     parent: PropType
     renderer: TsDocsModuleRenderer
-}> = ({prop, parent, renderer}) => {
+}
+
+export const ModuleCodeNameOrTypedValue: React.ComponentType<ModuleCodeNameOrTypedValueProps> = ({prop, parent, renderer}) => {
     const valueDriven = isTupleProp(parent) || isUnionProp(parent)
     return <>
         {valueDriven && hasValue(prop) && typeof prop.value !== 'undefined' ?
@@ -88,19 +90,27 @@ export const ModuleCodeNameOrTypedValue: React.ComponentType<{
                                     <ModuleCodeGenerics generics={prop.prop.generics}/> : null}
                             </span> : null}
                 </> :
-                <>
-                    {prop.name || prop.type}
-                    {hasValue(prop) && typeof prop.value !== 'undefined' ?
-                        <span>
-                            {' = '}
-                            {JSON.stringify(prop.value)}
-                        </span> :
-                        null}
-                </>}
+                hasProperties(prop) && !prop?.name && !prop?.type && prop.properties ?
+                    // for indexes which are nested types/interfaces and got not name, render nested tables
+                    // todo: beautify table stuff
+                    <ModuleParams parent={prop} mt={0} mb={0} params={prop.properties} renderer={renderer}/> :
+                    <>
+                        {prop.name || prop.type}
+                        {hasValue(prop) && typeof prop.value !== 'undefined' ?
+                            <span>
+                                {' = '}
+                                {JSON.stringify(prop.value)}
+                            </span> :
+                            null}
+                    </>}
     </>
 }
 
-export const ModuleCodeUnion: React.ComponentType<{ props: PropType[] }> = ({props}) => {
+export interface ModuleCodeUnionProps {
+    props: PropType[]
+}
+
+export const ModuleCodeUnion: React.FC<ModuleCodeUnionProps> = ({props}) => {
     return props.map((p, i) =>
         <span key={i}>
             {p.type ?

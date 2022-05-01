@@ -19,7 +19,7 @@ const DocContent = ({content, doc, id, progress}) => {
         setLoadingModuleDocs(false)
         if(!module) return
         setLoadingModuleDocs(true)
-        fetch('/docs-component/' + module.package + '/' + module.fromPath + '.json')
+        fetch('/docs/' + module.package + '/' + module.fromPath + '.json')
             .then((res) => res.status !== 200 ? Promise.reject(res) : res.json())
             .then((data) => {
                 setModules(data)
@@ -31,6 +31,19 @@ const DocContent = ({content, doc, id, progress}) => {
             })
     }, [module])
 
+    const mdData = React.useMemo(() => {
+        if(!content) return undefined
+        const lines: string[] = content.split('\n')
+        // todo: add correct front-matter extraction, but e.g. `front-matter` is no longer maintained/browser-optimized
+        if(lines[0] === '---') {
+            const i = lines.slice(1).findIndex((l: string) => l === '---')
+            if(i !== -1) {
+                lines.splice(0, i + 2)
+            }
+        }
+        return lines.join('\n')
+    }, [content])
+
     return <>
         {progress === 'not-found' ? <PageNotFound/> : null}
 
@@ -39,32 +52,32 @@ const DocContent = ({content, doc, id, progress}) => {
                 <div style={{display: 'block', textAlign: 'right', margin: '0 12px'}}>
                     <Link
                         target={'_blank'} rel="noreferrer noopener nofollow" variant={'body2'}
-                        href={'https://bitbucket.org/bemit_eu/control-ui/src/master/packages/_docs-control/src/content/' + id + '.md'}
+                        href={'https://github.com/control-ui/control-ui/tree/main/packages/_docs-control/src/content/' + id + '.md'}
                     >Edit Page</Link>
                 </div>
-                <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column'}} elevation={4}>
+                <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
                     {progress === 'start' || progress === 'progress' ?
                         <LoadingCircular title={'Loading Docs'}/> :
                         progress === 'error' ?
                             'error' :
-                            <React.Fragment>
-                                <Markdown source={content}/>
-                            </React.Fragment>}
+                            <Markdown source={mdData}/>}
                 </Paper>
 
                 {doc.docModule ?
-                    <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column'}} elevation={4}>
+                    <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
                         <DocsDetailsModules modules={modules}/>
                     </Paper> : null}
 
                 <Paper
                     style={{
                         margin: 12, display: 'flex', flexDirection: 'column', overflowX: 'auto', flexShrink: 0,
-                        position: 'sticky', bottom: 12, maxHeight: '90vh',
+                        position: 'sticky', bottom: 12, maxHeight: '85vh', borderRadius: 5,
+                        maxWidth: 420,
                     }}
+                    // variant={'outlined'}
                     elevation={3}
                 >
-                    <LinkableHeadlineMenu disableNavLink disablePadding btnVariant={'contained'}/>
+                    <LinkableHeadlineMenu disableNavLink disablePadding btnVariant={'contained'} bindKey={'m'}/>
                 </Paper>
             </> : null}
 
@@ -77,7 +90,7 @@ const DocContent = ({content, doc, id, progress}) => {
     </>
 }
 
-const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject<HTMLDivElement | undefined> }> = ({scrollContainer}) => {
+const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject<HTMLDivElement | null> }> = ({scrollContainer}) => {
     const match = useRouteMatch()
     return <React.Fragment>
         <DocDetails
@@ -90,7 +103,7 @@ const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject
             Content={DocContent}
             matchDocKey={'docId'}
         />
-        <ScrollUpButton scrollContainer={scrollContainer}/>
+        <ScrollUpButton scrollContainer={scrollContainer} right={32} color={'secondary'}/>
     </React.Fragment>
 }
 

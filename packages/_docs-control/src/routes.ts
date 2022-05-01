@@ -1,8 +1,8 @@
-import * as Loadable from 'react-loadable'
+import Loadable from 'react-loadable'
 import { docsKit, docsDocs, docsHowTo, docsApp, docsRoutes, docsMdMui, docsDocsTs } from './content/docs'
 import { Route } from '@control-ui/routes/Route'
 
-const createDocsTree = (scope: string, label: string, routes: any, loading: any): Route => ({
+const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loading?: any): Route => ({
     path: '/' + scope + '/:docId+',
     nav: {
         to: '/' + scope,
@@ -20,7 +20,7 @@ const createDocsTree = (scope: string, label: string, routes: any, loading: any)
     routes,
 })
 
-export const routes = (loading: any): Route => ({
+export const routes = (loading: (title: string) => any): Route => ({
     routes: [
         {
             path: '/',

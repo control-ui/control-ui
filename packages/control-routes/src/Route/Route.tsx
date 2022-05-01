@@ -10,6 +10,7 @@ export interface RouteNav {
     divider?: boolean
     initialOpen?: boolean
     icon?: any
+    changeFreq?: string
 }
 
 export interface Route<C = any> {

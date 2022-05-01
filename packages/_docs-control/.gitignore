@@ -7,5 +7,5 @@ node_modules
 *.iws
 es
 lib
-public/docs-component
-!public/docs-component/.gitkeep
+public/docs
+!public/docs/.gitkeep

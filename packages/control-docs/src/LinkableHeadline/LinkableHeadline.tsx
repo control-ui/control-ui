@@ -4,6 +4,7 @@ import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
 import { Link as LinkIcon } from '@mui/icons-material'
 import { Variant } from '@mui/material/styles/createTypography'
 import useTheme from '@mui/material/styles/useTheme'
+import { makeIdFromText } from '@control-ui/docs/makeIdFromText'
 
 export interface LinkableHeadlineStateNode {
     id: string
@@ -48,6 +49,7 @@ export interface LinkableHeadlineProps {
     replace?: RegExp
     mt?: number
     mb?: number
+    style?: React.CSSProperties
 }
 
 export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<LinkableHeadlineProps>> = (
@@ -57,6 +59,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
         children,
         replace = /[,:!?&.\\/\s|]/g,
         mt, mb,
+        style,
         ...p
     },
 ) => {
@@ -67,13 +70,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
         // @ts-ignore
         children && children[0] && typeof children[0] === 'string' ?
             // @ts-ignore
-            children[0]
-                .replace(/^\d/, '')
-                .replace(replace, '-')
-                .replace(/--/g, '-')
-                .replace(/^--/, '')
-                .toLowerCase()
-                .slice(0)
+            makeIdFromText(children[0], replace)
             : undefined
 
     React.useEffect(() => {
@@ -125,6 +122,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
                         level < 5 ? 12 * (6 / level) :
                             16 * (6 / level),
             marginLeft: -24, paddingLeft: 24, position: 'relative',
+            ...(style || {}),
         }}
     >
         {id ?

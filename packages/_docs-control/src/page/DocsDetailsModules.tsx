@@ -12,17 +12,18 @@ const ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
     id: string
     level: number
 }>> = ({id, level, children}) => {
-    return <LinkableHeadline level={level} levelOffsetVariant={2} customId={id} mb={0} mt={0}>
+    return <LinkableHeadline level={level} levelOffsetVariant={2} customId={id} mb={0} mt={0} style={{wordBreak: 'break-all'}}>
         {children}
     </LinkableHeadline>
 }
 
 const renderer: TsDocsModuleRenderer = {
     InlineCode: MdInlineCode,
-    Markdown: Markdown as React.ComponentType<{ source: string }>,
+    Markdown: Markdown as React.ComponentType<{ source: string, dense?: boolean }>,
     ModuleHeadline: ModuleHeadline,
 }
 
+const warnOnTag = ['internal']
 export const DocsDetailsModules: React.ComponentType<{ modules: TsDocModuleCollection | undefined }> = ({modules}) => {
     const repoRoot = 'https://github.com/control-ui/control-ui/tree/main/packages/'
     return <>
@@ -41,6 +42,7 @@ export const DocsDetailsModules: React.ComponentType<{ modules: TsDocModuleColle
                 modules={modules}
                 repoRoot={repoRoot}
                 renderer={renderer}
+                warnOnTag={warnOnTag}
             /> : null}
     </>
 }
