@@ -103,7 +103,7 @@ const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject
             Content={DocContent}
             matchDocKey={'docId'}
         />
-        <ScrollUpButton scrollContainer={scrollContainer} right={32} color={'secondary'}/>
+        <ScrollUpButton scrollContainer={scrollContainer} right={32} color={'secondary'} resetHash/>
     </React.Fragment>
 }
 

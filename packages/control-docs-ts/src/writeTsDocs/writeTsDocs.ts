@@ -73,24 +73,30 @@ export function writeTsDocs(
 ) {
     return Promise.all(
         parsed.map(docInfo => {
-            const dir = path.join(dist, docInfo.package)
+            const fullPath = path.join(dist, docInfo.package, docInfo.fromPath + '.json')
             return new Promise<void>((resolve, reject) => {
-                fs.stat(dir, (stats) => {
+                const fullDir = path.dirname(fullPath)
+                fs.stat(fullDir, stats => {
                     if(stats) {
-                        fs.mkdirSync(dir, {recursive: true})
+                        fs.mkdirSync(fullDir, {
+                            recursive: true,
+                        })
                     }
 
-                    fs.writeFile(path.join(dir, docInfo.fromPath + '.json'), JSON.stringify(docInfo), (err) => {
+                    fs.writeFile(fullPath, JSON.stringify(docInfo), err => {
                         if(err) {
                             if(debug) {
                                 console.error('Failed saving doc of ' + docInfo.package + '/' + docInfo.fromPath, err)
                             }
+
                             reject(err)
                             return
                         }
+
                         if(debug === 2) {
                             console.log('Saved ' + docInfo.package + '/' + docInfo.fromPath)
                         }
+
                         resolve()
                     })
                 })

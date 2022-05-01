@@ -36,17 +36,23 @@ const pid = {current: 0}
 
 const matchMaker: MatchMakerType<CustomDocsIndex> = {
     modules: {
-        factory: (moduleIndex) =>
-            new FuseJs(moduleIndex.modules, {
+        factory: (moduleIndex) => {
+            const fuse = new FuseJs(moduleIndex.modules, {
                 includeScore: true,
                 includeMatches: true,
                 threshold: 0.29,
-                keys: ['module'],
-            }),
+                keys: [
+                    'module',
+                ],
+            })
+            return {
+                search: (term) => fuse.search(term),
+            }
+        },
     },
     pages: {
-        factory: (data) =>
-            new FuseJs(data.pages, {
+        factory: (data) => {
+            const fuse = new FuseJs(data.pages, {
                 includeScore: true,
                 includeMatches: true,
                 threshold: 0.29,
@@ -54,7 +60,11 @@ const matchMaker: MatchMakerType<CustomDocsIndex> = {
                     'label',
                     'headings.headline',
                 ],
-            }),
+            })
+            return {
+                search: (term) => fuse.search(term),
+            }
+        },
     },
 }
 
@@ -232,7 +242,7 @@ export const SearchBox: React.ComponentType = () => {
                                                 <Highlighter
                                                     searchWords={searchResult?.term.split(' ')}
                                                     textToHighlight={match.headings[mk.index].headline}
-                                                    highlightTag={Highlight}
+                                                    highlightTag={Highlight2}
                                                     autoEscape
                                                 />
                                             </Typography>
@@ -304,4 +314,8 @@ export const SearchBox: React.ComponentType = () => {
 
 const Highlight: React.ComponentType<React.PropsWithChildren<{}>> = ({children}) => (
     <Typography component={'span'} color={'primary'} style={{fontWeight: 'bold'}}>{children}</Typography>
+)
+
+const Highlight2: React.ComponentType<React.PropsWithChildren<{}>> = ({children}) => (
+    <Typography component={'span'} color={'primary'} style={{fontWeight: 'bold'}} variant={'body2'}>{children}</Typography>
 )

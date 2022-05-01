@@ -1,7 +1,7 @@
 import React from 'react'
-import { Route } from '@control-ui/routes/Route'
+import { Route, RouteNav } from '@control-ui/routes/Route'
 
-export interface DocRoute<C = any> extends Route<C> {
+export interface DocRoute<C = any, N extends RouteNav = RouteNav> extends Route<C, N> {
     doc: string
 }
 

@@ -1,22 +1,40 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import IcUp from '@mui/icons-material/ArrowUpward'
 import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
 
-export const ScrollUpButton: React.ComponentType<{
+export interface ScrollUpButtonProps {
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     bottom?: number
     right?: number
+    resetHash?: boolean
     size?: 'small' | 'medium' | 'large'
     color?: IconButtonProps['color']
-}> = (
+    /**
+     * how many "lengths of the scrollContainer" need to be scrolled, before appearing,
+     *
+     * - `0.5` = half of the visible length
+     * - `1` = below the visible length
+     * - `2` = two times the visible length
+     */
+    pageScroll?: number
+    zIndex?: number
+    title?: string
+}
+
+export const ScrollUpButton: React.ComponentType<ScrollUpButtonProps> = (
     {
         scrollContainer,
-        size,
+        size, color,
+        resetHash,
         bottom = 20, right = 20,
-        color,
+        pageScroll = 0.9,
+        zIndex = 1000,
+        title = 'back to top',
     },
 ) => {
+    const history = useHistory()
     const [scrolledPages, setScrolledPage] = React.useState(0)
 
     const handleScroll = React.useCallback(() => {
@@ -37,21 +55,26 @@ export const ScrollUpButton: React.ComponentType<{
     }, [handleScroll, scrollContainer])
 
     return scrollContainer.current ?
-        <AccessTooltipIcon title={'back to top'}>
+        <AccessTooltipIcon title={title}>
             <IconButton
                 tabIndex={-1}
                 style={{
                     position: 'fixed', minWidth: 'auto',
                     bottom: bottom,
                     right: right,
-                    zIndex: 1000,
-                    pointerEvents: scrolledPages > 0.9 ? 'all' : 'none',
-                    opacity: scrolledPages > 0.9 ? 1 : 0,
+                    zIndex: zIndex,
+                    pointerEvents: scrolledPages > pageScroll ? 'all' : 'none',
+                    opacity: scrolledPages > pageScroll ? 1 : 0,
                     transition: 'opacity 0.25s ease-in-out',
                 }}
                 size={size}
                 color={color}
-                onClick={() => scrollContainer.current?.scrollTo(0, 0)}
+                onClick={() => {
+                    if(resetHash && history.location.hash) {
+                        history.push(history.location.pathname)
+                    }
+                    scrollContainer.current?.scrollTo(0, 0)
+                }}
             >
                 <IcUp fontSize={'small'}/>
             </IconButton>

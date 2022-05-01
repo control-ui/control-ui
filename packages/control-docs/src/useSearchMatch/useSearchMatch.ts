@@ -1,11 +1,11 @@
 import { DocsIndexValues } from '@control-ui/docs/createDocsIndex'
 import React from 'react'
 
-export type SearchFn = (term: string) => any[]
-export type MatcherInstance = { search: SearchFn }
-export type MatchMakerType<K> = {
+export type SearchFn<O = unknown> = (term: string, options?: O) => any[]
+export type MatcherInstance<O = unknown> = { search: SearchFn<O> }
+export type MatchMakerType<K, O = unknown> = {
     [S in keyof K]: {
-        factory: (d: K[S]) => MatcherInstance
+        factory: (d: K[S]) => MatcherInstance<O>
     }
 }
 export const useSearchMatching = <I extends DocsIndexValues = DocsIndexValues>(

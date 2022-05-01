@@ -13,9 +13,9 @@ export interface RouteNav {
     changeFreq?: string
 }
 
-export interface Route<C = any> {
+export interface Route<C = any, N extends RouteNav = RouteNav> {
     'path'?: string
-    nav?: RouteNav
-    routes?: Route<C>[]
+    nav?: N
+    routes?: Route<C, N>[]
     config?: { [k: string]: RouteComponent<C> }
 }

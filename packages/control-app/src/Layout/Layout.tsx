@@ -35,7 +35,7 @@ export interface LayoutProps {
     mainId?: string
 }
 
-export const Layout: React.ComponentType<LayoutProps> = (
+export const Layout: React.ComponentType<React.PropsWithChildren<LayoutProps>> = (
     {
         Header,
         Drawer,
