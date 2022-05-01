@@ -24,7 +24,7 @@ export function indexTsDocs<M extends DocsIndexModule = DocsIndexModule>(
         const {filePath} = loc
         if(!filePath) return parsed
         const relFilePath = filePath.slice(baseModules.length + 1)
-        const file: TsDocModuleFileSource | undefined = files.find(f => relFilePath.startsWith(f.relPath))
+        const file: TsDocModuleFileSource | undefined = files.find(f => relFilePath.startsWith(f.modulePath))
         if(!file) return parsed
 
         update('packages', packages => ({
@@ -42,11 +42,11 @@ export function indexTsDocs<M extends DocsIndexModule = DocsIndexModule>(
 
         return {
             ...parsed,
-            [file.relPath]: {
+            [file.modulePath]: {
                 ...file,
-                ...(parsed[file.relPath] || {}),
+                ...(parsed[file.modulePath] || {}),
                 docs: {
-                    ...(parsed[file.relPath]?.docs || {}),
+                    ...(parsed[file.modulePath]?.docs || {}),
                     [moduleId]: {
                         ...fileInfo[moduleId],
                         loc: {
@@ -57,7 +57,7 @@ export function indexTsDocs<M extends DocsIndexModule = DocsIndexModule>(
                 },
             },
         }
-    }, {} as { [relPath: string]: TsDocModuleFileParsed }))
+    }, {} as { [modulePath: string]: TsDocModuleFileParsed }))
 }
 
 /**

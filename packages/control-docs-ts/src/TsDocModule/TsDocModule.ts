@@ -30,6 +30,7 @@ export interface TsDocModuleDefinition extends PropType {
 
 export interface TsDocModule {
     // pagePath: string
+    modulePath: string
     relPath: string
     package: string
     fromPath: string

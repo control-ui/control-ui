@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom'
 import { Paper, Link, Alert, Box } from '@mui/material'
 import { ScrollUpButton } from '@control-ui/kit/ScrollUpButton'
 import PageNotFound from './PageNotFound'
-import { DocDetails } from '@control-ui/docs/DocDetails'
+import { DocDetailsLegacy } from '@control-ui/docs/DocDetails'
 import { LinkableHeadlineMenu } from '@control-ui/docs/LinkableHeadline'
 import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
 import { Markdown } from '../component/Markdown'
@@ -93,7 +93,7 @@ const DocContent = ({content, doc, id, progress}) => {
 const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject<HTMLDivElement | null> }> = ({scrollContainer}) => {
     const match = useRouteMatch()
     return <React.Fragment>
-        <DocDetails
+        <DocDetailsLegacy
             scrollContainer={scrollContainer}
             title={activeDoc => activeDoc?.nav?.label ?
                 activeDoc.nav.label + ' · Control-UI' : 'Control-UI Documentation'}

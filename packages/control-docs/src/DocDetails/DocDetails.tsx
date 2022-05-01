@@ -50,7 +50,13 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
     return <Content content={contentStr} doc={doc} id={id} progress={progress}/>
 }
 
-export const findDoc = (routes: DocRoute, id: string): DocRoute[] => filterRoutes<DocRoute>(routes, (route) => route.doc === id)
+export const findDocFn = <D extends DocRoute = DocRoute>(routes: D, id: string): D[] => filterRoutes<D>(routes, (route) =>
+    typeof route.doc === 'undefined' ?
+        false :
+        typeof route.doc === 'boolean' ?
+            route.path?.slice(1) === id :
+            route.doc === id,
+)
 
 export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     title: (doc: D | undefined) => string
@@ -62,6 +68,7 @@ export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     Content: React.ComponentType<DocDetailsContentProps<D>>
     NotFound: React.ComponentType
+    findDoc?: (routes: D, id: string) => D[]
 }
 
 export const DocDetails = <D extends DocRoute = DocRoute>(
@@ -70,13 +77,14 @@ export const DocDetails = <D extends DocRoute = DocRoute>(
         headProps = {}, scrollContainer,
         Content, NotFound,
         docId, path, hash,
+        findDoc = findDocFn,
     }: DocDetailsProps<D>,
 ): React.ReactElement => {
     const {routes} = useRouter()
     const doc = React.useMemo(
         () =>
-            docId ? findDoc(routes as DocRoute, docId)[0] : undefined,
-        [docId, routes],
+            docId ? findDoc(routes as D, docId)[0] : undefined,
+        [docId, findDoc, routes],
     )
 
     return <>

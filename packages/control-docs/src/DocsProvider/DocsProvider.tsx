@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, RouteNav } from '@control-ui/routes/Route'
 
 export interface DocRoute<C = any, N extends RouteNav = RouteNav> extends Route<C, N> {
-    doc: string
+    doc?: string | boolean
 }
 
 export interface DocData {

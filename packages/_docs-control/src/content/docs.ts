@@ -32,6 +32,7 @@ export const docsHowTo = (prefix = '') => [
 ]
 
 const defineModule = (org: string, name: string, dir: string, from: string, customFiles?: string[]): TsDocModule => ({
+    modulePath: `${dir}/src/${from}/`,
     relPath: `${dir}/src/${from}/`,
     package: `@${org}/${name}`,
     fromPath: from,
