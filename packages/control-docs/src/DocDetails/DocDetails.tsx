@@ -53,6 +53,52 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
 export const findDoc = (routes: DocRoute, id: string): DocRoute[] => filterRoutes<DocRoute>(routes, (route) => route.doc === id)
 
 export interface DocDetailsProps<D extends DocRoute = DocRoute> {
+    title: (doc: D | undefined) => string
+    description?: (doc: D | undefined) => string
+    docId?: string
+    path: string
+    hash?: string
+    headProps?: Omit<HeadMetaProps, 'title' | 'description'>
+    scrollContainer: React.MutableRefObject<HTMLDivElement | null>
+    Content: React.ComponentType<DocDetailsContentProps<D>>
+    NotFound: React.ComponentType
+}
+
+export const DocDetails = <D extends DocRoute = DocRoute>(
+    {
+        title, description,
+        headProps = {}, scrollContainer,
+        Content, NotFound,
+        docId, path, hash,
+    }: DocDetailsProps<D>,
+): React.ReactElement => {
+    const {routes} = useRouter()
+    const doc = React.useMemo(
+        () =>
+            docId ? findDoc(routes as DocRoute, docId)[0] : undefined,
+        [docId, routes],
+    )
+
+    return <>
+        <HeadMeta
+            title={title(doc as D)}
+            description={description ? description(doc as D) : undefined}
+            {...headProps}
+        />
+        {docId && doc ?
+            <DocDetailsRenderer<D>
+                id={docId}
+                scrollContainer={scrollContainer}
+                doc={doc as D}
+                Content={Content}
+                path={path}
+                hash={hash}
+            /> :
+            <NotFound/>}
+    </>
+}
+
+export interface DocDetailsLegacyProps<D extends DocRoute = DocRoute> {
     title: (doc: DocRoute | undefined) => string
     description?: (doc: DocRoute | undefined) => string
     headProps?: Omit<HeadMetaProps, 'title' | 'description'>
@@ -63,40 +109,21 @@ export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     matchDocKey: string
 }
 
-export const DocDetails = <D extends DocRoute = DocRoute>(
+export const DocDetailsLegacy = <D extends DocRoute = DocRoute>(
     {
-        title, description,
-        headProps = {}, scrollContainer,
         scope = '',
-        Content, NotFound,
         matchDocKey,
-    }: DocDetailsProps<D>,
+        ...p
+    }: DocDetailsLegacyProps<D>,
 ): React.ReactElement => {
-    const {routes} = useRouter()
     const match = useRouteMatch<{ [k: string]: string }>()
     const location = useLocation()
     const docId = scope + match.params[matchDocKey]
-    const doc = React.useMemo(
-        () =>
-            docId ? findDoc(routes as DocRoute, docId)[0] : undefined,
-        [docId, routes],
-    )
 
-    return <React.Fragment>
-        <HeadMeta
-            title={title(doc)}
-            description={description ? description(doc) : undefined}
-            {...headProps}
-        />
-        {docId && doc ?
-            <DocDetailsRenderer<D>
-                id={docId}
-                scrollContainer={scrollContainer}
-                doc={doc as D}
-                Content={Content}
-                path={match.url}
-                hash={location.hash}
-            /> :
-            <NotFound/>}
-    </React.Fragment>
+    return <DocDetails
+        docId={docId}
+        hash={location.hash}
+        path={match.url}
+        {...p}
+    />
 }
