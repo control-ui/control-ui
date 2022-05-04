@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/md",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "license": "MIT",
     "authors": [
         {
@@ -22,7 +22,6 @@
         "@types/react": "^17.0.0",
         "@control-ui/kit": "0.0.x",
         "@mui/material": "^5.6.2",
-        "@mui/styles": "^5.6.2",
         "@mui/icons-material": "^5.6.2",
         "react": "^17.0",
         "react-dom": "^17.0",

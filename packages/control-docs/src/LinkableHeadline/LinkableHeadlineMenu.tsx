@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Collapse, Typography } from '@mui/material'
+import Button from '@mui/material/Button'
+import Collapse from '@mui/material/Collapse'
+import Typography from '@mui/material/Typography'
 import { LinkList, ListItemLink } from '@control-ui/kit/List/LinkList'
 import { useHeadlines } from '@control-ui/docs/LinkableHeadline'
 

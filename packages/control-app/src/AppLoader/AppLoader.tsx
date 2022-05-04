@@ -3,26 +3,34 @@ import { AppThemeProps } from '@control-ui/app/AppTheme'
 import Loadable from 'react-loadable'
 import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
 import { AppThemeDynamic } from '@control-ui/app/AppThemeDynamic'
-import { Alert, Box, Button, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { SxProps } from '@mui/system'
 import { Theme } from '@mui/material/styles'
+import useTheme from '@mui/material/styles/useTheme'
 
-const useStyles = makeStyles<Theme>(({palette}) => ({
-    wrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100vw',
-        height: '100vh',
-        background: palette.background.default,
-    },
-}))
-
-export const AppWrapper: React.ComponentType<React.PropsWithChildren<{}>> = ({children}) => {
-    const classes = useStyles()
-
-    return <div className={classes.wrapper}>
+export const AppWrapper: React.ComponentType<React.PropsWithChildren<{
+    style?: React.CSSProperties
+    sx?: SxProps<Theme>
+    className?: string
+}>> = ({children, sx, className, style}) => {
+    const {palette} = useTheme()
+    return <Box
+        className={className}
+        style={style}
+        sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100vw',
+            height: '100%',
+            background: palette.background.default,
+            ...(sx || {}),
+        }}
+    >
         {children}
-    </div>
+    </Box>
 }
 
 export const AppLoader = (

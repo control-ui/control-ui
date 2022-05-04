@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.scss'
 import { App } from '@control-ui/app/App'
 import { routes } from './routes'
 import { DocsProvider } from '@control-ui/docs/DocsProvider'

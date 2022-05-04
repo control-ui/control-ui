@@ -1,21 +1,13 @@
 import React from 'react'
 import {useTheme} from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import IconButton from '@mui/material/IconButton'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import LastPageIcon from '@mui/icons-material/LastPage'
-
-const useStyles1 = makeStyles(theme => ({
-    root: {
-        flexShrink: 0,
-        marginLeft: theme.spacing(2.5),
-    },
-}))
+import Box from '@mui/material/Box'
 
 export function DataGridPaginationActions(props) {
-    const classes = useStyles1()
     const theme = useTheme()
     const {count, page, rowsPerPage, onChangePage} = props
 
@@ -36,7 +28,7 @@ export function DataGridPaginationActions(props) {
     }
 
     return (
-        <div className={classes.root}>
+        <Box ml={2.5} style={{flexShrink: 0}}>
             <IconButton
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 0}
@@ -61,6 +53,6 @@ export function DataGridPaginationActions(props) {
             >
                 {theme.direction === 'rtl' ? <FirstPageIcon/> : <LastPageIcon/>}
             </IconButton>
-        </div>
+        </Box>
     )
 }

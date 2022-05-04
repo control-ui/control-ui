@@ -135,18 +135,6 @@ export const docsDocs = (prefix = '') => [
         compDocs('LinkableHeadline', {
             module: defineModule('control-ui', 'docs', 'control-docs', 'LinkableHeadline', ['LinkableHeadline.tsx', 'LinkableHeadlineMenu.tsx']),
         }),
-        compDocs('Markdown', {
-            module: defineModule('control-ui', 'docs', 'control-docs', 'Markdown', [
-                'MarkdownRenderers.tsx',
-                'MdBlockquote.tsx',
-                'MdCode.tsx',
-                'MdHeading.tsx',
-                'MdInlineCode.tsx',
-                'MdLink.tsx',
-                'MdList.tsx',
-                'MdTable.tsx',
-            ]),
-        }),
     ], prefix),
 ]
 

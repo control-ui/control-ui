@@ -1,64 +1,56 @@
-import React from 'react';
-import makeStyles from "@mui/styles/makeStyles";
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import {EnhancedTableToolbar} from "@control-ui/kit/DataGrid/DataGridToolbar";
-import {EnhancedTableHead} from "@control-ui/kit/DataGrid/DataGridHead";
-import {DataGridFooter} from "@control-ui/kit/DataGrid/DataGridFooter";
+import React from 'react'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableRow from '@mui/material/TableRow'
+import Checkbox from '@mui/material/Checkbox'
+import {EnhancedTableToolbar} from '@control-ui/kit/DataGrid/DataGridToolbar'
+import {EnhancedTableHead} from '@control-ui/kit/DataGrid/DataGridHead'
+import {DataGridFooter} from '@control-ui/kit/DataGrid/DataGridFooter'
 
 function descendingComparator(a, b, orderBy) {
     if(b[orderBy] < a[orderBy]) {
-        return -1;
+        return -1
     }
     if(b[orderBy] > a[orderBy]) {
-        return 1;
+        return 1
     }
-    return 0;
+    return 0
 }
 
 function getComparator(order, orderBy) {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
+        : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
 function createData(name, calories, fat) {
-    return {name, calories, fat};
+    return {name, calories, fat}
 }
 
 function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
+    const stabilizedThis = array.map((el, index) => [el, index])
     stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if(order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map(el => el[0]);
+        const order = comparator(a[0], b[0])
+        if(order !== 0) return order
+        return a[1] - b[1]
+    })
+    return stabilizedThis.map(el => el[0])
 }
 
-const useStyles2 = makeStyles({
-    table: {
-        minWidth: 500,
-    },
-});
-
 export function DataGrid({
-                                     title,
-                                     stickyHeader = true,
-                                     stickyFooter = true,
-                                 }) {
-    const classes = useStyles2();
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+                             title,
+                             stickyHeader = true,
+                             stickyFooter = true,
+                         }) {
+    const [order, setOrder] = React.useState('asc')
+    const [orderBy, setOrderBy] = React.useState('calories')
+    const [selected, setSelected] = React.useState([])
+    const [page, setPage] = React.useState(0)
+    const [dense, setDense] = React.useState(false)
+    const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
     const rows = [
         createData('Cupcake', 305, 3.7),
@@ -74,54 +66,54 @@ export function DataGrid({
         createData('Marshmallow', 318, 0),
         createData('Nougat', 360, 19.0),
         createData('Oreo', 437, 18.0),
-    ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+    ].sort((a, b) => (a.calories < b.calories ? -1 : 1))
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
     const handleSelectAllClick = event => {
         if(event.target.checked) {
-            const newSelecteds = rows.map(n => n.name);
-            setSelected(newSelecteds);
-            return;
+            const newSelecteds = rows.map(n => n.name)
+            setSelected(newSelecteds)
+            return
         }
-        setSelected([]);
-    };
+        setSelected([])
+    }
 
     const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected = [];
+        const selectedIndex = selected.indexOf(name)
+        let newSelected = []
 
         if(selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, name)
         } else if(selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
+            newSelected = newSelected.concat(selected.slice(1))
         } else if(selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
+            newSelected = newSelected.concat(selected.slice(0, -1))
         } else if(selectedIndex > 0) {
             newSelected = newSelected.concat(
                 selected.slice(0, selectedIndex),
                 selected.slice(selectedIndex + 1),
-            );
+            )
         }
 
-        setSelected(newSelected);
-    };
+        setSelected(newSelected)
+    }
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+        setPage(newPage)
+    }
 
     const handleChangeRowsPerPage = event => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-    const isSelected = name => selected.indexOf(name) !== -1;
+        setRowsPerPage(parseInt(event.target.value, 10))
+        setPage(0)
+    }
+    const isSelected = name => selected.indexOf(name) !== -1
     const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
+        const isAsc = orderBy === property && order === 'asc'
+        setOrder(isAsc ? 'desc' : 'asc')
+        setOrderBy(property)
+    }
 
-    const toggleDense = React.useCallback(() => setDense(d => !d), [setDense]);
+    const toggleDense = React.useCallback(() => setDense(d => !d), [setDense])
 
     return (
         <>
@@ -130,9 +122,9 @@ export function DataGrid({
                 <Table
                     stickyHeader={stickyHeader}
                     size={dense ? 'small' : 'medium'}
-                    className={classes.table} aria-label="custom pagination table">
+                    style={{minWidth: 500}}
+                    aria-label="custom pagination table">
                     <EnhancedTableHead
-                        classes={classes}
                         numSelected={selected.length}
                         order={order}
                         orderBy={orderBy}
@@ -144,8 +136,8 @@ export function DataGrid({
                         {stableSort(rows, getComparator(order, orderBy))
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, index) => {
-                                const isItemSelected = isSelected(row.name);
-                                const labelId = `enhanced-table-checkbox-${index}`;
+                                const isItemSelected = isSelected(row.name)
+                                const labelId = `enhanced-table-checkbox-${index}`
 
                                 return (
                                     <TableRow
@@ -171,7 +163,7 @@ export function DataGrid({
                                         <TableCell align="right">{row.carbs}</TableCell>
                                         <TableCell align="right">{row.protein}</TableCell>
                                     </TableRow>
-                                );
+                                )
                             })}
 
                         {emptyRows > 0 && (
@@ -193,5 +185,5 @@ export function DataGrid({
                 </Table>
             </TableContainer>
         </>
-    );
+    )
 }

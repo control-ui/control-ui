@@ -126,10 +126,6 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/docs/components/Markdown</loc>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://control-ui.bemit.codes/docs-ts/overview</loc>
         <changefreq>weekly</changefreq>
     </url>

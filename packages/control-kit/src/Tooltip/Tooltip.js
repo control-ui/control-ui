@@ -1,5 +1,5 @@
 import React from 'react'
-import {Tooltip} from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 
 const AccessTooltipIcon = ({title, children}) => <React.Fragment>
     <Tooltip title={title}>

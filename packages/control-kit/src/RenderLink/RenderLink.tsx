@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Link } from '@mui/material'
+import Link from '@mui/material/Link'
 
 const RenderLinkBase: React.ComponentType<React.PropsWithChildren<React.PropsWithRef<{
     to: string

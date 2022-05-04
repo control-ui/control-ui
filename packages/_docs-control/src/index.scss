@@ -1,3 +1,14 @@
+html, body {
+    height: 100%;
+}
+
+#root {
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
