@@ -1,5 +1,4 @@
 import React from 'react'
-import clsx from 'clsx'
 import { Link as RouterLink, NavLink as RouterNavLink } from 'react-router-dom'
 import List from '@mui/material/List'
 import ListItemText from '@mui/material/ListItemText'
@@ -20,8 +19,8 @@ export interface ListItemLinkProps {
     style?: React.CSSProperties
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
     classes?: {
-        listItem?: string[]
-        listItemText?: string[]
+        listItem?: string
+        listItemText?: string
     }
     primaryTypographyProps?: TypographyProps
     secondaryTypographyProps?: TypographyProps
@@ -33,7 +32,7 @@ export function ListItemLink(
         to, onClick, disableNavLink = true,
         dense, style, classes = {}, children, exact,
         primary, secondary,
-        primaryTypographyProps, secondaryTypographyProps,
+        primaryTypographyProps = {}, secondaryTypographyProps,
     }: React.PropsWithChildren<ListItemLinkProps>,
 ): React.ReactElement {
     const renderLink: React.ComponentType<React.PropsWithChildren<{
@@ -54,7 +53,7 @@ export function ListItemLink(
         style={style} dense={dense}
         component={renderLink}
         onClick={onClick}
-        className={clsx(classes.listItem)}
+        className={classes.listItem}
         {...(
             disableNavLink ?
                 {
@@ -70,8 +69,15 @@ export function ListItemLink(
         <ListItemText
             primary={primary}
             secondary={secondary}
-            className={clsx(classes.listItemText)}
-            primaryTypographyProps={primaryTypographyProps}
+            className={classes.listItemText}
+            primaryTypographyProps={{
+                ...primaryTypographyProps,
+                style: {
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    ...(primaryTypographyProps.style || {}),
+                },
+            }}
             secondaryTypographyProps={secondaryTypographyProps}
         />
         {children}

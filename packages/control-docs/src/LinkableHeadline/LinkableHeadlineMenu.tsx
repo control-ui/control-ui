@@ -4,6 +4,7 @@ import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
 import { LinkList, ListItemLink } from '@control-ui/kit/List/LinkList'
 import { useHeadlines } from '@control-ui/docs/LinkableHeadline'
+import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper/getUserPlatform'
 
 export interface LinkableHeadlineMenuProps {
     initial?: boolean
@@ -58,9 +59,7 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
         return () => document.removeEventListener('keydown', onMenuOpen)
     }, [bindKey, setOpen, btnRef])
 
-    // @ts-ignore
-    // eslint-disable-next-line deprecation/deprecation
-    const platform = navigator?.userAgentData?.platform || navigator?.platform
+    const platform = getUserPlatform()
 
     return <LinkList label={title} style={linkListStyle} dense disablePadding={disablePadding}>
         <Button
@@ -72,10 +71,10 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
             ref={btnRef}
         >
             <span style={{marginRight: 'auto'}}>{open ? 'Hide' : 'Show'} {title}</span>
-            {typeof bindKey === 'string' && platform.indexOf('iP') !== 0 ?
+            {typeof bindKey === 'string' && platform?.indexOf('iP') !== 0 ?
                 <Collapse in={!open} timeout="auto" unmountOnExit>
                     <Typography variant={'caption'} style={{position: 'relative', zIndex: 2, textTransform: 'none', padding: '0 4px', display: 'block'}} align={'right'}>
-                        {platform.indexOf('Mac') === 0 ? '⌘' : 'CTRL'}
+                        {getUserCtrlKey(platform)}
                         {' + '}
                         {bindKey.toUpperCase()}
                     </Typography>

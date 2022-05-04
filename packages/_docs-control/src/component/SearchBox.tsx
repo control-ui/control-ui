@@ -18,13 +18,14 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import { Button } from '@mui/material'
+import { Button, useMediaQuery } from '@mui/material'
 import { useRouter } from '@control-ui/routes/RouterProvider'
 import { useSearch, useSearchHistory } from '@control-ui/docs/DocsSearchProvider'
 import { useDocsIndex } from '@control-ui/docs/DocsIndexProvider'
 import { DocsIndexValueModules, DocsIndexValuePackages, DocsIndexValuePages, DocsIndexValuesCombiner } from '@control-ui/docs/createDocsIndex'
 import { MatchMakerType, useSearchMatching } from '@control-ui/docs'
 import useTheme from '@mui/material/styles/useTheme'
+import { useDrawer } from '@control-ui/app'
 
 export type CustomDocsIndexModules = DocsIndexValuesCombiner<DocsIndexValueModules & DocsIndexValuePackages>
 export type CustomDocsIndex = {
@@ -69,8 +70,10 @@ const matchMaker: MatchMakerType<CustomDocsIndex> = {
 }
 
 export const SearchBox: React.ComponentType = () => {
+    const {setOpen: setDrawerOpen} = useDrawer()
     const {open, setOpen} = useSearch()
-    const {palette} = useTheme()
+    const {palette, breakpoints} = useTheme()
+    const isMd = useMediaQuery(breakpoints.up('md'))
     const [searchTerm, setSearchTerm] = React.useState('')
     const searchRef = React.useRef<null | HTMLElement>(null)
     const {index} = useDocsIndex<CustomDocsIndex>()
@@ -139,14 +142,16 @@ export const SearchBox: React.ComponentType = () => {
         }
     }, [searchTerm, routes, searchFns])
 
-    // @ts-ignore
-    // eslint-disable-next-line deprecation/deprecation
-    const platform = navigator?.userAgentData?.platform || navigator?.platform
-
     return <Dialog
         open={open} onClose={() => setOpen(false)}
         maxWidth={'sm'} fullWidth
-        PaperProps={{style: {background: 'transparent', overflow: 'visible'}, elevation: 0}}
+        PaperProps={{
+            style: {
+                background: 'transparent', overflow: 'visible',
+                margin: '26px 40px 32px 40px',
+            },
+            elevation: 0,
+        }}
         TransitionProps={{
             style: {
                 alignItems: 'flex-start',
@@ -191,17 +196,10 @@ export const SearchBox: React.ComponentType = () => {
             </Button>
         </Paper>
 
-        <Box style={{display: 'flex'}}>
-            {searchTerm.trim().length > 0 && searchTerm.trim().length < 3 ? <Typography variant={'caption'}>min. length: 3</Typography> : null}
-            {typeof bindKey === 'string' && platform.indexOf('iP') !== 0 ?
-                <Typography variant={'caption'} style={{marginLeft: 'auto'}}>
-                    {'open with: '}
-                    {platform.indexOf('Mac') === 0 ? '⌘' : 'CTRL'}
-                    {' + '}
-                    {bindKey.toUpperCase()}
-                </Typography>
-                : null}
-        </Box>
+        {searchTerm.trim().length > 0 && searchTerm.trim().length < 3 ?
+            <Box style={{display: 'flex'}}>
+                <Typography variant={'caption'}>min. length: 3</Typography>
+            </Box> : null}
 
         <Collapse
             in={Boolean(searchResult)} timeout="auto" unmountOnExit
@@ -214,7 +212,12 @@ export const SearchBox: React.ComponentType = () => {
                     {searchResult?.matches.pages?.map((match, i) => <Box key={i} mb={1}>
                         <Link
                             to={match.pagePath}
-                            onClick={() => setOpen(false)}
+                            onClick={() => {
+                                setOpen(false)
+                                if(!isMd) {
+                                    setDrawerOpen(false)
+                                }
+                            }}
                             style={{textDecoration: 'none'}}
                         >
                             <Paper variant={'outlined'} style={{borderRadius: 5}}>
@@ -245,7 +248,12 @@ export const SearchBox: React.ComponentType = () => {
                                     <Box key={mk.index} ml={1} py={1}>
                                         <Link
                                             to={match.pagePath + '#' + match.headings[mk.index].fragment}
-                                            onClick={() => setOpen(false)}
+                                            onClick={() => {
+                                                setOpen(false)
+                                                if(!isMd) {
+                                                    setDrawerOpen(false)
+                                                }
+                                            }}
                                             style={{textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center'}}
                                         >
                                             <IcTag/>
@@ -270,6 +278,9 @@ export const SearchBox: React.ComponentType = () => {
                                 to={match.pagePath + '#doc-module--' + match.module}
                                 onClick={() => {
                                     setOpen(false)
+                                    if(!isMd) {
+                                        setDrawerOpen(false)
+                                    }
                                 }}
                                 style={{textDecoration: 'none'}}
                             >

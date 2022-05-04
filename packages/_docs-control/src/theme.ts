@@ -1,12 +1,8 @@
-import { createTheme, adaptV4Theme } from '@mui/material/styles'
-import { Theme } from '@mui/material/styles'
+import { createTheme, Theme } from '@mui/material/styles'
 
-// @ts-ignore
-declare module '@mui/styles' {
-    type DefaultTheme = Theme
-}
+export type PartialTheme = { [P in keyof Theme]?: Partial<Theme[P]> }
 
-const universal = {
+const universal: Pick<PartialTheme, 'breakpoints' | 'typography' | 'shape'> = {
     breakpoints: {
         values: {
             xs: 0,
@@ -89,7 +85,7 @@ const themeDark = createTheme({
 })
 
 // eslint-disable-next-line deprecation/deprecation
-const themeLight = createTheme(adaptV4Theme({
+const themeLight = createTheme({
     palette: {
         mode: 'light',
         primary: {
@@ -114,7 +110,7 @@ const themeLight = createTheme(adaptV4Theme({
         },
     },
     ...universal,
-}))
+})
 
 export const themes = {
     dark: themeDark,

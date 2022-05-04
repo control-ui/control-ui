@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { DefaultTheme } from '@mui/styles/defaultTheme'
+import { Theme } from '@mui/material/styles'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 export interface ThemeDark {
@@ -13,7 +13,7 @@ export interface ThemeLight {
 }
 
 export type ThemeSettings = {
-    [key: string]: DefaultTheme
+    [key: string]: Theme
 }
 
 const storeItem = 'theme'
@@ -21,6 +21,7 @@ const storeItem = 'theme'
 const ThemeSwitchContext = React.createContext<AppThemeContext>({
     switchTheme: (target?: string) => target && null,
     themes: {},
+    // @ts-ignore
     theme: {},
 })
 
@@ -29,7 +30,7 @@ export type switchTheme = (target?: string) => void
 export interface AppThemeContext {
     switchTheme: switchTheme
     themes: ThemeSettings
-    theme: DefaultTheme
+    theme: Theme
 }
 
 /**
@@ -95,7 +96,12 @@ export const AppTheme = (
         })
     }, [setTheme, themes])
 
-    return <ThemeSwitchContext.Provider value={{theme, themes, switchTheme}}>
+    const ctx = React.useMemo(
+        () => ({theme, themes, switchTheme} as unknown as AppThemeContext),
+        [theme, themes, switchTheme],
+    )
+
+    return <ThemeSwitchContext.Provider value={ctx}>
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes && themes[theme] ? themes[theme] : {}}>
                 {children}

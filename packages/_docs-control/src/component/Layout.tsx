@@ -17,20 +17,36 @@ import { Layout, LayoutProps } from '@control-ui/app/Layout'
 import { SearchBox } from './SearchBox'
 import { RouteCascade } from '@control-ui/routes/RouteCascade'
 import { useSearch } from '@control-ui/docs/DocsSearchProvider'
+import { Button } from '@mui/material'
+import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper/getUserPlatform'
 
 export const CustomHeaderBase: React.ComponentType = () => {
     const {switchTheme} = useSwitchTheme()
     const {setOpen} = useSearch()
+    const platform = getUserPlatform()
     return <Header>
         <RouterLink to={'/'}>
             <Logo width={26} style={{marginLeft: 6, display: 'block'}}/>
         </RouterLink>
 
-        <IconButton color="inherit" onClick={() => setOpen(true)} style={{marginLeft: 'auto'}}>
-            <AccessTooltipIcon title={'search'}>
-                <IcSearch/>
-            </AccessTooltipIcon>
-        </IconButton>
+        <AccessTooltipIcon title={'search'}>
+            <Button
+                variant={'outlined'} color={'inherit'}
+                onClick={() => setOpen(o => !o)}
+                startIcon={<IcSearch/>}
+                size={'small'}
+                style={{
+                    marginLeft: 'auto',
+                    marginRight: 8,
+                    borderRadius: 8,
+                }}
+            >
+                <span style={{fontWeight: 'bold', lineHeight: '0.965em', fontSize: '0.875rem', paddingLeft: 6, opacity: 0.8, minWidth: 68}}>
+                    {getUserCtrlKey(platform)}
+                    {' + K'}
+                </span>
+            </Button>
+        </AccessTooltipIcon>
 
         <LinkIconButton size={'medium'} to={'https://github.com/control-ui/control-ui'} color="inherit" style={{color: 'inherit'}}>
             {/*

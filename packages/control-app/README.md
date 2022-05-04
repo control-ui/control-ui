@@ -13,8 +13,8 @@ This package combines and wires great libraries together:
 - Code Splitting with [Loadable](https://github.com/jamiebuilds/react-loadable)
 
 And includes:
- 
-- `AppTheme` multi-theme provider on top of `@mui/styles` 
+
+- `AppTheme` multi-theme provider on top of `@mui/material/styles`
 - `DrawerProvider` for toggling the drawer
 - `RouterProvider` centralized, combinable, endless nestable routes
 - `I18nProvider` setups `react-i18next` with what really is needed
@@ -28,7 +28,7 @@ And includes:
 [![Documentation App](https://img.shields.io/badge/Documentation%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/docs/overview)
 
     npx create-react-app my-docs --template control-ui-docs
- 
+
 ## License
 
 This project is free software distributed under the **MIT License**.
@@ -41,9 +41,9 @@ See: [LICENSE](LICENSE).
 
 The icons in the badges of the readme's are either from [simpleicons](https://simpleicons.org) or are licensed otherwise:
 
-- [Play Icon © Chanut is Industries, CC BY 3.0](https://www.iconfinder.com/icons/928430/go_media_music_play_playing_start_icon) 
-- [Experiment Icon © Ardiansyah Ardi, CC BY 3.0](https://www.iconfinder.com/icons/4951169/chemical_experiment_glass_lab_medical_icon) 
-- [Doc Icons © PICOL, CC BY 3.0](https://www.iconfinder.com/iconsets/picol-vector) 
+- [Play Icon © Chanut is Industries, CC BY 3.0](https://www.iconfinder.com/icons/928430/go_media_music_play_playing_start_icon)
+- [Experiment Icon © Ardiansyah Ardi, CC BY 3.0](https://www.iconfinder.com/icons/4951169/chemical_experiment_glass_lab_medical_icon)
+- [Doc Icons © PICOL, CC BY 3.0](https://www.iconfinder.com/iconsets/picol-vector)
 
 ### Contributors
 

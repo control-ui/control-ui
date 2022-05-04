@@ -18,7 +18,10 @@ packer({
             },
             publicPath: '/',
             vendors: [],
-            noParse: [require.resolve('typescript/lib/typescript.js')],
+            noParse: [
+                require.resolve('typescript/lib/typescript.js'),
+                path.resolve('packages/_docs-control/node_modules/typescript/lib/typescript.js'),
+            ],
         },
     },
     packages: {

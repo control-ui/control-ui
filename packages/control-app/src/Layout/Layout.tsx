@@ -1,27 +1,5 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
-import makeStyles from '@mui/styles/makeStyles'
-import clsx from 'clsx'
-
-const useStyles = makeStyles(() => ({
-    '@global': {
-        '.sr-only': {
-            position: 'absolute',
-            width: 1,
-            height: 1,
-            padding: 0,
-            margin: -1,
-            overflow: 'hidden',
-            clip: 'rect(0, 0, 0, 0)',
-            border: 0,
-        },
-    },
-    container: {
-        display: 'flex',
-        overflow: 'auto',
-        flexGrow: 1,
-    },
-}))
 
 export interface LayoutProps {
     Header?: React.ComponentType
@@ -43,14 +21,13 @@ export const Layout: React.ComponentType<React.PropsWithChildren<LayoutProps>> =
         Content,
         mainContentStyle,
         mainContentRef,
-        containerStyle,
+        containerStyle = {},
         locationPath,
         mainId = 'main-content',
         children,
     },
 ) => {
     const ref = React.useRef<null | HTMLDivElement>(null)
-    const classes = useStyles()
 
     React.useEffect(() => {
         if(ref.current?.scrollTo) {
@@ -73,7 +50,12 @@ export const Layout: React.ComponentType<React.PropsWithChildren<LayoutProps>> =
     return <React.Fragment>
         <CssBaseline/>
         {Header ? <Header/> : null}
-        <div className={clsx(classes['@global'], classes.container)} style={containerStyle}>
+        <div style={{
+            display: 'flex',
+            overflow: 'auto',
+            flexGrow: 1,
+            ...containerStyle,
+        }}>
             {Drawer ? <Drawer/> : null}
             <div
                 ref={ref} id={mainId}
