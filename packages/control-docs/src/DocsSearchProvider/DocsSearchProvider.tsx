@@ -89,7 +89,7 @@ export const DocsSearchProvider = (
     React.useEffect(() => {
         if(typeof bindKey === 'undefined') return
         const onKey = (e: KeyboardEvent) => {
-            if(e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey.toLowerCase()) {
+            if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey.toLowerCase()) {
                 e.preventDefault()
                 setOpen(true)
             }

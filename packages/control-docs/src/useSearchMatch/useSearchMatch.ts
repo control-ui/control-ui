@@ -8,11 +8,11 @@ export type MatchMakerType<K, O = unknown> = {
         factory: (d: K[S]) => MatcherInstance<O>
     }
 }
-export const useSearchMatching = <I extends DocsIndexValues = DocsIndexValues>(
+export const useSearchMatching = <I extends DocsIndexValues = DocsIndexValues, O = unknown>(
     index: I,
-    matchMaker: MatchMakerType<I>,
+    matchMaker: MatchMakerType<I, O>,
 ): {
-    matcher: MatcherInstance
+    matcher: MatcherInstance<O>
     id: string
 }[] => {
     const matchMakerInstancesRef = React.useRef<{

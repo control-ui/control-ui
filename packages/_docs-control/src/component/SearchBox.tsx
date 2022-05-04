@@ -80,7 +80,7 @@ export const SearchBox: React.ComponentType = () => {
 
     React.useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
-            if(e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey?.toLowerCase()) {
+            if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey?.toLowerCase()) {
                 searchRef.current?.focus()
             }
         }
@@ -139,6 +139,10 @@ export const SearchBox: React.ComponentType = () => {
         }
     }, [searchTerm, routes, searchFns])
 
+    // @ts-ignore
+    // eslint-disable-next-line deprecation/deprecation
+    const platform = navigator?.userAgentData?.platform || navigator?.platform
+
     return <Dialog
         open={open} onClose={() => setOpen(false)}
         maxWidth={'sm'} fullWidth
@@ -189,7 +193,14 @@ export const SearchBox: React.ComponentType = () => {
 
         <Box style={{display: 'flex'}}>
             {searchTerm.trim().length > 0 && searchTerm.trim().length < 3 ? <Typography variant={'caption'}>min. length: 3</Typography> : null}
-            <Typography variant={'caption'} style={{marginLeft: 'auto'}}>open with: CMD + K</Typography>
+            {typeof bindKey === 'string' && platform.indexOf('iP') !== 0 ?
+                <Typography variant={'caption'} style={{marginLeft: 'auto'}}>
+                    {'open with: '}
+                    {platform.indexOf('Mac') === 0 ? '⌘' : 'CTRL'}
+                    {' + '}
+                    {bindKey.toUpperCase()}
+                </Typography>
+                : null}
         </Box>
 
         <Collapse

@@ -41,7 +41,7 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
     React.useEffect(() => {
         if(typeof bindKey === 'undefined') return
         const onMenuOpen = (e: KeyboardEvent) => {
-            if(e.ctrlKey && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey.toLowerCase()) {
+            if((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === bindKey.toLowerCase()) {
                 e.preventDefault()
                 setOpen(o => {
                     const n = !o
@@ -56,6 +56,10 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
         return () => document.removeEventListener('keydown', onMenuOpen)
     }, [bindKey, setOpen, btnRef])
 
+    // @ts-ignore
+    // eslint-disable-next-line deprecation/deprecation
+    const platform = navigator?.userAgentData?.platform || navigator?.platform
+
     return <LinkList label={title} style={linkListStyle} dense disablePadding={disablePadding}>
         <Button
             fullWidth
@@ -66,10 +70,12 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
             ref={btnRef}
         >
             <span style={{marginRight: 'auto'}}>{open ? 'Hide' : 'Show'} {title}</span>
-            {typeof bindKey === 'string' ?
+            {typeof bindKey === 'string' && platform.indexOf('iP') !== 0 ?
                 <Collapse in={!open} timeout="auto" unmountOnExit>
                     <Typography variant={'caption'} style={{position: 'relative', zIndex: 2, textTransform: 'none', padding: '0 4px', display: 'block'}} align={'right'}>
-                        CMD + {bindKey.toUpperCase()}
+                        {platform.indexOf('Mac') === 0 ? '⌘' : 'CTRL'}
+                        {' + '}
+                        {bindKey.toUpperCase()}
                     </Typography>
                 </Collapse> : null}
         </Button>
