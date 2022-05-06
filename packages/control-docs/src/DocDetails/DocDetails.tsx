@@ -15,37 +15,70 @@ export interface DocDetailsContentProps<D extends DocRoute = DocRoute> {
 
 export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
     {
-        scrollContainer, id, doc, path, hash, Content,
+        id, doc, path, hash, Content,
+        scrollContainer, scrollDelay = 75,
     }: {
         scrollContainer: React.MutableRefObject<HTMLDivElement | null>
         doc: D
         id: string
         hash?: string
         path: string
+        scrollDelay?: number
         Content: React.ComponentType<DocDetailsContentProps<D>>
     },
 ): React.ReactElement => {
+    const hasScrolled = React.useRef<boolean>(false)
     const {progress, content: contentStr} = useContentLoader(id, doc)
 
     React.useEffect(() => {
-        if(!scrollContainer.current) return
+        const onScroll = () => {
+            hasScrolled.current = true
+        }
+        window.addEventListener('scroll', onScroll)
+        return () => window.removeEventListener('scroll', onScroll)
+    }, [hasScrolled])
+
+    React.useEffect(() => {
+        if(!scrollContainer.current || progress !== 'success') {
+            return
+        }
+        if(!hash) {
+            if(hasScrolled.current) {
+                hasScrolled.current = false
+                return
+            }
+            scrollContainer.current?.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+            return
+        }
 
         const timer = window.setTimeout(() => {
-            if(hash && progress === 'success') {
-                const target = scrollContainer.current?.querySelector(hash)
-                if(target) {
-                    target.scrollIntoView()
-                    return
-                }
+            // if(hash && progress === 'success') {
+            if(hasScrolled.current) {
+                hasScrolled.current = false
+                return
             }
+            hasScrolled.current = false
+            const target = scrollContainer.current?.querySelector(hash)
+            if(target) {
+                target.scrollIntoView()
+                // return
+            }
+            /*}
 
-            scrollContainer.current?.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+            if(hasScrolled.current) {
+                hasScrolled.current = false
+                return
+            }
+            scrollContainer.current?.scrollTo({top: 0, left: 0, behavior: 'smooth'})*/
             // 75ms time for the browser to render the content / maybe load something already
             // todo: maybe add a "waiting for ref mounting" here, e.g. pass down ref in `Content` and use an interval
-        }, 75)
+        }, scrollDelay)
 
-        return () => window.clearTimeout(timer)
-    }, [hash, path, progress, scrollContainer])
+        return () => {
+            window.clearTimeout(timer)
+            hasScrolled.current = false
+        }
+    }, [hash, path, scrollDelay, progress, hasScrolled, scrollContainer])
 
     return <Content content={contentStr} doc={doc} id={id} progress={progress}/>
 }
@@ -67,6 +100,7 @@ export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     hash?: string
     headProps?: Omit<HeadMetaProps, 'title' | 'description'>
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
+    scrollDelay?: number
     Content: React.ComponentType<DocDetailsContentProps<D>>
     NotFound: React.ComponentType
     findDoc?: (routes: D, id: string) => D[]
@@ -75,7 +109,8 @@ export interface DocDetailsProps<D extends DocRoute = DocRoute> {
 export const DocDetails = <D extends DocRoute = DocRoute>(
     {
         title, description,
-        headProps = {}, scrollContainer,
+        headProps = {},
+        scrollContainer, scrollDelay,
         Content, NotFound,
         docId, path, hash,
         findDoc = findDocFn,
@@ -98,6 +133,7 @@ export const DocDetails = <D extends DocRoute = DocRoute>(
             <DocDetailsRenderer<D>
                 id={docId}
                 scrollContainer={scrollContainer}
+                scrollDelay={scrollDelay}
                 doc={doc as D}
                 Content={Content}
                 path={path}

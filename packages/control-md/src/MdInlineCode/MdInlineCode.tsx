@@ -5,13 +5,13 @@ import { MdCodeProps } from '@control-ui/md/MdCode'
 
 // todo: fix invalid children for-non-markdown usage in `MdInlineCode`, `MdCode`
 
-export const MdInlineCode: React.ComponentType<MdCodeProps> = (
+export const MdInlineCode: React.ComponentType<MdCodeProps & { p?: number }> = (
     {
-        variant = 'body1', fontFamily = 'monospace', style = {},
+        variant = 'body1', fontFamily = 'monospace', style = {}, p = 0.5,
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         node, language,
-        ...p
+        ...props
     },
 ) => {
     const {palette, spacing} = useTheme()
@@ -20,10 +20,10 @@ export const MdInlineCode: React.ComponentType<MdCodeProps> = (
         style={{
             background: palette.divider,
             fontFamily,
-            padding: '0 ' + spacing(0.5),
+            padding: '0 ' + spacing(p),
             ...style,
         }}
         gutterBottom
-        {...p}
+        {...props}
     >{children}</Typography>
 }

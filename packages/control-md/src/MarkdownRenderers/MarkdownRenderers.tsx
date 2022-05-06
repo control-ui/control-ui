@@ -1,8 +1,6 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
-import { MdList } from '@control-ui/md/MdList'
-import { MdInlineCode } from '@control-ui/md/MdInlineCode'
+import { MdList, MdListItem } from '@control-ui/md/MdList'
 import { MdBlockquote } from '@control-ui/md/MdBlockquote'
 import { MdCode } from '@control-ui/md/MdCode'
 import { MdLink } from '@control-ui/md/MdLink'
@@ -12,6 +10,8 @@ import {
 } from '@control-ui/md/MdTable'
 import { MdHeading } from '@control-ui/md/MdHeading'
 import { Components } from 'react-markdown'
+import { MdLine } from '@control-ui/md/MdLine'
+import { CodeProps } from 'react-markdown/lib/ast-to-react'
 
 /**
  * Renderers for: table, thead, tbody, tr, th, td
@@ -29,8 +29,7 @@ export const renderersTable = (dense?: boolean): Components => ({
  * Renderers for the basic HTML text-elements
  */
 export const renderersBasic = (dense?: boolean): Components => ({
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    p: ({node, ...p}) => <Typography {...p} component={'p'} variant={dense ? 'body2' : 'body1'} gutterBottom/>,
+    p: p => <MdLine {...p} dense={dense}/>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     hr: ({node, ...p}) => <Divider {...p}/>,
     h1: MdHeading,
@@ -41,11 +40,7 @@ export const renderersBasic = (dense?: boolean): Components => ({
     h6: MdHeading,
     ul: p => <MdList {...p} dense={dense}/>,
     ol: p => <MdList {...p} dense={dense}/>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    li: ({node, style = {}, ordered, children, ...p}) =>
-        <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold', ...style}}{...p}>
-            <span style={{fontWeight: 'normal', display: 'block'}}>{children}</span>
-        </Typography>,
+    li: p => <MdListItem{...p} dense={dense}/>,
 })
 
 /**
@@ -55,7 +50,7 @@ export const renderersBasic = (dense?: boolean): Components => ({
 export const renderers = (dense?: boolean): Components => ({
     ...renderersBasic(dense),
     ...renderersTable(dense),
-    code: ({inline, ...p}) => inline ? <MdInlineCode {...p}/> : <MdCode {...p}/>,
+    code: MdCode as React.ComponentType<CodeProps>,
     blockquote: MdBlockquote,
     a: MdLink,
 })
