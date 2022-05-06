@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import IcUp from '@mui/icons-material/ArrowUpward'
 import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
+import { SxProps } from '@mui/material'
 
 export interface ScrollUpButtonProps {
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
@@ -21,6 +22,7 @@ export interface ScrollUpButtonProps {
     pageScroll?: number
     zIndex?: number
     title?: string
+    sx?: SxProps
 }
 
 export const ScrollUpButton: React.ComponentType<ScrollUpButtonProps> = (
@@ -31,6 +33,7 @@ export const ScrollUpButton: React.ComponentType<ScrollUpButtonProps> = (
         bottom = 20, right = 20,
         pageScroll = 0.9,
         zIndex = 1000,
+        sx,
         title = 'back to top',
     },
 ) => {
@@ -69,6 +72,7 @@ export const ScrollUpButton: React.ComponentType<ScrollUpButtonProps> = (
                 }}
                 size={size}
                 color={color}
+                sx={sx}
                 onClick={() => {
                     if(resetHash && history.location.hash) {
                         history.push(history.location.pathname)

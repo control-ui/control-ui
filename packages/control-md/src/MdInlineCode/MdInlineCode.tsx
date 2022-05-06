@@ -9,6 +9,8 @@ export const MdInlineCode: React.ComponentType<MdCodeProps> = (
     {
         variant = 'body1', fontFamily = 'monospace', style = {},
         children,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node, language,
         ...p
     },
 ) => {

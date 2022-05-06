@@ -21,7 +21,7 @@ renderersContentDense.a = p => <MdLink {...p} currentDomain={window.location.pro
 const rehypePlugins = [rehypeRaw]
 const remarkPlugins = [remarkGfm]
 
-export const Markdown: React.ComponentType<{ source?: string, dense?: boolean }> = ({source, dense}) => {
+export const MarkdownBase: React.ComponentType<{ source?: string, dense?: boolean }> = ({source, dense}) => {
     return source ?
         <ReactMarkdown
             rehypePlugins={rehypePlugins}
@@ -31,3 +31,4 @@ export const Markdown: React.ComponentType<{ source?: string, dense?: boolean }>
         null
 }
 
+export const Markdown: React.ComponentType<{ source?: string, dense?: boolean }> = React.memo(MarkdownBase)

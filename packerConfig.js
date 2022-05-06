@@ -1,5 +1,6 @@
 const path = require('path')
 const {packer} = require('lerna-packer')
+const {makeModulePackageJson, copyRootPackageJson, transformForEsModule} = require('lerna-packer/packer/modulePackages')
 
 packer({
     apps: {
@@ -17,7 +18,6 @@ packer({
                 },
             },
             publicPath: '/',
-            vendors: [],
             noParse: [
                 require.resolve('typescript/lib/typescript.js'),
                 path.resolve('packages/_docs-control/node_modules/typescript/lib/typescript.js'),
@@ -58,7 +58,14 @@ packer({
             entry: path.resolve(__dirname, 'packages', 'control-md/src/'),
         },
     },
-}, __dirname)
+}, __dirname, {
+    afterEsModules: (packages, pathBuild) => {
+        return Promise.all([
+            makeModulePackageJson(transformForEsModule)(packages, pathBuild),
+            copyRootPackageJson()(packages, pathBuild),
+        ])
+    },
+})
     .then(([execs, elapsed]) => {
         if(execs.indexOf('doServe') !== -1) {
             console.log('[packer] is now serving (after ' + elapsed + 'ms)')

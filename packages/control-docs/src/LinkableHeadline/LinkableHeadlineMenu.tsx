@@ -11,9 +11,10 @@ export interface LinkableHeadlineMenuProps {
     disableNavLink?: boolean
     onClickKeepOpen?: boolean
     title?: string
-    linkListStyle?: React.CSSProperties
     titleStyle?: React.CSSProperties
+    linkListStyle?: React.CSSProperties
     linkItemStyle?: React.CSSProperties
+    collapseStyle?: React.CSSProperties
     startIcon?: React.ReactElement
     disablePadding?: boolean
     dense?: boolean
@@ -30,6 +31,7 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
         linkListStyle = {},
         titleStyle = {},
         linkItemStyle = {},
+        collapseStyle = {},
         startIcon = undefined,
         disablePadding = false,
         dense = false,
@@ -80,7 +82,7 @@ export const LinkableHeadlineMenu: React.ComponentType<LinkableHeadlineMenuProps
                     </Typography>
                 </Collapse> : null}
         </Button>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto" unmountOnExit style={collapseStyle}>
             {headlines.map(headline => (
                 <ListItemLink
                     key={headline.id} to={'#' + headline.id} dense={dense} exact

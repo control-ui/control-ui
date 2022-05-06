@@ -7,7 +7,10 @@ export const MdLink: React.ComponentType<React.ComponentPropsWithoutRef<'a'> & R
     {
         currentDomain,
         style = {},
-        href, children, ...p
+        href,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
+        children, ...p
     },
 ) => {
     const isRel = (-1 === href?.indexOf('https://') && -1 === href?.indexOf('http://'))

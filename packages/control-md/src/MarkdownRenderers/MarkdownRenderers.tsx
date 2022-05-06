@@ -29,8 +29,10 @@ export const renderersTable = (dense?: boolean): Components => ({
  * Renderers for the basic HTML text-elements
  */
 export const renderersBasic = (dense?: boolean): Components => ({
-    p: p => <Typography {...p} component={'p'} variant={dense ? 'body2' : 'body1'} gutterBottom/>,
-    hr: p => <Divider {...p}/>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    p: ({node, ...p}) => <Typography {...p} component={'p'} variant={dense ? 'body2' : 'body1'} gutterBottom/>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    hr: ({node, ...p}) => <Divider {...p}/>,
     h1: MdHeading,
     h2: MdHeading,
     h3: MdHeading,
@@ -39,7 +41,11 @@ export const renderersBasic = (dense?: boolean): Components => ({
     h6: MdHeading,
     ul: p => <MdList {...p} dense={dense}/>,
     ol: p => <MdList {...p} dense={dense}/>,
-    li: p => <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold'}}><span style={{fontWeight: 'normal', display: 'block'}}>{p.children}</span></Typography>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    li: ({node, style = {}, ordered, children, ...p}) =>
+        <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold', ...style}}{...p}>
+            <span style={{fontWeight: 'normal', display: 'block'}}>{children}</span>
+        </Typography>,
 })
 
 /**
@@ -50,7 +56,6 @@ export const renderers = (dense?: boolean): Components => ({
     ...renderersBasic(dense),
     ...renderersTable(dense),
     code: ({inline, ...p}) => inline ? <MdInlineCode {...p}/> : <MdCode {...p}/>,
-    // code: MdInlineCode,
     blockquote: MdBlockquote,
     a: MdLink,
 })

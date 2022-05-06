@@ -10,7 +10,12 @@ import TableCell from '@mui/material/TableCell'
 import { TableCellProps, TableRowProps } from 'react-markdown/lib/ast-to-react'
 
 export const MdTable: React.ComponentType<React.ComponentPropsWithoutRef<'table'> & ReactMarkdownProps & { dense?: boolean }> = (
-    {dense, children, ...p},
+    {
+        dense, children,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
+        ...p
+    },
 ) => {
     // todo: check TableHead and TableFooter support
     const {spacing} = useTheme()
@@ -20,12 +25,22 @@ export const MdTable: React.ComponentType<React.ComponentPropsWithoutRef<'table'
 }
 
 export const MdTableHead: React.ComponentType<React.ComponentPropsWithoutRef<'thead'> & ReactMarkdownProps> = (
-    {children, ...p},
+    {
+        children,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
+        ...p
+    },
 ) =>
     <TableHead {...p}>{children}</TableHead>
 
 export const MdTableBody: React.ComponentType<React.ComponentPropsWithoutRef<'tbody'> & ReactMarkdownProps> = (
-    {children, ...p},
+    {
+        children,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
+        ...p
+    },
 ) =>
     <TableBody {...p}>{children}</TableBody>
 
@@ -34,13 +49,21 @@ export const MdTableRow: React.ComponentType<TableRowProps> = (
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         isHeader,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
         ...p
     },
 ) =>
     <TableRow {...p}>{children}</TableRow>
 
 export const MdTableCell: React.ComponentType<TableCellProps & { dense?: boolean }> = (
-    {dense, style, children, isHeader, ...p},
+    {
+        dense, style,
+        children, isHeader,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        node,
+        ...p
+    },
 ) =>
     // @ts-ignore
     <TableCell

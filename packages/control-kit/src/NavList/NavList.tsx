@@ -2,40 +2,79 @@ import React from 'react'
 import Divider from '@mui/material/Divider'
 import useTheme from '@mui/material/styles/useTheme'
 import List, { ListProps } from '@mui/material/List'
-import { ListItemLink, ListItemLinkProps } from '@control-ui/kit/List/LinkList'
-import ListItemText from '@mui/material/ListItemText'
 import { ListCollapse } from '@control-ui/kit/List/ListCollapse'
-import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import { useLocation } from 'react-router-dom'
 import { Route } from '@control-ui/routes/Route'
-import ListItemButton from '@mui/material/ListItemButton'
+import { NavListItemProps } from '@control-ui/kit/NavList/NavListItem'
+import { SxProps } from '@mui/material'
 import { TypographyProps } from '@mui/material/Typography'
 
-export interface NavListNestedProps<C = any> {
-    routes: Route<C>[]
-    filter?: (route: Route<C>) => boolean
+export interface NavListNestedProps<R extends Route = Route> {
+    routes: R[]
+    filter?: (route: R) => boolean
     dense?: boolean
-    disableNavLink?: ListItemLinkProps['disableNavLink']
-    itemStyle?: {}
     divider?: boolean
     // for e.g. closing nav on mobile when clicking on item
     onClick?: () => void
     level?: number
-    renderSecondary?: (route: Route<C>) => undefined | string | React.ReactNode
-    primaryTypographyProps?: TypographyProps
-    secondaryTypographyProps?: TypographyProps
+    ListItem: React.ComponentType<NavListItemProps<R>>
+    labelProps?: TypographyProps
+    unmountOnExit?: boolean
+    sxList?: SxProps
 }
 
-export const NavListNestedBase = (
+export interface NavListNestedInnerProps<R extends Route = Route> extends Omit<NavListNestedProps<R>, 'routes'> {
+    route: R
+    active: boolean
+}
+
+export const NavListNestedInnerBase = <R extends Route = Route>(
+    {
+        route, active,
+        filter,
+        dense, divider = false,
+        onClick, level = 1,
+        labelProps, unmountOnExit, sxList,
+        ListItem,
+    }: NavListNestedInnerProps<R>,
+): React.ReactElement => {
+    const {spacing} = useTheme()
+    return <>
+        {divider || route?.nav?.divider ? <Divider/> : null}
+        <ListCollapse
+            label={route?.nav?.label} componentList={'nav'} dense={dense}
+            toggleSelected={active}
+            style={{
+                paddingLeft: spacing(level + 1),
+            }}
+            initialOpen={route?.nav?.initialOpen ? true : undefined}
+            forceOpen={(route?.nav?.to || route?.nav?.toSection ? active : undefined)}
+            sxList={sxList}
+            labelProps={labelProps}
+            unmountOnExit={unmountOnExit}
+        >
+            <NavListNested<R>
+                // @ts-ignore
+                routes={route.routes}
+                filter={filter}
+                dense={dense} divider={divider} onClick={onClick}
+                level={level + 1}
+                ListItem={ListItem}
+            />
+        </ListCollapse>
+    </>
+}
+export const NavListNestedInner = React.memo(NavListNestedInnerBase) as <R extends Route = Route>(props: NavListNestedInnerProps<R>) => React.ReactElement
+
+export const NavListNestedBase = <R extends Route = Route>(
     {
         routes, filter,
-        dense, itemStyle = {}, divider = false,
-        onClick, level = 1, disableNavLink = false,
-        primaryTypographyProps, secondaryTypographyProps,
-        renderSecondary,
-    }: NavListNestedProps,
+        dense, divider = false,
+        onClick, level = 1,
+        labelProps, unmountOnExit, sxList,
+        ListItem,
+    }: NavListNestedProps<R>,
 ): React.ReactElement => {
-    const {spacing, palette} = useTheme()
     const location = useLocation()
 
     const filteredRoutes = React.useMemo(() => filter ? routes?.filter(filter) : routes, [routes, filter])
@@ -43,68 +82,35 @@ export const NavListNestedBase = (
     return (filteredRoutes?.map((route, i) => {
         const hasRoutes = route.routes
         const active = route.nav?.toSection ?
-            route.nav.toSection instanceof RegExp ? route.nav.toSection.test(location.pathname) :
-                location.pathname.indexOf(route.nav.toSection + '/') === 0 ||
-                location.pathname === route.nav.toSection :
+            route.nav.toSection instanceof RegExp ? route.nav.toSection.test(location.pathname) : (
+                location.pathname.startsWith(route.nav.toSection + '/') ||
+                location.pathname === route.nav.toSection ||
+                location.pathname.startsWith(route.nav.to + '/')
+            ) :
             typeof route.nav?.to === 'string' ?
-                (hasRoutes && location.pathname.indexOf(route.nav.to + '/') === 0) ||
-                location.pathname === route.nav.to :
+                (hasRoutes && location.pathname.startsWith(route.nav.to + '/')) || location.pathname === route.nav.to :
                 false
 
         return <React.Fragment key={i}>
             {hasRoutes ?
-                <>
-                    {divider || route?.nav?.divider ? <Divider/> : null}
-                    <ListCollapse
-                        label={route?.nav?.label} component={'nav'} dense={dense}
-                        // @ts-ignore
-                        toggleSelected={active}
-                        // @ts-ignore
-                        style={{
-                            paddingLeft: spacing(level + 1),
-                            background: active ? palette.background.paper : 'transparent',
-                        }}
-                        initialOpen={route?.nav?.initialOpen ? true : undefined}
-                        // @ts-ignore
-                        forceOpen={(route?.nav?.to || route?.nav?.toSection ? active : undefined)}
-                    >
-                        <NavListNested
-                            // @ts-ignore
-                            routes={route.routes} filter={filter}
-                            dense={dense} divider={divider} onClick={onClick}
-                            itemStyle={itemStyle} level={level + 1}
-                        />
-                    </ListCollapse>
-                </> :
-                route?.nav?.to ?
-                    <ListItemLink
-                        style={{paddingLeft: spacing(level + 1), ...(itemStyle || {})}}
-                        dense={dense}
-                        to={route.nav.to}
-                        primary={route.nav.label}
-                        secondary={renderSecondary ? renderSecondary(route) : undefined}
-                        onClick={onClick}
-                        disableNavLink={disableNavLink}
-                        primaryTypographyProps={primaryTypographyProps}
-                        secondaryTypographyProps={secondaryTypographyProps}
-                    /> :
-                    <ListItemButton
-                        style={{paddingLeft: spacing(level + 1), ...(itemStyle || {})}}
-                        dense={dense}
-                        onClick={onClick}
-                    >
-                        {route?.nav?.icon ? <ListItemIcon>{route?.nav?.icon}</ListItemIcon> : null}
-                        <ListItemText
-                            primary={route?.nav?.label}
-                            secondary={renderSecondary ? renderSecondary(route) : undefined}
-                            primaryTypographyProps={primaryTypographyProps}
-                            secondaryTypographyProps={secondaryTypographyProps}
-                        />
-                    </ListItemButton>}
+                <NavListNestedInner<R>
+                    route={route}
+                    active={active}
+                    filter={filter}
+                    dense={dense}
+                    divider={divider}
+                    onClick={onClick}
+                    level={level}
+                    labelProps={labelProps}
+                    unmountOnExit={unmountOnExit}
+                    sxList={sxList}
+                    ListItem={ListItem}
+                /> :
+                <ListItem route={route} level={level} dense={dense} onClick={onClick}/>}
         </React.Fragment>
     }) || null) as unknown as React.ReactElement
 }
 
-export const NavListNested = React.memo(NavListNestedBase)
+export const NavListNested = React.memo(NavListNestedBase) as <R extends Route = Route>(props: NavListNestedProps<R>) => React.ReactElement
 
 export const NavList = (props: ListProps): React.ReactElement => <List {...props} component={'nav'}/>

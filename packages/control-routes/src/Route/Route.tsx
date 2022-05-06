@@ -16,6 +16,11 @@ export interface RouteNav {
 export interface Route<C = any, N extends RouteNav = RouteNav> {
     'path'?: string
     nav?: N
+    // todo: somehow `routes` need to be overridable with the Route itself
     routes?: Route<C, N>[]
     config?: { [k: string]: RouteComponent<C> }
+}
+
+export interface RouteNested<R extends Route = Route> {
+    routes?: R[]
 }

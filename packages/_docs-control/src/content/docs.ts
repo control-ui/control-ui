@@ -11,6 +11,7 @@ const createDoc = (
     routes: DocRouteModule[] | undefined,
     prefix: string = '',
     module?: TsDocModule,
+    toSection?: RegExp,
 ): DocRouteModule => ({
     doc: path,
     path: prefix + '/' + path,
@@ -18,6 +19,7 @@ const createDoc = (
         to: prefix + '/' + path,
         initialOpen: false,
         label,
+        toSection,
     },
     docModule: module,
     routes,
@@ -102,7 +104,7 @@ export const docsKit = (prefix = '') => [
             module: defineModule('control-ui', 'kit', 'control-kit', 'Loading'),
         }),
         compKit('NavList', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'NavList'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'NavList', ['NavList.tsx', 'NavListItem.ts', 'NavListItemAuto.tsx']),
         }),
         compKit('PageContent', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'PageContent'),
@@ -116,7 +118,7 @@ export const docsKit = (prefix = '') => [
         compKit('Tooltip', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'Tooltip'),
         }),
-    ], prefix),
+    ], prefix, undefined, /^\/kit\/components\//),
 ]
 
 const compDocs = compCreator('docs/components')

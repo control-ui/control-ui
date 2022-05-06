@@ -2,12 +2,13 @@ import Loadable from 'react-loadable'
 import { docsKit, docsDocs, docsHowTo, docsApp, docsRoutes, docsMdMui, docsDocsTs } from './content/docs'
 import { Route } from '@control-ui/routes/Route'
 
-const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loading?: any): Route => ({
+const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loading?: any, toSection?: RegExp): Route => ({
     path: '/' + scope + '/:docId+',
     nav: {
         to: '/' + scope,
         label,
         initialOpen: false,
+        toSection,
     },
     config: {
         content: {

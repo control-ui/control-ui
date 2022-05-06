@@ -6,6 +6,7 @@ import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import * as H from 'history'
 import ListItemButton from '@mui/material/ListItemButton'
 import { TypographyProps } from '@mui/material/Typography'
+import { SxProps } from '@mui/material'
 
 export interface ListItemLinkProps {
     icon?: React.ReactNode
@@ -24,6 +25,7 @@ export interface ListItemLinkProps {
     }
     primaryTypographyProps?: TypographyProps
     secondaryTypographyProps?: TypographyProps
+    sx?: SxProps
 }
 
 export function ListItemLink(
@@ -33,6 +35,7 @@ export function ListItemLink(
         dense, style, classes = {}, children, exact,
         primary, secondary,
         primaryTypographyProps = {}, secondaryTypographyProps,
+        sx,
     }: React.PropsWithChildren<ListItemLinkProps>,
 ): React.ReactElement {
     const renderLink: React.ComponentType<React.PropsWithChildren<{
@@ -54,6 +57,7 @@ export function ListItemLink(
         component={renderLink}
         onClick={onClick}
         className={classes.listItem}
+        sx={sx}
         {...(
             disableNavLink ?
                 {
@@ -89,13 +93,15 @@ export interface LinkListProps {
     dense?: boolean
     disablePadding?: boolean
     style?: React.CSSProperties
+    sx?: SxProps
 }
 
 export const LinkList: React.ComponentType<React.PropsWithChildren<LinkListProps>> = (
     {
         children, label,
         style, disablePadding, dense,
+        sx,
     },
 ) => {
-    return <List dense={dense} component="nav" aria-label={label} style={style} disablePadding={disablePadding}>{children}</List>
+    return <List dense={dense} component="nav" aria-label={label} style={style} disablePadding={disablePadding} sx={sx}>{children}</List>
 }

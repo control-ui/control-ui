@@ -50,13 +50,14 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
     return <Content content={contentStr} doc={doc} id={id} progress={progress}/>
 }
 
-export const findDocFn = <D extends DocRoute = DocRoute>(routes: D, id: string): D[] => filterRoutes<D>(routes, (route) =>
-    typeof route.doc === 'undefined' ?
-        false :
-        typeof route.doc === 'boolean' ?
-            route.path?.slice(1) === id :
-            route.doc === id,
-)
+export const findDocFn = <D extends DocRoute = DocRoute>(routes: D, id: string): D[] =>
+    filterRoutes<D>(routes, (route) =>
+        typeof route.doc === 'undefined' ?
+            false :
+            typeof route.doc === 'boolean' ?
+                route.path?.slice(1) === id :
+                route.doc === id,
+    )
 
 export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     title: (doc: D | undefined) => string
