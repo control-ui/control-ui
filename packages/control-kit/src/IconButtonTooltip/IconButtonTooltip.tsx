@@ -11,9 +11,10 @@ export const IconButtonTooltip: React.FC<{
         {children}
         <span style={visuallyHidden}>{title}</span>
     </IconButton>
-    return typeof title === 'string' ?
+    return typeof title === 'undefined' ?
+        btn :
         <Tooltip title={title}>
             {btn}
-        </Tooltip> : btn
+        </Tooltip>
 }
 
