@@ -1,33 +1,33 @@
-import React from 'react';
-import {useTheme} from '@mui/material/styles';
-import TableCell from '@mui/material/TableCell';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
-import UnfoldLess from '@mui/icons-material/UnfoldLess';
-import UnfoldMore from '@mui/icons-material/UnfoldMore';
-import {AccessTooltipIcon} from "@control-ui/kit/Tooltip";
-import {DataGridPaginationActions} from "@control-ui/kit/DataGrid/DataGridPagination";
+import React from 'react'
+import {useTheme} from '@mui/material/styles'
+import TableCell from '@mui/material/TableCell'
+import TableFooter from '@mui/material/TableFooter'
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
+import IconButton from '@mui/material/IconButton'
+import UnfoldLess from '@mui/icons-material/UnfoldLess'
+import UnfoldMore from '@mui/icons-material/UnfoldMore'
+import Tooltip from '@mui/material/Tooltip'
+import {DataGridPaginationActions} from '@control-ui/kit/DataGrid/DataGridPagination'
 
 export function DataGridFooter({
                                    dense, toggleDense,
                                    count, rowsPerPage, page, onChangePage, onChangeRowsPerPage,
                                    stickyFooter = true,
                                }) {
-    const {palette} = useTheme();
+    const {palette} = useTheme()
 
     return (
         <TableFooter style={{position: stickyFooter ? 'sticky' : 'static', left: 0, right: 0, bottom: 0}}>
             <TableRow>
                 <TableCell style={{background: palette.background.default}}>
-                    <AccessTooltipIcon title={dense ? 'data-grid.loose' : 'data-grid.compact'}>
+                    <Tooltip title={dense ? 'data-grid.loose' : 'data-grid.compact'}>
                         <IconButton size={'small'} onClick={toggleDense}>
                             {dense ?
                                 <UnfoldMore/> :
                                 <UnfoldLess/>}
                         </IconButton>
-                    </AccessTooltipIcon>
+                    </Tooltip>
                 </TableCell>
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, {label: 'All', value: -1}]}
@@ -46,5 +46,5 @@ export function DataGridFooter({
                 />
             </TableRow>
         </TableFooter>
-    );
+    )
 }

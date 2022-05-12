@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import {AccessTooltipIcon} from '@control-ui/kit/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 import useTheme from '@mui/material/styles/useTheme'
 
 export const EnhancedTableToolbar = ({numSelected, title}) => {
@@ -39,17 +39,17 @@ export const EnhancedTableToolbar = ({numSelected, title}) => {
             )}
 
             {numSelected > 0 ? (
-                <IconButton aria-label="delete" size={'small'}>
-                    <AccessTooltipIcon title="Delete">
+                <Tooltip title="Delete">
+                    <IconButton aria-label="delete" size={'small'}>
                         <DeleteIcon/>
-                    </AccessTooltipIcon>
-                </IconButton>
+                    </IconButton>
+                </Tooltip>
             ) : (
-                <IconButton aria-label="filter list" size={'small'}>
-                    <AccessTooltipIcon title="Filter list">
+                <Tooltip title="Filter list">
+                    <IconButton aria-label="filter list" size={'small'}>
                         <FilterListIcon/>
-                    </AccessTooltipIcon>
-                </IconButton>
+                    </IconButton>
+                </Tooltip>
             )}
         </Toolbar>
     )

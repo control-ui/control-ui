@@ -50,7 +50,7 @@ export const AppLoader = (
                 <Box m={2}>
                     <Alert severity={'error'}>
                         <Typography gutterBottom>{errorMessage}</Typography>
-                        <Button variant={'outlined'} fullWidth onClick={props.retry}>retry</Button>
+                        <Button variant={'outlined'} fullWidth onClick={() => props.retry()}>retry</Button>
                     </Alert>
                 </Box> :
                 <LoadingCircular title={loadingTitle}/>

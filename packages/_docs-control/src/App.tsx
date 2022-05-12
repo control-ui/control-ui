@@ -4,12 +4,13 @@ import { routes } from './routes'
 import { DocsProvider } from '@control-ui/docs/DocsProvider'
 import { HeadlinesProvider } from '@control-ui/docs/LinkableHeadline'
 import merge from 'webpack-merge'
-import { loading } from './component/Loading'
 import { CustomLayout } from './component/Layout'
 import { BrowserRouter } from 'react-router-dom'
 import { DocsIndexProvider } from '@control-ui/docs/DocsIndexProvider'
 import { DocsSearchProvider } from '@control-ui/docs/DocsSearchProvider'
 import { I18nProviderContext } from '@control-ui/app'
+import { loadableLoading } from '@control-ui/kit/LoadableLoading'
+import { LoadingCircular } from '@control-ui/kit'
 
 const indexRefs = {
     modules: 'docs/index.json',
@@ -51,7 +52,7 @@ const i18n: I18nProviderContext = {
     },
 }
 
-const routing = routes(loading)
+const routing = routes(loadableLoading(LoadingCircular))
 const CustomApp = () =>
     <BrowserRouter basename={'/'}>
         <App

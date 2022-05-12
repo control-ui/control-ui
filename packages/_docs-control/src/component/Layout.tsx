@@ -1,11 +1,9 @@
 import React from 'react'
-import IconButton from '@mui/material/IconButton'
 import IcSearch from '@mui/icons-material/Search'
 import InvertColorsIcon from '@mui/icons-material/InvertColors'
 import GithubLogo from '../asset/GithubLogo'
 import Loadable from 'react-loadable'
 import { Link as RouterLink, RouteComponentProps, useLocation } from 'react-router-dom'
-import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
 import { LinkIconButton } from '@control-ui/kit/Link/LinkIconButton'
 import { Header } from '@control-ui/app/Header'
 import { useSwitchTheme } from '@control-ui/app/AppTheme'
@@ -19,6 +17,7 @@ import { RouteCascade } from '@control-ui/routes/RouteCascade'
 import { useSearch } from '@control-ui/docs/DocsSearchProvider'
 import { Button } from '@mui/material'
 import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper/getUserPlatform'
+import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
 
 export const CustomHeaderBase: React.ComponentType = () => {
     const {switchTheme} = useSwitchTheme()
@@ -29,24 +28,22 @@ export const CustomHeaderBase: React.ComponentType = () => {
             <Logo width={26} style={{marginLeft: 6, display: 'block'}}/>
         </RouterLink>
 
-        <AccessTooltipIcon title={'search'}>
-            <Button
-                variant={'outlined'} color={'inherit'}
-                onClick={() => setOpen(o => !o)}
-                startIcon={<IcSearch/>}
-                size={'small'}
-                style={{
-                    marginLeft: 'auto',
-                    marginRight: 8,
-                    borderRadius: 8,
-                }}
-            >
-                <span style={{fontWeight: 'bold', lineHeight: '0.965em', fontSize: '0.875rem', paddingLeft: 6, opacity: 0.8, minWidth: 68}}>
-                    {getUserCtrlKey(platform)}
-                    {' + K'}
-                </span>
-            </Button>
-        </AccessTooltipIcon>
+        <Button
+            variant={'outlined'} color={'inherit'}
+            onClick={() => setOpen(o => !o)}
+            startIcon={<IcSearch/>}
+            size={'small'}
+            style={{
+                marginLeft: 'auto',
+                marginRight: 8,
+                borderRadius: 8,
+            }}
+        >
+            <span style={{fontWeight: 'bold', lineHeight: '0.965em', fontSize: '0.875rem', paddingLeft: 6, opacity: 0.8, minWidth: 68}}>
+                {getUserCtrlKey(platform)}
+                {' + K'}
+            </span>
+        </Button>
 
         <LinkIconButton size={'medium'} to={'https://github.com/control-ui/control-ui'} color="inherit" style={{color: 'inherit'}}>
             {/*
@@ -58,11 +55,9 @@ export const CustomHeaderBase: React.ComponentType = () => {
             <span className={'sr-only'}>To Github</span>
         </LinkIconButton>
 
-        <IconButton color="inherit" onClick={() => switchTheme()}>
-            <AccessTooltipIcon title={'Switch Theme'}>
-                <InvertColorsIcon/>
-            </AccessTooltipIcon>
-        </IconButton>
+        <IconButtonTooltip color="inherit" onClick={() => switchTheme()} title={'Switch Theme'}>
+            <InvertColorsIcon/>
+        </IconButtonTooltip>
     </Header>
 }
 export const CustomHeader: React.ComponentType = React.memo(CustomHeaderBase)

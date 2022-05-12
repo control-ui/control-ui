@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 import LinkIcon from '@mui/icons-material/Link'
 import { Variant } from '@mui/material/styles/createTypography'
 import useTheme from '@mui/material/styles/useTheme'
@@ -127,18 +127,18 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
         }}
     >
         {id ?
-            <Button
-                component={'a'} color={'primary'} aria-hidden="true"
-                onFocus={() => setHovering(true)}
-                onBlur={() => setHovering(false)}
-                onClick={() => copyToClipboard(window.location.protocol + '//' + window.location.host + window.location.pathname + '#' + id)}
-                href={window.location.protocol + '//' + window.location.host + window.location.pathname + '#' + id}
-                style={{left: -6, top: '50%', minWidth: 'auto', transform: 'translateY(-50%)', position: 'absolute', border: 0, padding: 0, opacity: hovering ? 1 : 0.01}}
-            >
-                <AccessTooltipIcon title={'Copy Link to Clipboard'}>
+            <Tooltip title={'Copy Link to Clipboard'}>
+                <Button
+                    component={'a'} color={'primary'} aria-hidden="true"
+                    onFocus={() => setHovering(true)}
+                    onBlur={() => setHovering(false)}
+                    onClick={() => copyToClipboard(window.location.protocol + '//' + window.location.host + window.location.pathname + '#' + id)}
+                    href={window.location.protocol + '//' + window.location.host + window.location.pathname + '#' + id}
+                    style={{left: -6, top: '50%', minWidth: 'auto', transform: 'translateY(-50%)', position: 'absolute', border: 0, padding: 0, opacity: hovering ? 1 : 0.01}}
+                >
                     <LinkIcon fontSize={'small'} style={{boxSizing: 'content-box', padding: 6, display: 'block'}}/>
-                </AccessTooltipIcon>
-            </Button> : null}
+                </Button>
+            </Tooltip> : null}
         {children}
     </Typography>
 }

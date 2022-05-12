@@ -1,10 +1,9 @@
 import React from 'react'
 import AppBar, { AppBarProps } from '@mui/material/AppBar'
-import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import IcMenu from '@mui/icons-material/Menu'
 import { useDrawer } from '@control-ui/app/DrawerProvider'
-import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
+import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
 import { SxProps } from '@mui/system'
 
 export type labelMenu = (open: boolean) => string
@@ -55,17 +54,16 @@ export const Header: React.ComponentType<React.PropsWithChildren<HeaderProps>> =
             data-e2e={e2e ? e2e + 'toolbar' : undefined}
         >
             {noDrawerToggle ? null :
-                <IconButton
+                <IconButtonTooltip
                     edge="start"
                     color="inherit"
+                    title={labelMenu(open)}
                     aria-label={labelMenu(open)}
                     onClick={() => setOpen(o => !o)}
                     data-e2e={e2e ? e2e + 'drawer-toggle' : undefined}
                 >
-                    <AccessTooltipIcon title={labelMenu(open)}>
-                        <IcMenu/>
-                    </AccessTooltipIcon>
-                </IconButton>}
+                    <IcMenu/>
+                </IconButtonTooltip>}
 
             {children}
         </Toolbar>

@@ -1,14 +1,10 @@
 import React from 'react'
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
-import Typography, { TypographyTypeMap } from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
+import Typography from '@mui/material/Typography'
 import useTheme from '@mui/material/styles/useTheme'
+import { LoadingProps } from '@control-ui/kit/Loading/Loading'
 
-export const LoadingCircular: React.ComponentType<{
-    title: string
-    textColor?: TypographyTypeMap['props']['color']
-    loadingColor?: CircularProgressProps['color']
-    width?: string
-}> = (
+export const LoadingCircular: React.ComponentType<LoadingProps> = (
     {
         title,
         loadingColor,
@@ -26,14 +22,15 @@ export const LoadingCircular: React.ComponentType<{
         width,
     }}>
         <CircularProgress color={loadingColor || 'secondary'} style={{margin: spacing(2) + ' auto'}} disableShrink/>
-        {title ? <Typography
-            component={'p'} variant={'overline'}
-            style={{
-                textAlign: 'center',
-                fontSize: '1em',
-            }}
-            color={textColor || 'textSecondary'}>
-            {title}
-        </Typography> : null}
+        {title ?
+            <Typography
+                component={'p'} variant={'overline'}
+                style={{
+                    textAlign: 'center',
+                    fontSize: '1em',
+                }}
+                color={textColor || 'textSecondary'}>
+                {title}
+            </Typography> : null}
     </div>
 }

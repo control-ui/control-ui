@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'
+import { IconButtonProps } from '@mui/material/IconButton'
 import IcUp from '@mui/icons-material/ArrowUpward'
-import { AccessTooltipIcon } from '@control-ui/kit/Tooltip'
+import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
 import { SxProps } from '@mui/material'
 
 export interface ScrollUpButtonProps {
@@ -58,29 +58,29 @@ export const ScrollUpButton: React.ComponentType<ScrollUpButtonProps> = (
     }, [handleScroll, scrollContainer])
 
     return scrollContainer.current ?
-        <AccessTooltipIcon title={title}>
-            <IconButton
-                tabIndex={-1}
-                style={{
-                    position: 'fixed', minWidth: 'auto',
-                    bottom: bottom,
-                    right: right,
-                    zIndex: zIndex,
-                    pointerEvents: scrolledPages > pageScroll ? 'all' : 'none',
-                    opacity: scrolledPages > pageScroll ? 1 : 0,
-                    transition: 'opacity 0.25s ease-in-out',
-                }}
-                size={size}
-                color={color}
-                sx={sx}
-                onClick={() => {
-                    if(resetHash && history.location.hash) {
-                        history.push(history.location.pathname)
-                    }
-                    scrollContainer.current?.scrollTo(0, 0)
-                }}
-            >
-                <IcUp fontSize={'small'}/>
-            </IconButton>
-        </AccessTooltipIcon> : null as unknown as React.ReactElement
+        <IconButtonTooltip
+            tabIndex={-1}
+            title={title}
+            style={{
+                position: 'fixed', minWidth: 'auto',
+                bottom: bottom,
+                right: right,
+                zIndex: zIndex,
+                pointerEvents: scrolledPages > pageScroll ? 'all' : 'none',
+                opacity: scrolledPages > pageScroll ? 1 : 0,
+                transition: 'opacity 0.25s ease-in-out',
+            }}
+            size={size}
+            color={color}
+            sx={sx}
+            onClick={() => {
+                if(resetHash && history.location.hash) {
+                    history.push(history.location.pathname)
+                }
+                scrollContainer.current?.scrollTo(0, 0)
+            }}
+        >
+            <IcUp fontSize={'small'}/>
+        </IconButtonTooltip> :
+        null as unknown as React.ReactElement
 }

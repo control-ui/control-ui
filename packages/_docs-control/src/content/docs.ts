@@ -115,8 +115,8 @@ export const docsKit = (prefix = '') => [
         compKit('ScrollUpButton', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'ScrollUpButton'),
         }),
-        compKit('Tooltip', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'Tooltip'),
+        compKit('IconButtonTooltip', {
+            module: defineModule('control-ui', 'kit', 'control-kit', 'IconButtonTooltip'),
         }),
     ], prefix, undefined, /^\/kit\/components\//),
 ]
