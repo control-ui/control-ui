@@ -46,6 +46,7 @@ jobs:
                 run: |
                     npm ci
                     npm run bootstrap
+                    npm run bootstrap
                     npm run link
                     npm run build
                     npm run doc-gen
