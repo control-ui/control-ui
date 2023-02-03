@@ -5,7 +5,7 @@ import visuallyHidden from '@mui/utils/visuallyHidden'
 
 export const IconButtonTooltip: React.FC<{
     title?: string | NonNullable<React.ReactNode>
-} & IconButtonProps> = ({title, children, ...p}) => {
+} & Omit<IconButtonProps, 'title'>> = ({title, children, ...p}) => {
     // todo: to support `disabled` on button, all needs to be wrapped in a `span`
     const btn = <IconButton {...p}>
         {children}

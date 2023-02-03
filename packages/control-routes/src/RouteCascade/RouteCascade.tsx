@@ -15,8 +15,8 @@ export const RouteCascadeNested = <CP, P>({routeId, path, routes, childProps, co
     path: string
     childProps: CP
     routes?: RouteType<any>
-    Comp?: React.ComponentType<RouteComponentProps<CP & P>>
-    render?: (props: RouteComponentProps<CP & P>) => React.ReactNode
+    Comp?: React.ComponentType<RouteComponentProps & CP & P>
+    render?: (props: RouteComponentProps & CP & P) => React.ReactNode
 }) => {
     return <>
         {Comp || render ? <Route

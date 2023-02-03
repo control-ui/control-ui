@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.scss'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { themes } from './theme'
 import { AppLoader } from '@control-ui/app/AppLoader'
 
@@ -13,4 +13,6 @@ const App = AppLoader(
     onError,
 )
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+
+const root = createRoot(document.querySelector('#root') as Element)
+root.render(<App/>)

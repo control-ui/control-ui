@@ -25,14 +25,20 @@ export const Drawer: React.FC<React.PropsWithChildren<CustomDrawerProps & Omit<D
         sx={{
             overflow: 'auto',
             position: 'absolute',
+            // todo: make configurable
             top: 48,
             bottom: 0,
+            ...sx,
             [theme.breakpoints.up(floatEndsAt)]: {
+                // @ts-ignore
+                ...sx?.[theme.breakpoints.up(floatEndsAt)] || {},
                 height: '100%',
                 position: 'relative',
                 top: 0,
             },
             '& .MuiDrawer-paper': {
+                // @ts-ignore
+                ...sx?.['& .MuiDrawer-paper'] || {},
                 // todo: check why position is overwritten when using `useStyles` also in `AppLoader`
                 position: 'relative !important' as 'relative',
                 whiteSpace: 'nowrap',
@@ -52,7 +58,6 @@ export const Drawer: React.FC<React.PropsWithChildren<CustomDrawerProps & Omit<D
                     width: open ? undefined : 0,
                 },*/
             },
-            ...sx,
         }}
         open={open}
         {...props}

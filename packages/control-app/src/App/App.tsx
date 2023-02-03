@@ -13,8 +13,8 @@ const DefaultProvider = ({routes, children}: React.PropsWithChildren<{ routes: R
 )
 
 export interface AppProps {
-    Layout: React.ComponentType
-    Provider?: React.ComponentType
+    Layout: React.ComponentType<{}>
+    Provider?: React.ComponentType<React.PropsWithChildren<{}>>
     routes: Route
     i18n: I18nProviderContext
 }

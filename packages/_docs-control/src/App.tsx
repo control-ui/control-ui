@@ -10,7 +10,7 @@ import { DocsIndexProvider } from '@control-ui/docs/DocsIndexProvider'
 import { DocsSearchProvider } from '@control-ui/docs/DocsSearchProvider'
 import { I18nProviderContext } from '@control-ui/app'
 import { loadableLoading } from '@control-ui/kit/LoadableLoading'
-import { LoadingCircular } from '@control-ui/kit'
+import { LoadingCircular } from '@control-ui/kit/Loading'
 
 const indexRefs = {
     modules: 'docs/index.json',
