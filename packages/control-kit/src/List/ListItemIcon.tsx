@@ -1,11 +1,11 @@
 import React from 'react'
-import ListItemIc from '@mui/material/ListItemIcon'
+import MuiListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon'
 import { useTheme } from '@mui/material/styles'
 
-export default ({style = {}, ...props}) => {
+export default function ListItemIcon({style = {}, ...props}: ListItemIconProps) {
     const theme = useTheme()
-    return <ListItemIc style={{
+    return <MuiListItemIcon style={{
         color: theme.palette.mode === 'dark' ? theme.palette.primary.main : 'inherit',
         ...style,
     }} {...props}/>
-};
+}

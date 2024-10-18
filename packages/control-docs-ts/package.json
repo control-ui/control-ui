@@ -11,8 +11,7 @@
         }
     ],
     "scripts": {
-        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-docs",
-        "__dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-docs && merge-dirs build/control-docs-ts/src build && rm -rf build/control-docs-ts"
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-docs"
     },
     "main": "index.js",
     "module": "esm/index.js",

@@ -84,11 +84,8 @@ const compKit = compCreator('kit/components')
 export const docsKit = (prefix = '') => [
     createDoc('kit/overview', 'Kit Overview', undefined, prefix),
     createDoc('kit/components', 'Components', [
-        compKit('DataGrid', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'DataGrid', ['DataGrid.js']),
-        }),
         compKit('ExpansionPanel', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'ExpansionPanel', ['ExpansionPanel.js']),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'ExpansionPanel', ['index.ts']),
         }),
         compKit('HeadMeta', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'HeadMeta'),

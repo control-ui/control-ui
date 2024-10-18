@@ -17,8 +17,7 @@
     "module": "esm/index.js",
     "dependencies": {
         "@control-ui/routes": "~0.0.5",
-        "react-helmet": "^6.1.0",
-        "react-uid": "^2.0"
+        "react-helmet": "^6.1.0"
     },
     "devDependencies": {
         "@types/react": "^18.0",

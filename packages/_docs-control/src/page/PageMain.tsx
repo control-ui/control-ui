@@ -1,15 +1,31 @@
 import React from 'react'
-import {Alert, Box, Typography} from '@mui/material'
-import {PageBox, PageContent} from '@control-ui/kit/PageContent'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Typography, { TypographyProps } from '@mui/material/Typography'
+import { PageBox, PageContent } from '@control-ui/kit/PageContent'
+import { Markdown } from '../component/Markdown'
 import NavProject from '../component/NavProject'
-import {HeadMeta} from '@control-ui/kit/HeadMeta'
-import {Logo} from '../asset/Logo'
-import {LinkButton} from '@control-ui/kit/Link/LinkButton'
-import {MdCode} from '@control-ui/md/MdCode'
+import { HeadMeta } from '@control-ui/kit/HeadMeta'
+import { Logo } from '../asset/Logo'
+import { LinkButton } from '@control-ui/kit/Link/LinkButton'
 import { useTheme } from '@mui/material/styles'
 
-const H = ({level, ...p}) => <Typography component={'h' + level} variant={'h' + level} gutterBottom style={{marginTop: 36 / (level / 2)}} {...p}/>
-const P = (p) => <Typography component={'p'} variant={'body1'} gutterBottom {...p}/>
+const H = ({level, ...p}: TypographyProps & { level: 1 | 2 | 3 | 4 | 5 | 6 }) =>
+    <Typography
+        component={`h${level}`}
+        variant={`h${level}`}
+        gutterBottom
+        style={{marginTop: 36 / (level / 2)}}
+        {...p}
+    />
+
+const P = (p: TypographyProps) =>
+    <Typography
+        component={'p'}
+        variant={'body1'}
+        gutterBottom
+        {...p}
+    />
 
 export default function PageMain() {
     const {palette} = useTheme()
@@ -45,13 +61,17 @@ export default function PageMain() {
 
                     <H level={2}>Control-UI: App</H>
                     <P>Layout Components and App starter for any PWA. Initializes provider for i18n, router, drawer and theme.</P>
-                    <MdCode children={'npx create-react-app my-app --template control-ui-app'}/>
+                    <Markdown source={'~~npx create-react-app my-app --template control-ui-app~~'}/>
                     <LinkButton to={'/app/overview'} variant={'outlined'}>more</LinkButton>
 
                     <H level={2}>Control-UI: Docs</H>
                     <P>Components and providers for documentation apps.</P>
-                    <MdCode children={'npx create-react-app my-docs --template control-ui-docs'}/>
+                    <Markdown source={'~~npx create-react-app my-docs --template control-ui-docs~~'}/>
                     <LinkButton to={'/docs/overview'} variant={'outlined'}>more</LinkButton>
+
+                    <H level={2}>Control-UI: Docs Typescript</H>
+                    <P>Components for rendering typescript code documentation.</P>
+                    <LinkButton to={'/docs-ts/overview'} variant={'outlined'}>more</LinkButton>
 
                     <H level={2}>Control-UI: Kit</H>
                     <P>Material-UI Component Kit - for any web-app.</P>

@@ -58,10 +58,6 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/kit/components/DataGrid</loc>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://control-ui.bemit.codes/kit/components/ExpansionPanel</loc>
         <changefreq>weekly</changefreq>
     </url>

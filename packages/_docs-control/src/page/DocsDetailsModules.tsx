@@ -18,7 +18,7 @@ const ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
 }
 
 const renderer: TsDocsModuleRenderer = {
-    InlineCode: MdInlineCode as TsDocsModuleRenderer['InlineCode'],
+    InlineCode: MdInlineCode,
     Markdown: Markdown as React.ComponentType<{ source: string, dense?: boolean }>,
     ModuleHeadline: ModuleHeadline,
 }

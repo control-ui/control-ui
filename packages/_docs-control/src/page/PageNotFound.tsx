@@ -1,16 +1,16 @@
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import {PageTitle} from '@control-ui/kit/PageContent'
+import { PageTitle } from '@control-ui/kit/PageContent'
 import React from 'react'
-import {HeadMeta} from '@control-ui/kit/HeadMeta'
-import {Link} from '@control-ui/kit/Link'
+import { HeadMeta } from '@control-ui/kit/HeadMeta'
+import { Link } from '@control-ui/kit/Link'
 
 function PageNotFound() {
     return (
         <>
             <HeadMeta
-                title={'Page Not Found · UI-Schema'}
+                title={'Page Not Found · Control-UI'}
                 description={''}
             />
             <Container maxWidth={'md'} fixed style={{display: 'flex', flexDirection: 'column', flexGrow: 2}}>

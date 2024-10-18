@@ -1,7 +1,7 @@
 import React from 'react'
 import IcSearch from '@mui/icons-material/Search'
 import InvertColorsIcon from '@mui/icons-material/InvertColors'
-import GithubLogo from '../asset/GithubLogo'
+import GitHubIcon from '../asset/GitHubIcon'
 import Loadable from 'react-loadable'
 import { Link as RouterLink, RouteComponentProps, useLocation } from 'react-router-dom'
 import { LinkIconButton } from '@control-ui/kit/Link/LinkIconButton'
@@ -51,7 +51,7 @@ export const CustomHeaderBase: React.ComponentType = () => {
                     color inherit must be set multiple times
                     otherwise it will be (correct) header-inherit in dev but theme-default in prod
                 */}
-            <GithubLogo fill="currentColor"/>
+            <GitHubIcon fill="currentColor"/>
             <span className={'sr-only'}>To Github</span>
         </LinkIconButton>
 

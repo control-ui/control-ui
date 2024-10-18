@@ -1,4 +1,3 @@
-export * from './DataGrid'
 export * from './ExpansionPanel'
 export * from './Helper'
 export * from './IconButtonTooltip'

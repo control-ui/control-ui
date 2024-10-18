@@ -1,10 +1,7 @@
 import React from 'react'
-import {useTheme} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-/**
- * @type {React.ComponentType<{ style?: React.CSSProperties, fill?: string }>}
- */
-const GithubIcon = React.forwardRef(({style, fill}, ref) => {
+const GitHubIcon = React.forwardRef<SVGSVGElement, { style?: React.CSSProperties, fill?: string }>(function GitHubIcon({style, fill}, ref) {
     const theme = useTheme()
 
     return <svg
@@ -22,4 +19,4 @@ const GithubIcon = React.forwardRef(({style, fill}, ref) => {
     </svg>
 })
 
-export default GithubIcon
+export default GitHubIcon
