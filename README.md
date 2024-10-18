@@ -8,6 +8,7 @@
 - `@control-ui/kit` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/kit?style=flat-square)](https://www.npmjs.com/package/@control-ui/kit) component library built upon material-ui
 - `@control-ui/app` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/app?style=flat-square)](https://www.npmjs.com/package/@control-ui/app) for translation, routing and layout
 - `@control-ui/docs` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/docs?style=flat-square)](https://www.npmjs.com/package/@control-ui/docs) components for documentation apps
+- `@control-ui/docs-ts` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/docs-ts?style=flat-square)](https://www.npmjs.com/package/@control-ui/docs-ts) components for code documentation apps
 - `@control-ui/routes` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/routes?style=flat-square)](https://www.npmjs.com/package/@control-ui/docs) helper for JS in-app routing
 - `@control-ui/md` [![npm (scoped)](https://img.shields.io/npm/v/@control-ui/md?style=flat-square)](https://www.npmjs.com/package/@control-ui/docs) Markdown binding for MUI
 

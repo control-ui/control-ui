@@ -20,6 +20,7 @@
         "@control-ui/app": "0.0.x",
         "@control-ui/kit": "0.0.x",
         "@control-ui/docs": "0.0.x",
+        "@control-ui/docs-ts": "0.1.x",
         "@control-ui/routes": "0.0.x",
         "@control-ui/md": "0.0.x",
         "react-highlight-words": "~0.18.0",
