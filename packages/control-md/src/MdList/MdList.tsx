@@ -1,9 +1,9 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import { LiProps, OrderedListProps, UnorderedListProps } from 'react-markdown/lib/ast-to-react'
 import Typography from '@mui/material/Typography'
 
-export const MdList: React.ComponentType<(UnorderedListProps | OrderedListProps) & {
+export const MdList: React.ComponentType<React.PropsWithChildren & (UnorderedListProps | OrderedListProps) & {
     dense?: boolean
 }> = (
     {
@@ -25,7 +25,7 @@ export const MdList: React.ComponentType<(UnorderedListProps | OrderedListProps)
     >{children}</Comp>
 }
 
-export const MdListItem: React.ComponentType<LiProps & {
+export const MdListItem: React.ComponentType<React.PropsWithChildren & LiProps & {
     dense?: boolean
 }> = (
     {

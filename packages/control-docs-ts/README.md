@@ -6,7 +6,7 @@
 
 ReactJS MUI renderers and helpers, for documentation based on generated TSdoc data.
 
-    npm i --save @control-ui/docs-ts @structured-types/api
+    npm i --save @control-ui/docs-ts
 
 ## License
 
@@ -22,4 +22,4 @@ By committing your code/creating a pull request to this repository you agree to 
 
 ***
 
-Created by [Michael Becker](https://mlbr.xyz)
+Created by [Michael Becker](https://i-am-digital.eu)

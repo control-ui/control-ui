@@ -1,1 +1,1 @@
-export * from './ExpansionPanels'
+export * from './ExpansionPanel'

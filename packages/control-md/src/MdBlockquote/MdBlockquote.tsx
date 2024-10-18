@@ -1,6 +1,6 @@
 import React from 'react'
 import Paper from '@mui/material/Paper'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
 

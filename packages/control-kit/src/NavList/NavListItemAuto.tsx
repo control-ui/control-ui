@@ -1,5 +1,5 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import { ListItemLink, ListItemLinkProps } from '@control-ui/kit/List/LinkList'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
@@ -12,8 +12,8 @@ export interface NavListItemAutoProps<R extends Route = Route> extends NavListIt
     disableNavLink?: ListItemLinkProps['disableNavLink']
     itemStyle?: React.CSSProperties
     renderSecondary?: (route: R) => undefined | string | React.ReactNode
-    primaryTypographyProps?: TypographyProps
-    secondaryTypographyProps?: TypographyProps
+    primaryTypographyProps?: TypographyProps<'span', { component?: 'span' }>
+    secondaryTypographyProps?: TypographyProps<'p', { component?: 'p' }>
 }
 
 export const NavListItemAuto = <R extends Route = Route>(

@@ -1,9 +1,9 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { MdCodeProps } from '@control-ui/md'
 
-export const MdCodeBlock: React.ComponentType<MdCodeProps> = (
+export const MdCodeBlock: React.ComponentType<React.PropsWithChildren<MdCodeProps>> = (
     {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         node,

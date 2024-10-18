@@ -11,7 +11,7 @@ import { SxProps } from '@mui/material'
 
 export interface ListCollapseContentProps {
     label?: string
-    labelProps?: TypographyProps
+    labelProps?: TypographyProps<'span', { component?: 'span' }>
     toggleComponent?: React.ElementType
     toggleSelected?: boolean
     toggleDivider?: boolean
@@ -66,7 +66,7 @@ export const ListCollapseContent: React.ComponentType<ListCollapseContentProps> 
 
 export interface ListCollapseProps {
     label?: string
-    labelProps?: TypographyProps
+    labelProps?: TypographyProps<'span', { component?: 'span' }>
     toggleComponent?: React.ElementType
     toggleSelected?: boolean
     toggleDivider?: boolean

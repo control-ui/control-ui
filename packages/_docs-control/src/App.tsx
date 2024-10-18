@@ -13,7 +13,7 @@ import { loadableLoading } from '@control-ui/kit/LoadableLoading'
 import { LoadingCircular } from '@control-ui/kit/Loading'
 
 const indexRefs = {
-    modules: 'docs/index.json',
+    modules: 'docs/index-modules.json',
     pages: 'docs/index-pages.json',
 }
 

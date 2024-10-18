@@ -1,5 +1,5 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 
 export const Footer = ({children}: React.PropsWithChildren<any>): React.ReactElement => {

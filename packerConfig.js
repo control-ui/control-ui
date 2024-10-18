@@ -31,31 +31,37 @@ packer({
             name: '@control-ui/app',
             root: path.resolve(__dirname, 'packages', 'control-app'),
             entry: path.resolve(__dirname, 'packages', 'control-app/src/'),
+            doServeWatch: false,
         },
         controlDocs: {
             name: '@control-ui/docs',
             root: path.resolve(__dirname, 'packages', 'control-docs'),
             entry: path.resolve(__dirname, 'packages', 'control-docs/src/'),
+            doServeWatch: false,
         },
         controlDocsTs: {
             name: '@control-ui/docs-ts',
             root: path.resolve(__dirname, 'packages', 'control-docs-ts'),
             entry: path.resolve(__dirname, 'packages', 'control-docs-ts/src/'),
+            doServeWatch: false,
         },
         controlKit: {
             name: '@control-ui/kit',
             root: path.resolve(__dirname, 'packages', 'control-kit'),
             entry: path.resolve(__dirname, 'packages', 'control-kit/src/'),
+            doServeWatch: false,
         },
         controlRoutes: {
             name: '@control-ui/routes',
             root: path.resolve(__dirname, 'packages', 'control-routes'),
             entry: path.resolve(__dirname, 'packages', 'control-routes/src/'),
+            doServeWatch: false,
         },
         controlMdMui: {
             name: '@control-ui/md',
             root: path.resolve(__dirname, 'packages', 'control-md'),
             entry: path.resolve(__dirname, 'packages', 'control-md/src/'),
+            doServeWatch: false,
         },
     },
 }, __dirname, {

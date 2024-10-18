@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { SxProps } from '@mui/system'
 import { Theme } from '@mui/material/styles'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 
 export const AppWrapper: React.ComponentType<React.PropsWithChildren<{
     style?: React.CSSProperties

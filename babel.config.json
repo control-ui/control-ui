@@ -4,14 +4,7 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "@babel/plugin-proposal-private-methods",
         "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-transform-react-jsx",
-        "@babel/plugin-transform-template-literals",
-        "@babel/plugin-proposal-export-namespace-from",
-        "@babel/plugin-proposal-export-default-from",
-        "@babel/plugin-transform-runtime",
-        "transform-es2015-template-literals",
         "@babel/plugin-proposal-optional-chaining",
         "@babel/plugin-proposal-nullish-coalescing-operator",
         [
@@ -22,12 +15,6 @@
                         "ReactComponent": "@svgr/webpack?-svgo,+titleProp,+ref![path]"
                     }
                 }
-            }
-        ],
-        [
-            "@babel/plugin-proposal-object-rest-spread",
-            {
-                "useBuiltIns": true
             }
         ],
         "@babel/plugin-proposal-class-properties"
@@ -69,7 +56,7 @@
                     "@babel/preset-env",
                     {
                         "targets": {
-                            "node": "14"
+                            "node": "18"
                         },
                         "modules": false
                     }
@@ -78,7 +65,7 @@
                     "@babel/preset-typescript",
                     {
                         "targets": {
-                            "node": "14"
+                            "node": "18"
                         },
                         "modules": false
                     }

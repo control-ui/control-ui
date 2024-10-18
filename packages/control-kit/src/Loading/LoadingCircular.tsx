@@ -1,7 +1,7 @@
 import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import { LoadingProps } from '@control-ui/kit/Loading/Loading'
 
 export const LoadingCircular: React.ComponentType<LoadingProps> = (

@@ -52,7 +52,9 @@ export const docsApp = (prefix = '') => [
             module: defineModule('control-ui', 'app', 'control-app', 'AppLoader'),
         }),
         compApp('AppTheme', {
-            module: defineModule('control-ui', 'app', 'control-app', 'AppTheme'),
+            // module: defineModule('control-ui', 'app', 'control-app', 'AppTheme'),
+            // todo: only got namespace exports resolved in a kinda dirty way with in ts-morph
+            module: defineModule('control-ui', 'app', 'control-app', 'AppTheme', ['index.ts']),
         }),
         compApp('AppThemeDynamic', {
             module: defineModule('control-ui', 'app', 'control-app', 'AppThemeDynamic'),
@@ -83,25 +85,25 @@ export const docsKit = (prefix = '') => [
     createDoc('kit/overview', 'Kit Overview', undefined, prefix),
     createDoc('kit/components', 'Components', [
         compKit('DataGrid', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'DataGrid'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'DataGrid', ['DataGrid.js']),
         }),
         compKit('ExpansionPanel', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'ExpansionPanel'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'ExpansionPanel', ['ExpansionPanel.js']),
         }),
         compKit('HeadMeta', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'HeadMeta'),
         }),
         compKit('Helper', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'Helper'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'Helper', []),
         }),
         compKit('Link', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'Link'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'Link', []),
         }),
         compKit('List', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'List'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'List', []),
         }),
         compKit('Loading', {
-            module: defineModule('control-ui', 'kit', 'control-kit', 'Loading'),
+            module: defineModule('control-ui', 'kit', 'control-kit', 'Loading', ['Loading.tsx', 'LoadingCircular.tsx', 'LoadingLinear.tsx']),
         }),
         compKit('NavList', {
             module: defineModule('control-ui', 'kit', 'control-kit', 'NavList', ['NavList.tsx', 'NavListItem.ts', 'NavListItemAuto.tsx']),
@@ -144,23 +146,17 @@ const compDocsTs = compCreator('docs-ts/components')
 export const docsDocsTs = (prefix = '') => [
     createDoc('docs-ts/overview', 'Docs TS Overview', undefined, prefix),
     createDoc('docs-ts/components', 'Components', [
-        compDocsTs('ModuleCode', {
-            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleCode'),
-        }),
         compDocsTs('ModuleIntro', {
             module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleIntro'),
-        }),
-        compDocsTs('ModuleParams', {
-            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'ModuleParams'),
         }),
         compDocsTs('TsDocModule', {
             module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocModule', ['TsDocModule.ts']),
         }),
-        compDocsTs('TsDocs', {
-            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocs'),
+        compDocsTs('TsDocsSimple', {
+            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocsSimple'),
         }),
-        compDocsTs('TsDocsModule', {
-            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocsModule'),
+        compDocsTs('TsDocsSimpleModule', {
+            module: defineModule('control-ui', 'docs-ts', 'control-docs-ts', 'TsDocsSimpleModule'),
         }),
     ], prefix),
 ]

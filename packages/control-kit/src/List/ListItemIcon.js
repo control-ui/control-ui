@@ -1,6 +1,6 @@
 import React from 'react'
 import ListItemIc from '@mui/material/ListItemIcon'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 
 export default ({style = {}, ...props}) => {
     const theme = useTheme()

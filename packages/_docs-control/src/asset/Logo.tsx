@@ -1,5 +1,5 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 
 // @ts-ignore
 export const Logo: React.ComponentType<{ width?: string | number, style?: React.CSSProperties }> = ({width, style = {enableBackground: 'new 0 0 150 150'}}) => {

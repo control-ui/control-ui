@@ -2,7 +2,7 @@ import React from 'react'
 import Typography from '@mui/material/Typography'
 import Container, { ContainerProps } from '@mui/material/Container'
 import Paper, { PaperProps } from '@mui/material/Paper'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/material'
 

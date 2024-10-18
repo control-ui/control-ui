@@ -23,8 +23,8 @@ export interface ListItemLinkProps {
         listItem?: string
         listItemText?: string
     }
-    primaryTypographyProps?: TypographyProps
-    secondaryTypographyProps?: TypographyProps
+    primaryTypographyProps?: TypographyProps<'span'>
+    secondaryTypographyProps?: TypographyProps<'p', { component?: 'p' }>
     sx?: SxProps
 }
 

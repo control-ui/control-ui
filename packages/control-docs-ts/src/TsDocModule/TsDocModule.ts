@@ -1,16 +1,34 @@
-import { PropType } from '@structured-types/api'
-import { SourceLocation } from '@structured-types/api/dist/types'
+import React from 'react'
 
-export interface TsDocModuleCollection {
+// todo: refactor to TS compiler API helpers
+type PropType = any
+// todo: refactor to TS compiler API helpers
+type SourceLocation = any
+
+export interface TsDocModule {
+    // pagePath: string
+    modulePath: string
+    /**
+     * @deprecated duplicated with `modulePath`
+     */
+    relPath: string
     package: string
     fromPath: string
-    relPath: string
     files: string[]
+}
+
+export interface TsDocModuleCollection extends TsDocModule {
     docs: { [k: string]: TsDocModuleDefinition }
+}
+
+
+export interface TsDocModuleCollectionSimple extends TsDocModule {
+    definitions: any[]
 }
 
 /**
  * @see [structured-types PropType](https://github.com/ccontrols/structured-types/blob/master/packages/api/README.md#proptype)
+ * @todo refactor to TS compiler API helpers
  */
 export interface TsDocModuleDefinition extends PropType {
     name: string
@@ -27,16 +45,6 @@ export interface TsDocModuleDefinition extends PropType {
     returns?: PropType
 }
 
-
-export interface TsDocModule {
-    // pagePath: string
-    modulePath: string
-    relPath: string
-    package: string
-    fromPath: string
-    files: string[]
-}
-
 export interface TsDocModuleFileSource extends TsDocModule {
     pagePath: string
 }
@@ -49,4 +57,16 @@ export interface TsDocModuleFileParsed extends TsDocModuleFileSource {
     docs: {
         [moduleId: string]: PropTypeWithLoc
     }
+}
+
+export type TsDocsModuleRenderer = {
+    InlineCode: React.ComponentType<React.PropsWithChildren<{}>>
+    ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
+        id: string
+        level: number
+    }>>
+    Markdown: React.ComponentType<{
+        source: string
+        dense?: boolean
+    }>
 }

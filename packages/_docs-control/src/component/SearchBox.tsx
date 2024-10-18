@@ -24,7 +24,7 @@ import { useSearch, useSearchHistory } from '@control-ui/docs/DocsSearchProvider
 import { useDocsIndex } from '@control-ui/docs/DocsIndexProvider'
 import { DocsIndexValueModules, DocsIndexValuePackages, DocsIndexValuePages, DocsIndexValuesCombiner } from '@control-ui/docs/createDocsIndex'
 import { MatchMakerType, useSearchMatching } from '@control-ui/docs'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import { useDrawer } from '@control-ui/app'
 
 export type CustomDocsIndexModules = DocsIndexValuesCombiner<DocsIndexValueModules & DocsIndexValuePackages>

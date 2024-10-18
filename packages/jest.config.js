@@ -30,14 +30,14 @@ const base = {
         'json',
         'node',
     ],
-    collectCoverage: true,
     coveragePathIgnorePatterns: [
         '(tests/.*.mock).(jsx?|tsx?)$',
     ],
-    verbose: true,
 }
 
 module.exports = {
+    collectCoverage: true,
+    verbose: true,
     ...base,
     projects: [
         {

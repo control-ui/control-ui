@@ -1,7 +1,7 @@
 import React from 'react'
 import MuiDrawer, { DrawerProps } from '@mui/material/Drawer'
 import { useDrawer } from '../DrawerProvider'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 
 export interface CustomDrawerProps {
     drawerWidth?: number

@@ -10,12 +10,6 @@
         "page-index": "ts-node -r tsconfig-paths/register cli/page-index.ts"
     },
     "dependencies": {
-        "@types/react": "^18.0",
-        "@types/react-router-dom": "^5.1.5",
-        "@types/react-helmet": "^6.1.0",
-        "@types/webpack-merge": "^5.0.0",
-        "@structured-types/api": "^3.40.0",
-        "@structured-types/react-plugin": "^3.46.7",
         "front-matter": "^4.0.2",
         "mdast-util-from-markdown": "^1.2.0",
         "@date-io/luxon": "^2.13.1",
@@ -28,7 +22,6 @@
         "@control-ui/docs": "0.0.x",
         "@control-ui/routes": "0.0.x",
         "@control-ui/md": "0.0.x",
-        "@types/react-highlight-words": "~0.16.4",
         "react-highlight-words": "~0.18.0",
         "fuse.js": "~6.5.3",
         "i18next": "^19.0",
@@ -50,6 +43,11 @@
         "webpack-merge": "^5.8.0"
     },
     "devDependencies": {
+        "@types/react": "^18.0",
+        "@types/react-router-dom": "^5.1.5",
+        "@types/react-helmet": "^6.1.0",
+        "@types/webpack-merge": "^5.0.0",
+        "@types/react-highlight-words": "~0.16.4",
         "ts-node": "^10.7.0",
         "tsconfig-paths": "~3.14.1",
         "@types/node": "^14.10.1",

@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "module": "esnext",
-        "target": "esnext",
+        "module": "ESNext",
+        "target": "ESNext",
         "jsx": "preserve",
         "removeComments": false,
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noEmit": false,
@@ -18,6 +18,7 @@
         "skipLibCheck": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "noImplicitAny": false,
         "esModuleInterop": true,
         "paths": {
             "@control-ui/kit": [

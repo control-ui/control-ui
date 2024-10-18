@@ -1,7 +1,7 @@
 import React from 'react'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import { TableCellProps, TableRowProps } from 'react-markdown/lib/ast-to-react'
 
-export const MdTable: React.ComponentType<React.ComponentPropsWithoutRef<'table'> & ReactMarkdownProps & { dense?: boolean }> = (
+export const MdTable: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'table'> & ReactMarkdownProps & { dense?: boolean }> = (
     {
         dense, children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,7 +24,7 @@ export const MdTable: React.ComponentType<React.ComponentPropsWithoutRef<'table'
     </TableContainer>
 }
 
-export const MdTableHead: React.ComponentType<React.ComponentPropsWithoutRef<'thead'> & ReactMarkdownProps> = (
+export const MdTableHead: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'thead'> & ReactMarkdownProps> = (
     {
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,7 +34,7 @@ export const MdTableHead: React.ComponentType<React.ComponentPropsWithoutRef<'th
 ) =>
     <TableHead {...p}>{children}</TableHead>
 
-export const MdTableBody: React.ComponentType<React.ComponentPropsWithoutRef<'tbody'> & ReactMarkdownProps> = (
+export const MdTableBody: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'tbody'> & ReactMarkdownProps> = (
     {
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -44,7 +44,7 @@ export const MdTableBody: React.ComponentType<React.ComponentPropsWithoutRef<'tb
 ) =>
     <TableBody {...p}>{children}</TableBody>
 
-export const MdTableRow: React.ComponentType<TableRowProps> = (
+export const MdTableRow: React.ComponentType<React.PropsWithChildren & TableRowProps> = (
     {
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,7 +56,7 @@ export const MdTableRow: React.ComponentType<TableRowProps> = (
 ) =>
     <TableRow {...p}>{children}</TableRow>
 
-export const MdTableCell: React.ComponentType<TableCellProps & { dense?: boolean }> = (
+export const MdTableCell: React.ComponentType<React.PropsWithChildren & TableCellProps & { dense?: boolean }> = (
     {
         dense, style,
         children, isHeader,

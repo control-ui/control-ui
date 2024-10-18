@@ -130,15 +130,7 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleCode</loc>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
         <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleIntro</loc>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://control-ui.bemit.codes/docs-ts/components/ModuleParams</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
@@ -146,11 +138,11 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocs</loc>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocsSimple</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>
-        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocsModule</loc>
+        <loc>https://control-ui.bemit.codes/docs-ts/components/TsDocsSimpleModule</loc>
         <changefreq>weekly</changefreq>
     </url>
     <url>

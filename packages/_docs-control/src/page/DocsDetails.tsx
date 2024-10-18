@@ -1,7 +1,9 @@
+import { TsDocModuleCollectionSimple } from '@control-ui/docs-ts/TsDocModule'
 import React from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import { Paper, Link, Alert, Box } from '@mui/material'
 import { ScrollUpButton } from '@control-ui/kit/ScrollUpButton'
+import { DocRouteModule } from '../content/docs'
 import PageNotFound from './PageNotFound'
 import { DocDetailsLegacy } from '@control-ui/docs/DocDetails'
 import { LinkableHeadlineMenu } from '@control-ui/docs/LinkableHeadline'
@@ -9,27 +11,49 @@ import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
 import { Markdown } from '../component/Markdown'
 import { DocsDetailsModules } from './DocsDetailsModules'
 
-// @ts-ignore
-const DocContent = ({content, doc, id, progress}) => {
-    const [loadingModuleDocs, setLoadingModuleDocs] = React.useState<boolean>(false)
-    const [modules, setModules] = React.useState<any>(undefined)
-    const module = doc.docModule
+export interface DocContentProps<D extends DocRouteModule = DocRouteModule> {
+    content: string
+    doc: D
+    id: string
+    progress: string
+}
+
+const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContentProps<D>) => {
+    const {
+        content,
+        doc,
+        id,
+        progress,
+    } = props
+
+    const docCode = doc.docModule
+    const [loadingCodeDocumentation, setLoadingCodeDocumentation] = React.useState<boolean>(Boolean(docCode))
+    const [codeDocumentation, setCodeDocumentation] = React.useState<TsDocModuleCollectionSimple | undefined>(undefined)
+
     React.useEffect(() => {
-        setModules(undefined)
-        setLoadingModuleDocs(false)
-        if(!module) return
-        setLoadingModuleDocs(true)
-        fetch('/docs/' + module.package + '/' + module.fromPath + '.json')
+        if(!docCode) {
+            setCodeDocumentation(undefined)
+            setLoadingCodeDocumentation(false)
+            return
+        }
+        const abort = new AbortController()
+        setLoadingCodeDocumentation(true)
+        fetch('/docs/' + docCode.package + '/' + docCode.fromPath + '.json', {
+            signal: abort.signal,
+        })
             .then((res) => res.status !== 200 ? Promise.reject(res) : res.json())
             .then((data) => {
-                setModules(data)
-                setLoadingModuleDocs(false)
+                if(abort.signal.aborted) return
+                setCodeDocumentation(data)
+                setLoadingCodeDocumentation(false)
             })
             .catch(e => {
-                console.error('error loading module-api docs', module, e)
-                setLoadingModuleDocs(false)
+                if(abort.signal.aborted) return
+                console.error('error loading module-api docs', docCode, e)
+                setLoadingCodeDocumentation(false)
             })
-    }, [module])
+        return () => abort.abort()
+    }, [docCode])
 
     const mdData = React.useMemo(() => {
         if(!content) return undefined
@@ -47,7 +71,7 @@ const DocContent = ({content, doc, id, progress}) => {
     return <>
         {progress === 'not-found' ? <PageNotFound/> : null}
 
-        {progress === 'success' && !loadingModuleDocs ?
+        {progress === 'success' && !loadingCodeDocumentation ?
             <>
                 <div style={{display: 'block', textAlign: 'right', margin: '0 12px'}}>
                     <Link
@@ -56,16 +80,12 @@ const DocContent = ({content, doc, id, progress}) => {
                     >Edit Page</Link>
                 </div>
                 <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
-                    {progress === 'start' || progress === 'progress' ?
-                        <LoadingCircular title={'Loading Docs'}/> :
-                        progress === 'error' ?
-                            'error' :
-                            <Markdown source={mdData}/>}
+                    <Markdown source={mdData}/>
                 </Paper>
 
-                {doc.docModule ?
+                {docCode ?
                     <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
-                        <DocsDetailsModules modules={modules}/>
+                        <DocsDetailsModules codeDocumentation={codeDocumentation}/>
                     </Paper> : null}
 
                 <Paper
@@ -81,7 +101,7 @@ const DocContent = ({content, doc, id, progress}) => {
                 </Paper>
             </> : null}
 
-        {progress === 'start' || progress === 'progress' || loadingModuleDocs ?
+        {progress === 'start' || progress === 'progress' || loadingCodeDocumentation ?
             <LoadingCircular title={'Loading Docs'}/> :
             progress === 'error' ?
                 <Box m={2}>
@@ -99,7 +119,6 @@ const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject
                 activeDoc.nav.label + ' · Control-UI' : 'Control-UI Documentation'}
             NotFound={PageNotFound}
             scope={match.url.split('/')[1] + '/'}
-            // @ts-ignore
             Content={DocContent}
             matchDocKey={'docId'}
         />

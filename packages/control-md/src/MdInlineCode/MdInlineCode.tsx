@@ -1,11 +1,11 @@
 import React from 'react'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { MdCodeProps } from '@control-ui/md/MdCode'
 
 // todo: fix invalid children for-non-markdown usage in `MdInlineCode`, `MdCode`
 
-export const MdInlineCode: React.ComponentType<MdCodeProps & { p?: number }> = (
+export const MdInlineCode: React.ComponentType<React.PropsWithChildren<MdCodeProps & { p?: number }>> = (
     {
         variant = 'body1', fontFamily = 'monospace', style = {}, p = 0.5,
         children,

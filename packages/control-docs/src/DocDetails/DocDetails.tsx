@@ -58,7 +58,7 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
                 return
             }
             hasScrolled.current = false
-            const target = scrollContainer.current?.querySelector(hash)
+            const target = scrollContainer.current?.querySelector(hash.replaceAll(/[".:]/g, '\\$&'))
             if(target) {
                 target.scrollIntoView()
                 // return

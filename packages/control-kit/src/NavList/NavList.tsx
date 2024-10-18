@@ -1,6 +1,6 @@
 import React from 'react'
 import Divider from '@mui/material/Divider'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import List, { ListProps } from '@mui/material/List'
 import { ListCollapse } from '@control-ui/kit/List/ListCollapse'
 import { useLocation } from 'react-router-dom'
@@ -18,7 +18,7 @@ export interface NavListNestedProps<R extends Route = Route> {
     onClick?: () => void
     level?: number
     ListItem: React.ComponentType<NavListItemProps<R>>
-    labelProps?: TypographyProps
+    labelProps?: TypographyProps<'span', { component?: 'span' }>
     unmountOnExit?: boolean
     sxList?: SxProps
 }
