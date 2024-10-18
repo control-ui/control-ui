@@ -94,9 +94,20 @@ for(const codeRoute of codeRoutes.slice(0, limit)) {
     }
 }
 
+const dirsChecked = new Set<string>()
+
+const createDir = (dir: string) => {
+    if(dirsChecked.has(dir)) return
+    dirsChecked.add(dir)
+    fs.mkdirSync(dir, {recursive: true})
+}
+
+createDir(outputDir)
+
 codeRouteInfos.forEach(codeRouteInfo => {
     const outputFile = path.join(outputDir, codeRouteInfo.package, codeRouteInfo.fromPath + '.json')
     console.debug(`Writing documentation bundle: ${outputFile}`)
+    createDir(path.dirname(outputFile))
     fs.writeFileSync(outputFile, JSON.stringify(codeRouteInfo))
 })
 
@@ -142,6 +153,7 @@ codeRouteInfos.forEach(codeRouteInfo => {
     })
 })
 
+createDir(path.dirname(indexFile))
 fs.writeFileSync(indexFile, JSON.stringify(index))
 console.log(`Written index to: ${indexFile}`)
 
