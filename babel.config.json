@@ -1,6 +1,11 @@
 {
     "presets": [
-        "@babel/preset-react",
+        [
+            "@babel/preset-react",
+            {
+                "runtime": "automatic"
+            }
+        ],
         "@babel/preset-typescript"
     ],
     "plugins": [
@@ -39,14 +44,24 @@
         "cjs": {
             "presets": [
                 "@babel/preset-env",
-                "@babel/preset-react",
+                [
+                    "@babel/preset-react",
+                    {
+                        "runtime": "automatic"
+                    }
+                ],
                 "@babel/preset-typescript"
             ]
         },
         "test": {
             "presets": [
                 "@babel/preset-env",
-                "@babel/preset-react",
+                [
+                    "@babel/preset-react",
+                    {
+                        "runtime": "automatic"
+                    }
+                ],
                 "@babel/preset-typescript"
             ]
         },

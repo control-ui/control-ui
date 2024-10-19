@@ -18,6 +18,8 @@ export interface DocContentProps<D extends DocRouteModule = DocRouteModule> {
     progress: string
 }
 
+const cachedContent = new Map<string, any>()
+
 const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContentProps<D>) => {
     const {
         content,
@@ -36,14 +38,22 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
             setLoadingCodeDocumentation(false)
             return
         }
+        const codeDocsPath = '/docs/' + docCode.package + '/' + docCode.fromPath + '.json'
+        const cachedCodeDocs = cachedContent.get(codeDocsPath)
+        if(cachedCodeDocs) {
+            setCodeDocumentation(cachedCodeDocs)
+            setLoadingCodeDocumentation(false)
+            return
+        }
         const abort = new AbortController()
         setLoadingCodeDocumentation(true)
-        fetch('/docs/' + docCode.package + '/' + docCode.fromPath + '.json', {
+        fetch(codeDocsPath, {
             signal: abort.signal,
         })
             .then((res) => res.status !== 200 ? Promise.reject(res) : res.json())
             .then((data) => {
                 if(abort.signal.aborted) return
+                cachedContent.set(codeDocsPath, data)
                 setCodeDocumentation(data)
                 setLoadingCodeDocumentation(false)
             })

@@ -11,7 +11,8 @@
     ],
     "compilerOptions": {
         "outDir": "build",
-        "module": "CommonJS"
+        "module": "CommonJS",
+        "jsx": "react-jsx"
         //        "paths": {
         //            "@control-ui/kit": [
         //                "../control/src"

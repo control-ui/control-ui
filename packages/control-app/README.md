@@ -8,9 +8,9 @@ In minutes to full featured, beautiful web apps in React, built with [Material U
 
 This package combines and wires great libraries together:
 
-- Multi Pages with [React Router](https://github.com/ReactTraining/react-router)
+- Multi Pages with [React Router v5](https://v5.reactrouter.com/)
 - Translation with [I18Next](https://react.i18next.com/)
-- Code Splitting with [Loadable](https://github.com/jamiebuilds/react-loadable)
+- Code Splitting with [lazy](https://react.dev/reference/react/lazy)
 
 And includes:
 
@@ -20,6 +20,10 @@ And includes:
 - `I18nProvider` setups `react-i18next` with what really is needed
 
 **🚀 Start Your:**
+
+> [!CAUTION]
+>
+> Starter templates are legacy and not maintained, as based on `cra`, which is unmaintained.
 
 [![Web-App](https://img.shields.io/badge/Web%20App-black?labelColor=green&logoColor=505050&style=for-the-badge)](https://control-ui.bemit.codes/app/overview)
 

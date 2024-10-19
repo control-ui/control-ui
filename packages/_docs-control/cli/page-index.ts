@@ -11,7 +11,7 @@ const base = path.resolve(path.join('public', 'docs'))
 const baseContent = path.resolve(path.join('src', 'content'))
 const fileName = 'index-pages.json'
 
-const routing = routes(() => () => null)
+const routing = routes()
 const flatRoutes = flattenRoutes<Route, DocsIndexValuePageInfo>(
     routing,
     (r) => !r.routes,

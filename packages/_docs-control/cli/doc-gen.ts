@@ -25,7 +25,7 @@ overwriteConsole()
 
 const startTime = Date.now()
 
-const routing = routes(() => () => null)
+const routing = routes()
 const codeRoutes = flattenRoutes<DocRouteModule, TsDocModuleFileSource>(
     routing as DocRouteModule,
     (r) => typeof r.doc === 'string' && typeof r.docModule !== 'undefined',

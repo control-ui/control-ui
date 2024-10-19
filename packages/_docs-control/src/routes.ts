@@ -1,8 +1,8 @@
-import Loadable from 'react-loadable'
+import { LoadableLazy } from '@control-ui/kit/LoadableLazy'
 import { docsKit, docsDocs, docsHowTo, docsApp, docsRoutes, docsMdMui, docsDocsTs } from './content/docs'
 import { Route } from '@control-ui/routes/Route'
 
-const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loading?: any, toSection?: RegExp): Route => ({
+const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loadingTitle?: string, toSection?: RegExp): Route => ({
     path: '/' + scope + '/:docId+',
     nav: {
         to: '/' + scope,
@@ -12,16 +12,16 @@ const createDocsTree = <R extends Route = Route>(scope: string, label: string, r
     },
     config: {
         content: {
-            component: Loadable({
+            component: LoadableLazy({
                 loader: () => import('./page/DocsDetails'),
-                loading,
+                title: loadingTitle,
             }),
         },
     },
     routes,
 })
 
-export const routes = (loading: (title: string) => any): Route => ({
+export const routes = (): Route => ({
     routes: [
         {
             path: '/',
@@ -32,19 +32,19 @@ export const routes = (loading: (title: string) => any): Route => ({
             config: {
                 content: {
                     exact: true,
-                    component: Loadable({
+                    component: LoadableLazy({
                         loader: () => import('./page/PageHome'),
-                        loading: loading('Loading Home'),
+                        title: 'Loading Home',
                     }),
                 },
             },
         },
-        createDocsTree('how-to', 'How-Tos', docsHowTo(''), loading('Loading Docs')),
-        createDocsTree('app', '@control-ui/app', docsApp(''), loading('Loading Docs')),
-        createDocsTree('kit', '@control-ui/kit', docsKit(''), loading('Loading Docs')),
-        createDocsTree('docs', '@control-ui/docs', docsDocs(''), loading('Loading Docs')),
-        createDocsTree('docs-ts', '@control-ui/docs-ts', docsDocsTs(''), loading('Loading Docs')),
-        createDocsTree('routes', '@control-ui/routes', docsRoutes(''), loading('Loading Docs')),
-        createDocsTree('md', '@control-ui/md', docsMdMui(''), loading('Loading Docs')),
+        createDocsTree('how-to', 'How-Tos', docsHowTo(''), 'Loading Docs'),
+        createDocsTree('app', '@control-ui/app', docsApp(''), 'Loading Docs'),
+        createDocsTree('kit', '@control-ui/kit', docsKit(''), 'Loading Docs'),
+        createDocsTree('docs', '@control-ui/docs', docsDocs(''), 'Loading Docs'),
+        createDocsTree('docs-ts', '@control-ui/docs-ts', docsDocsTs(''), 'Loading Docs'),
+        createDocsTree('routes', '@control-ui/routes', docsRoutes(''), 'Loading Docs'),
+        createDocsTree('md', '@control-ui/md', docsMdMui(''), 'Loading Docs'),
     ],
 })

@@ -9,8 +9,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { DocsIndexProvider } from '@control-ui/docs/DocsIndexProvider'
 import { DocsSearchProvider } from '@control-ui/docs/DocsSearchProvider'
 import { I18nProviderContext } from '@control-ui/app'
-import { loadableLoading } from '@control-ui/kit/LoadableLoading'
-import { LoadingCircular } from '@control-ui/kit/Loading'
 
 const indexRefs = {
     modules: 'docs/index-modules.json',
@@ -49,7 +47,7 @@ const i18n: I18nProviderContext = {
             }),
 }
 
-const routing = routes(loadableLoading(LoadingCircular))
+const routing = routes()
 const CustomApp = () =>
     <BrowserRouter basename={'/'}>
         <App

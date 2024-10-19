@@ -1,8 +1,8 @@
+import { LoadableLazy } from '@control-ui/kit/LoadableLazy'
 import React from 'react'
 import IcSearch from '@mui/icons-material/Search'
 import InvertColorsIcon from '@mui/icons-material/InvertColors'
 import GitHubIcon from '../asset/GitHubIcon'
-import Loadable from 'react-loadable'
 import { Link as RouterLink, RouteComponentProps, useLocation } from 'react-router-dom'
 import { LinkIconButton } from '@control-ui/kit/Link/LinkIconButton'
 import { Header } from '@control-ui/app/Header'
@@ -10,7 +10,6 @@ import { useSwitchTheme } from '@control-ui/app/AppTheme'
 import { Drawer } from '@control-ui/app/Drawer'
 import Nav from './Nav'
 import { Logo } from '../asset/Logo'
-import { LoadingCircular } from '@control-ui/kit/Loading'
 import { Layout, LayoutProps } from '@control-ui/app/Layout'
 import { SearchBox } from './SearchBox'
 import { RouteCascade } from '@control-ui/routes/RouteCascade'
@@ -75,9 +74,9 @@ export const CustomDrawer: React.ComponentType = React.memo(CustomDrawerBase)
 }
 export const CustomFooter: React.ComponentType = React.memo(CustomFooterBase)*/
 
-const PageNotFound: React.ComponentType<RouteComponentProps & { scrollContainer: React.MutableRefObject<null | HTMLDivElement> }> = Loadable({
+const PageNotFound: React.ComponentType<RouteComponentProps & { scrollContainer: React.MutableRefObject<null | HTMLDivElement> }> = LoadableLazy({
     loader: () => import('../page/PageNotFound'),
-    loading: () => <LoadingCircular title={'Not Found'}/>,
+    title: 'Not Found',
 })
 
 const RoutingBase: LayoutProps['Content'] = (p) =>

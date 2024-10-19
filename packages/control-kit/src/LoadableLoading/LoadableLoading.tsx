@@ -12,6 +12,11 @@ export interface LoadingComponentProps {
     retry: () => void
 }
 
+/**
+ * Legacy loading component for `react-loadable`
+ *
+ * @deprecated migrate to `lazy`
+ */
 export const loadableLoading =
     (Loading: React.ComponentType<LoadingProps>) =>
         (title: string, errorText: string = 'Error loading component.') => {

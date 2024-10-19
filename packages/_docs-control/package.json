@@ -34,7 +34,6 @@
         "react": "^18.0",
         "react-dom": "^18.0",
         "react-i18next": "^15.0.3",
-        "react-loadable": "^5.0",
         "react-markdown": "^7.0",
         "react-router": "^5.0",
         "react-router-dom": "^5.0",
