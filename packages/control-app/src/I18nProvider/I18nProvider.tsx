@@ -4,12 +4,12 @@ import i18n from 'i18next'
 import { initReactI18next, I18nextProvider } from 'react-i18next'
 
 import Backend from 'i18next-chained-backend'
-import XHR from 'i18next-xhr-backend'
+import HttpBackend, { HttpBackendOptions } from 'i18next-http-backend'
 import LocalStorageBackend from 'i18next-localstorage-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 export type i18nLoader<T> = (url: string) => Promise<T>
-export type i18nParse = (lng: string, ns: string, data: Object) => Object
+// export type i18nParse = HttpBackendOptions['parse']
 
 export type i18nDetections = 'path' | 'localStorage'
 
@@ -19,9 +19,9 @@ export interface I18nProviderContext {
     loader: i18nLoader<any>
     expiration?: number
     pathIndex?: number
-    parse?: i18nParse
+    // parse?: i18nParse
     debug?: boolean
-    defaultLanguage: string
+    langFallback?: string[]
 }
 
 const html: HTMLHtmlElement | null = document.querySelector('html')
@@ -30,9 +30,14 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
     constructor(props: React.PropsWithChildren<I18nProviderContext>) {
         super(props)
 
-        const {allLanguages, detection = ['path', 'localStorage'], loader, expiration, pathIndex = 0, parse, debug} = this.props
+        const {
+            allLanguages, langFallback,
+            detection = ['path', 'localStorage'],
+            loader, expiration, pathIndex = 0, // parse,
+            debug,
+        } = this.props
 
-        const defaultLanguage = i18n && i18n.languages && i18n.languages[0] ? i18n.languages[0] : this.props.defaultLanguage
+        // const defaultLanguage = i18n && i18n.languages && i18n.languages[0] ? i18n.languages[0] : this.props.defaultLanguage
 
         // load translation using xhr -> see /public/locales
         // learn more: https://github.com/i18next/i18next-xhr-backend
@@ -47,15 +52,17 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
             // init i18next
             // for all options read: https://www.i18next.com/overview/configuration-options
             .init({
-                // allLanguages, debug, defaultLanguage are custom options not default by i18n, used to setup components based on i18n setup
-                // @ts-ignore
-                allLanguages: Object.keys(allLanguages),
-                defaultLanguage: defaultLanguage,
+                // lng: defaultLanguage,
+                supportedLngs: [
+                    ...Object.keys(allLanguages),
+                    ...Array.isArray(langFallback) ?
+                        langFallback.filter(l => !(l in (allLanguages || {}))) :
+                        langFallback && !(langFallback in (allLanguages || {})) ? [langFallback] : [],
+                ],
 
                 // i18n config
                 debug,
-                // eslint-disable-next-line
-                fallbackLng: defaultLanguage,
+                fallbackLng: langFallback,
                 initImmediate: false,
 
                 // `ns` and `defaultNS` must be `common` otherwise `translation.json` is still being loaded sometimes
@@ -85,7 +92,8 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
                 backend: {
                     backends: [
                         LocalStorageBackend, // primary
-                        XHR, // fallback
+                        HttpBackend, // fallback
+                        // todo: instead of HttpBackend, the i18next-resources-to-backend should be enough
                     ],
                     backendOptions: [{
                         // prefix for stored languages
@@ -101,13 +109,7 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
                         // returning a path:
                         // function(lng, namespaces) { return customPath; }
                         // the returned path will interpolate lng, ns if provided like giving a static path
-                        loadPath: (lng: string[]/*namespaces*/) => {
-                            // we use react dyn. imports so only one language per load
-                            if (!allLanguages[lng[0]]) {
-                                // when wanted language is not known, return hard default language
-                                console.error('i18n tried to load non existing language, loading default instead, tried: ', lng[0])
-                                return defaultLanguage + '/{{ns}}'
-                            }
+                        loadPath: (/*lng: string[]/*namespaces*/) => {
                             return '{{lng}}/{{ns}}'
                         },
 
@@ -118,17 +120,9 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
                         // /locales/resources.json?lng=de+en&ns=ns1+ns2
                         allowMultiLoading: false, // set loadPath: '/locales/resources.json?lng={{lng}}&ns={{ns}}' to adapt to multiLoading
 
+                        // todo: parse is not handled with custom `request`
                         // parse data after it has been fetched
-                        // in example use https://www.npmjs.com/package/json5
-                        parse: (data: any, ident: string) => {
-                            const identArr = ident.split('/')
-                            const lng = identArr[0]
-                            const ns = identArr[1]
-
-                            if (parse) return parse(lng, ns, data)
-
-                            return data
-                        },
+                        // parse: parse,
 
                         // allow cross domain requests
                         crossDomain: false,
@@ -137,24 +131,16 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
                         withCredentials: false,
 
                         /**
-                         * define a custom xhr function
-                         *
-                         * @param {string} url the value of 'loadPath'
-                         * @param {{}} _options the options object passed to i18n backend init
-                         * @param {function} callback is a function that takes two parameters, 'data' and 'xhr'.
-                         *                 - 'data' should be the key:value translation pairs for the
-                         *                   requested language and namespace, or null in case of an error.
-                         *                 - 'xhr' should be a status object, e.g. { status: 200 }
-                         * @param {{}} data will be a key:value object used when saving missing translations
+                         * define a custom load function
                          */
-                        ajax: (url: string, _options: {}, callback: Function /*data*/) => {
+                        request: (...[/*options*/, url, /*payload*/, callback]: Parameters<NonNullable<HttpBackendOptions['request']>>) => {
                             try {
                                 loader(url).then(data => {
-                                    callback(data, {status: '200'})
+                                    callback(null, {status: 200, data: data})
                                 })
-                            } catch (e) {
+                            } catch(e) {
                                 console.error(e)
-                                callback(null, {status: '404'})
+                                callback(e, {status: 404, data: {}})
                             }
                         },
 
@@ -168,9 +154,8 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
     }
 
     componentDidMount(): void {
-        if (html) {
-            // @ts-ignore
-            html.lang = i18n.options.defaultLanguage
+        if(html && i18n.language) {
+            html.lang = i18n.language
         }
 
         i18n.on('languageChanged', this.changeHtml)
@@ -181,7 +166,7 @@ export class I18nProvider extends React.Component<React.PropsWithChildren<I18nPr
     }
 
     changeHtml(lng: string): void {
-        if (html) {
+        if(html) {
             html.lang = lng
         }
     }

@@ -38,6 +38,10 @@ export function HeadMeta(
             {description ? <meta property="og:description" content={description}/> : null}
             {ogImage ? <meta property="og:image" content={ogImage}/> : null}
             {ogTtl ? <meta property="og:ttl" content={ogTtl.toString()}/> : null}
+
+            {/* todo: support language based meta */}
+            {/*<meta name="docsearch:language" content={i18n.language}/>*/}
+            {/*<meta name="docsearch:version" content="master"/>*/}
         </Helmet>
     )
 }

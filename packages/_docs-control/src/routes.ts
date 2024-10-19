@@ -33,7 +33,7 @@ export const routes = (loading: (title: string) => any): Route => ({
                 content: {
                     exact: true,
                     component: Loadable({
-                        loader: () => import('./page/PageMain'),
+                        loader: () => import('./page/PageHome'),
                         loading: loading('Loading Home'),
                     }),
                 },

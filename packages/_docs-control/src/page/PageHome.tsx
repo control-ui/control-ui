@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Typography, { TypographyProps } from '@mui/material/Typography'
@@ -27,12 +28,13 @@ const P = (p: TypographyProps) =>
         {...p}
     />
 
-export default function PageMain() {
+export default function PageHome() {
     const {palette} = useTheme()
+    const {t} = useTranslation()
     return (
         <>
             <HeadMeta
-                title={'Control-UI'}
+                title={t('home.title') || 'Home'}
                 description={'React Components for Web-Apps, with or without API, using the Material-UI Design-System.'}
             />
             <PageContent>
@@ -61,12 +63,12 @@ export default function PageMain() {
 
                     <H level={2}>Control-UI: App</H>
                     <P>Layout Components and App starter for any PWA. Initializes provider for i18n, router, drawer and theme.</P>
-                    <Markdown source={'~~npx create-react-app my-app --template control-ui-app~~'}/>
+                    <Markdown source={'~~`npx create-react-app my-app --template control-ui-app`~~'}/>
                     <LinkButton to={'/app/overview'} variant={'outlined'}>more</LinkButton>
 
                     <H level={2}>Control-UI: Docs</H>
                     <P>Components and providers for documentation apps.</P>
-                    <Markdown source={'~~npx create-react-app my-docs --template control-ui-docs~~'}/>
+                    <Markdown source={'~~`npx create-react-app my-docs --template control-ui-docs`~~'}/>
                     <LinkButton to={'/docs/overview'} variant={'outlined'}>more</LinkButton>
 
                     <H level={2}>Control-UI: Docs Typescript</H>

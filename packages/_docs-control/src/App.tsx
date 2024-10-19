@@ -31,25 +31,22 @@ const Provider: React.ComponentType<React.PropsWithChildren<{}>> = ({children}) 
     </DocsProvider>
 )
 
-const l10n: { [k: string]: any } = {ns: {de: {}}}
+const l10n: { [namespace: string]: { [language: string]: any } } = {common: {en: {}}}
 
 const i18n: I18nProviderContext = {
     allLanguages: {
         en: '0.1',
     },
     detection: ['localStorage'],
-    defaultLanguage: 'en',
-    loader: (url) => import ('./locales/' + url + '.json'),
-    parse: (lng, ns, data) => {
-        // if that namespace got hardcoded overwrites from consuming app, overwrite included locales with app locales
-        if(l10n && l10n[lng] && l10n[lng][ns]) {
-            data = {...data}
-            // @ts-ignore
-            data = merge(data, i18n[lng][ns])
-        }
-
-        return data
-    },
+    loader: (url) =>
+        import ('./locales/' + url + '.json')
+            .then((res) => {
+                const [language, namespace] = url.split('/')
+                if(l10n && l10n[namespace] && l10n[namespace][language]) {
+                    return merge({...res}, l10n[namespace][language])
+                }
+                return res
+            }),
 }
 
 const routing = routes(loadableLoading(LoadingCircular))
