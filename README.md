@@ -14,7 +14,13 @@
 
 > 🚧 currently not intended for general usage / missing documentation / not following semver
 
-## 🚀 Web-App
+## Starter Templates
+
+> [!CAUTION]
+>
+> Starter templates are legacy and not maintained, as based on `cra`, which is abandoned.
+
+### 🚀 Web-App
 
 [`@control-ui/app` documentation](https://control-ui.bemit.codes/app/overview)
 
@@ -24,7 +30,7 @@
 
 [![Clone on Repl.it](https://img.shields.io/badge/repl.it%20Clone-grey?labelColor=fff&style=for-the-badge&logo=repl.it)](https://repl.it/github/control-ui/demo-app-cra)
 
-## 📚 Documentation App
+### 📚 Documentation App
 
 [`@control-ui/docs` documentation](https://control-ui.bemit.codes/docs/overview)
 
@@ -36,7 +42,7 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2022 bemit UG (haftungsbeschränkt)
+© 2024 bemit UG (haftungsbeschränkt)
 
 ### Contributors
 

@@ -14,11 +14,7 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2022 bemit UG (haftungsbeschränkt)
-
-### Contributors
-
-By committing your code/creating a pull request to this repository you agree to release the code under the MIT License attached to the repository.
+© 2024 bemit UG (haftungsbeschränkt)
 
 ***
 

@@ -4,7 +4,7 @@
 
 <h1 align="center">Control-UI Docs TS</h1>
 
-ReactJS MUI renderers and helpers, for documentation based on generated TSdoc data.
+ReactJS MUI renderers and helpers, for documentation based on generated Typescript documentation.
 
     npm i --save @control-ui/docs-ts
 
@@ -14,7 +14,7 @@ This project is free software distributed under the **MIT License**.
 
 See: [LICENSE](LICENSE).
 
-© 2022 bemit UG (haftungsbeschränkt)
+© 2024 bemit UG (haftungsbeschränkt)
 
 ### Contributors
 
