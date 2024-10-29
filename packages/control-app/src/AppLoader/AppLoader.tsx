@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { AppThemeProps } from '@control-ui/app/AppTheme'
-import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
+import { LoadingCircular } from '@control-ui/kit/Loading'
 import { AppThemeDynamic } from '@control-ui/app/AppThemeDynamic'
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/system'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
@@ -8,7 +7,7 @@ import { Markdown } from '../component/Markdown'
 import NavProject from '../component/NavProject'
 import { HeadMeta } from '@control-ui/kit/HeadMeta'
 import { Logo } from '../asset/Logo'
-import { LinkButton } from '@control-ui/kit/Link/LinkButton'
+import { LinkButton } from '@control-ui/kit/Link'
 import { useTheme } from '@mui/material/styles'
 
 const H = ({level, ...p}: TypographyProps & { level: 1 | 2 | 3 | 4 | 5 | 6 }) =>

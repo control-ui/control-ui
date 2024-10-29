@@ -2,9 +2,9 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 import Typography from '@mui/material/Typography'
-import { LinkList, ListItemLink } from '@control-ui/kit/List/LinkList'
+import { LinkList, ListItemLink } from '@control-ui/kit/List'
 import { useHeadlines } from '@control-ui/docs/LinkableHeadline'
-import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper/getUserPlatform'
+import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper'
 
 export interface LinkableHeadlineMenuProps {
     initial?: boolean

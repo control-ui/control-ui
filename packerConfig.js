@@ -1,6 +1,7 @@
 const path = require('path')
 const {packer} = require('lerna-packer')
-const {makeModulePackageJson, copyRootPackageJson, transformForEsModule} = require('lerna-packer/packer/modulePackages')
+const {babelTargetsLegacyEsmFirst} = require('lerna-packer/packer/babelEsModules.js')
+const {makeModulePackageJson, copyRootPackageJson, transformerForLegacyEsmFirst} = require('lerna-packer/packer/modulePackages.js')
 
 packer({
     apps: {
@@ -18,6 +19,7 @@ packer({
                 },
             },
             publicPath: '/',
+            aliasPackagesBuild: 'production',
             noParse: [
                 require.resolve('typescript/lib/typescript.js'),
                 path.resolve('packages/_docs-control/node_modules/typescript/lib/typescript.js'),
@@ -31,43 +33,49 @@ packer({
             name: '@control-ui/app',
             root: path.resolve(__dirname, 'packages', 'control-app'),
             entry: path.resolve(__dirname, 'packages', 'control-app/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
         controlDocs: {
             name: '@control-ui/docs',
             root: path.resolve(__dirname, 'packages', 'control-docs'),
             entry: path.resolve(__dirname, 'packages', 'control-docs/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
         controlDocsTs: {
             name: '@control-ui/docs-ts',
             root: path.resolve(__dirname, 'packages', 'control-docs-ts'),
             entry: path.resolve(__dirname, 'packages', 'control-docs-ts/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
         controlKit: {
             name: '@control-ui/kit',
             root: path.resolve(__dirname, 'packages', 'control-kit'),
             entry: path.resolve(__dirname, 'packages', 'control-kit/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
         controlRoutes: {
             name: '@control-ui/routes',
             root: path.resolve(__dirname, 'packages', 'control-routes'),
             entry: path.resolve(__dirname, 'packages', 'control-routes/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
         controlMdMui: {
             name: '@control-ui/md',
             root: path.resolve(__dirname, 'packages', 'control-md'),
             entry: path.resolve(__dirname, 'packages', 'control-md/src/'),
+            babelTargets: babelTargetsLegacyEsmFirst,
             doServeWatch: false,
         },
     },
 }, __dirname, {
     afterEsModules: (packages, pathBuild) => {
         return Promise.all([
-            makeModulePackageJson(transformForEsModule)(packages, pathBuild),
+            makeModulePackageJson(transformerForLegacyEsmFirst)(packages, pathBuild),
             copyRootPackageJson()(packages, pathBuild),
         ])
     },

@@ -121,7 +121,7 @@ const index: {
         package: string
         fromPath: string
         pagePath: string
-    }[],
+    }[]
     packages: {
         [name: string]: {
             // module file to count of exported symbols
@@ -201,7 +201,7 @@ function isNodeExported(node: ts.Node): boolean {
  * @see {@link https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#using-the-type-checker} for a simplified example on which part of this code was built upon
  */
 function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
-    let checker = program.getTypeChecker()
+    const checker = program.getTypeChecker()
     const definitions: any[] = []
 
     const visitedFiles = new Set<string>()

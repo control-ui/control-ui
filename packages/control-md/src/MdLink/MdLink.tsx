@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from '@mui/material/Link'
-import { LinkInternal } from '@control-ui/kit/Link/LinkInternal'
+import { LinkInternal } from '@control-ui/kit/Link'
 import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
 
 export const MdLink: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'a'> & ReactMarkdownProps & { currentDomain?: string }> = (

@@ -1,7 +1,7 @@
 import React from 'react'
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
-import { ListItemLink } from '@control-ui/kit/List/LinkList'
+import { ListItemLink } from '@control-ui/kit/List'
 import { useRouter } from '@control-ui/routes/RouterProvider'
 import { NavListNested, NavList, NavListItemAuto } from '@control-ui/kit/NavList'
 import { useDrawer } from '@control-ui/app/DrawerProvider'

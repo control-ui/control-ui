@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/kit",
-    "version": "0.0.31",
+    "version": "0.0.32",
     "license": "MIT",
     "authors": [
         {
@@ -13,8 +13,9 @@
     "scripts": {
         "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-routes && merge-dirs build/control-kit/src build && rm -rf build/control-kit"
     },
-    "main": "index.js",
-    "module": "esm/index.js",
+    "main": "./cjs/index.js",
+    "module": "./index.js",
+    "sideEffects": false,
     "dependencies": {
         "@control-ui/routes": "~0.0.5",
         "react-helmet": "^6.1.0"

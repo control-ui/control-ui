@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/app",
-    "version": "0.0.27",
+    "version": "0.0.28",
     "license": "MIT",
     "authors": [
         {
@@ -13,8 +13,9 @@
     "scripts": {
         "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && rm -rf build/control-routes && merge-dirs build/control-app/src build && rm -rf build/control-app"
     },
-    "main": "index.js",
-    "module": "esm/index.js",
+    "main": "./cjs/index.js",
+    "module": "./index.js",
+    "sideEffects": false,
     "dependencies": {
         "@control-ui/routes": "~0.0.5"
     },

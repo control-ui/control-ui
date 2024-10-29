@@ -1,7 +1,7 @@
 import React from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
-import { LoadingProps } from '@control-ui/kit/Loading/Loading'
+import { LoadingProps } from '@control-ui/kit/Loading'
 
 export const LoadingLinear = ({title, loadingColor, textColor, width = '100%'}: LoadingProps): React.ReactElement => {
     return <div style={{

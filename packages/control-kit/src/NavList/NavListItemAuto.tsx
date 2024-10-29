@@ -1,12 +1,11 @@
 import React from 'react'
 import { useTheme } from '@mui/material/styles'
-import { ListItemLink, ListItemLinkProps } from '@control-ui/kit/List/LinkList'
+import { ListItemLink, ListItemLinkProps, ListItemIcon } from '@control-ui/kit/List'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@control-ui/kit/List/ListItemIcon'
 import { Route } from '@control-ui/routes/Route'
 import ListItemButton from '@mui/material/ListItemButton'
 import { TypographyProps } from '@mui/material/Typography'
-import { NavListItemProps } from '@control-ui/kit/NavList/NavListItem'
+import { NavListItemProps } from '@control-ui/kit/NavList'
 
 export interface NavListItemAutoProps<R extends Route = Route> extends NavListItemProps<R> {
     disableNavLink?: ListItemLinkProps['disableNavLink']

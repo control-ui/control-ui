@@ -7,7 +7,7 @@ import { DocRouteModule } from '../content/docs'
 import PageNotFound from './PageNotFound'
 import { DocDetailsLegacy } from '@control-ui/docs/DocDetails'
 import { LinkableHeadlineMenu } from '@control-ui/docs/LinkableHeadline'
-import { LoadingCircular } from '@control-ui/kit/Loading/LoadingCircular'
+import { LoadingCircular } from '@control-ui/kit/Loading'
 import { Markdown } from '../component/Markdown'
 import { DocsDetailsModules } from './DocsDetailsModules'
 

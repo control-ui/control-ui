@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/md",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "MIT",
     "authors": [
         {
@@ -13,8 +13,9 @@
     "scripts": {
         "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && merge-dirs build/control-md/src build && rm -rf build/control-md"
     },
-    "main": "index.js",
-    "module": "esm/index.js",
+    "main": "./cjs/index.js",
+    "module": "./index.js",
+    "sideEffects": false,
     "dependencies": {
         "@control-ui/routes": "~0.0.5"
     },

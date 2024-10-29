@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, LinkProps } from '@control-ui/kit/Link'
-import { findScrollParent } from '@control-ui/kit/Helper/findScrollParent'
+import { findScrollParent } from '@control-ui/kit/Helper'
 
 export interface LinkInternalProps extends LinkProps {
     prefixRelative?: string

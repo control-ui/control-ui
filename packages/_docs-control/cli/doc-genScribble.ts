@@ -118,19 +118,19 @@ console.log(`Written ${codeRouteInfos.length} documentation bundles in ${((Date.
 // todo: split up cli from lib
 // ---
 
-function isJSDocText<TNode extends Node>(node: TNode): node is ts.JSDocText {
+export function isJSDocText<TNode extends Node>(node: TNode): node is ts.JSDocText {
     return node.kind === SyntaxKind.JSDocText
 }
 
-function isJSDocLink<TNode extends Node>(node: TNode): node is ts.JSDocLink {
+export function isJSDocLink<TNode extends Node>(node: TNode): node is ts.JSDocLink {
     return node.kind === SyntaxKind.JSDocLink
 }
 
-function isJSDocLinkCode<TNode extends Node>(node: TNode): node is ts.JSDocLinkCode {
+export function isJSDocLinkCode<TNode extends Node>(node: TNode): node is ts.JSDocLinkCode {
     return node.kind === SyntaxKind.JSDocLinkCode
 }
 
-function isJSDocLinkPlain<TNode extends Node>(node: TNode): node is ts.JSDocLinkPlain {
+export function isJSDocLinkPlain<TNode extends Node>(node: TNode): node is ts.JSDocLinkPlain {
     return node.kind === SyntaxKind.JSDocLinkPlain
 }
 
@@ -159,7 +159,7 @@ function isNodeExported(node: ts.Node): boolean {
  * @see {@link https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#using-the-type-checker} for a simplified example on which part of this code was built upon
  */
 function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
-    let checker = program.getTypeChecker()
+    const checker = program.getTypeChecker()
     // const moduleInfo: any = {
     //     kind: ts.SyntaxKind[entrypointFile.kind],
     //     filePath: path.relative(basePathPackages, entrypointFile.fileName).replaceAll('\\', '/'),
@@ -212,6 +212,7 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
             //     .map(serializeSignature)
 
             const members = classType.getProperties()//checker.getPropertiesOfType(classType)
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const memberStrings = members.map(member => {
                 const memberType = checker.getTypeOfSymbolAtLocation(member, member.valueDeclaration!)
                 const isOptional = member.flags & ts.SymbolFlags.Optional
@@ -329,6 +330,7 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
     }
 
     /** Serialize a signature (call or construct) */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function serializeSignature(signature: ts.Signature) {
         return {
             parameters: signature.parameters.map(serializeSymbol),
@@ -598,6 +600,7 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
     return definitions.filter(c => c.exported || c.referenced)
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function extractType(node: ts.Node) {
     if(ts.isClassDeclaration(node)) {
         return {
