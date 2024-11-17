@@ -1,7 +1,10 @@
-const path = require('path')
-const {packer} = require('lerna-packer')
-const {babelTargetsLegacyEsmFirst} = require('lerna-packer/packer/babelEsModules.js')
-const {makeModulePackageJson, copyRootPackageJson, transformerForLegacyEsmFirst} = require('lerna-packer/packer/modulePackages.js')
+import path from 'path'
+import url from 'url'
+import {packer, webpack} from 'lerna-packer'
+import {babelTargetsLegacyEsmFirst} from 'lerna-packer/packer/babelEsModules.js'
+import {makeModulePackageJson, copyRootPackageJson, transformerForLegacyEsmFirst} from 'lerna-packer/packer/modulePackages.js'
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 packer({
     apps: {
@@ -20,10 +23,17 @@ packer({
             },
             publicPath: '/',
             aliasPackagesBuild: 'production',
-            noParse: [
-                require.resolve('typescript/lib/typescript.js'),
-                path.resolve('packages/_docs-control/node_modules/typescript/lib/typescript.js'),
+            plugins: [
+                new webpack.DefinePlugin({
+                    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+                    // note: wataru-chocola/micromark-extension-definition-list depends on assert, which depends on util, which uses process.env.NODE_DEBUG internally
+                    'process.env.NODE_DEBUG': JSON.stringify(process.env.NODE_DEBUG),
+                }),
             ],
+            // noParse: [
+            //     require.resolve('typescript/lib/typescript.js'),
+            //     path.resolve('packages/_docs-control/node_modules/typescript/lib/typescript.js'),
+            // ],
         },
     },
     packages: {

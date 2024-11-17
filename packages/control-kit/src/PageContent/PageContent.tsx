@@ -4,7 +4,7 @@ import Container, { ContainerProps } from '@mui/material/Container'
 import Paper, { PaperProps } from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 
 export interface PageTitleProps {
     title: string | React.ReactElement

@@ -1,5 +1,5 @@
 {
-    "extends": "../tsconfig.json",
+    "extends": "../../tsconfig.json",
     //"baseUrl": "./src",
     //"include": [
     //"src/**/*"
@@ -10,7 +10,7 @@
         //"src/**/*"
     ],
     "compilerOptions": {
-        "outDir": "build",
+        "outDir": "build/dts",
         "module": "CommonJS",
         "jsx": "react-jsx"
         //        "paths": {

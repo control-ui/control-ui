@@ -11,7 +11,7 @@
         }
     ],
     "scripts": {
-        "dtsgen": "tsc -d --emitDeclarationOnly --pretty"
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && node ../../tools/merge-dirs.js build/dts/packages/control-routes/src build && rm -rf build/dts"
     },
     "main": "./cjs/index.js",
     "module": "./index.js",

@@ -7,7 +7,7 @@ import { ListItemIcon } from '@control-ui/kit/List'
 import ListItemText from '@mui/material/ListItemText'
 import { TypographyProps } from '@mui/material/Typography'
 import ListItemButton from '@mui/material/ListItemButton'
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 
 export interface ListCollapseContentProps {
     label?: string

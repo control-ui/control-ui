@@ -6,7 +6,7 @@ import { ListCollapse } from '@control-ui/kit/List'
 import { useLocation } from 'react-router-dom'
 import { Route } from '@control-ui/routes/Route'
 import { NavListItemProps } from '@control-ui/kit/NavList'
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 import { TypographyProps } from '@mui/material/Typography'
 
 export interface NavListNestedProps<R extends Route = Route> {

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { MdCodeProps } from '@control-ui/md'
 
@@ -12,9 +11,8 @@ export const MdCodeBlock: React.ComponentType<React.PropsWithChildren<MdCodeProp
         ...p
     },
 ) => {
-    const {palette, spacing} = useTheme()
-    return <Typography component={'pre'} variant={variant} style={{background: palette.divider, ...style}} gutterBottom {...p}>
-        <Typography component={'code'} data-code={language} style={{fontFamily, padding: '0 ' + spacing(0.5)}}>
+    return <Typography component={'pre'} variant={variant} sx={{backgroundColor: 'background.default', borderRadius: 1, ...style}} gutterBottom {...p}>
+        <Typography component={'code'} data-code={language} sx={{fontFamily, px: 0.5, display: 'block'}}>
             {children}
         </Typography>
     </Typography>

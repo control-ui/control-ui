@@ -6,7 +6,7 @@ import { ListItemIcon } from '@control-ui/kit/List'
 import * as H from 'history'
 import ListItemButton from '@mui/material/ListItemButton'
 import { TypographyProps } from '@mui/material/Typography'
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 
 export interface ListItemLinkProps {
     icon?: React.ReactNode

@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/docs",
-    "version": "0.0.35",
+    "version": "0.0.36",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
         }
     ],
     "scripts": {
-        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && rm -rf build/control-routes && rm -rf build/control-app && merge-dirs build/control-docs/src build && rm -rf build/control-docs"
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && node ../../tools/merge-dirs.js build/dts/packages/control-docs/src build && rm -rf build/dts"
     },
     "main": "./cjs/index.js",
     "module": "./index.js",

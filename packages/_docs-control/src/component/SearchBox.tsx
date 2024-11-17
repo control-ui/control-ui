@@ -18,7 +18,8 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import { Button, useMediaQuery } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Button from '@mui/material/Button'
 import { useRouter } from '@control-ui/routes/RouterProvider'
 import { useSearch, useSearchHistory } from '@control-ui/docs/DocsSearchProvider'
 import { useDocsIndex } from '@control-ui/docs/DocsIndexProvider'
@@ -186,6 +187,8 @@ export const SearchBox: React.ComponentType = () => {
             <Button
                 style={{
                     marginRight: 'calc(-100% + 4px)',
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
                     minWidth: 16,
                     padding: 6,
                 }}
@@ -203,15 +206,80 @@ export const SearchBox: React.ComponentType = () => {
 
         <Collapse
             in={Boolean(searchResult)} timeout="auto" unmountOnExit
-            style={{overflow: 'auto', marginTop: 6}}
+            appear
+            sx={{overflow: 'auto', marginTop: 1}}
+            component={Paper}
         >
-            <Paper>
-                <Box p={2}>
-                    <Typography variant={'subtitle1'}>Pages</Typography>
-                    <Typography variant={'caption'} gutterBottom>{searchResult?.matches.pages?.length} matches</Typography>
-                    {searchResult?.matches.pages?.map((match, i) => <Box key={i} mb={1}>
+            <Box p={2}>
+                <Typography variant={'subtitle1'}>Pages</Typography>
+                <Typography variant={'caption'} gutterBottom>{searchResult?.matches.pages?.length} matches</Typography>
+                {searchResult?.matches.pages?.map((match, i) => <Box key={i} mb={1}>
+                    <Link
+                        to={match.pagePath}
+                        onClick={() => {
+                            setOpen(false)
+                            if(!isMd) {
+                                setDrawerOpen(false)
+                            }
+                        }}
+                        style={{textDecoration: 'none'}}
+                    >
+                        <Paper variant={'outlined'} style={{borderRadius: 5}}>
+                            <Box p={1}>
+                                <Box style={{display: 'flex', alignItems: 'center'}}>
+                                    <IcPage/>
+                                    <Typography style={{marginLeft: 12}}>
+                                        <Highlighter
+                                            searchWords={searchResult?.term.split(' ')}
+                                            textToHighlight={match.label}
+                                            highlightTag={Highlight}
+                                            autoEscape
+                                        />
+                                    </Typography>
+                                </Box>
+                                <Box style={{display: 'flex'}}>
+                                    {match.parentLabel ? <Typography variant={'body2'}>{match.parentLabel.join(' > ')}</Typography> : null}
+                                    <Typography variant={'caption'} style={{marginLeft: 'auto', opacity: 0.6}}>Score: {match.score.toFixed(2)}</Typography>
+                                </Box>
+                            </Box>
+                        </Paper>
+                    </Link>
+
+                    {match.matchKeys?.filter((mk: any) => mk.key === 'headings.headline').map((mk: any) =>
+                        // todo: the headlines should be sorted by their level, not scoring / not random
+                        match.headings[mk.index].headline === match.label ? null :
+                            <Box key={mk.index} py={1} style={{borderLeft: '1px solid ' + palette.divider}}>
+                                <Box key={mk.index} ml={1} py={1}>
+                                    <Link
+                                        to={match.pagePath + '#' + match.headings[mk.index].fragment}
+                                        onClick={() => {
+                                            setOpen(false)
+                                            if(!isMd) {
+                                                setDrawerOpen(false)
+                                            }
+                                        }}
+                                        style={{textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center'}}
+                                    >
+                                        <IcTag/>
+                                        <Typography variant={'body2'} style={{marginLeft: 12}}>
+                                            <Highlighter
+                                                searchWords={searchResult?.term.split(' ')}
+                                                textToHighlight={match.headings[mk.index].headline}
+                                                highlightTag={Highlight2}
+                                                autoEscape
+                                            />
+                                        </Typography>
+                                    </Link>
+                                </Box>
+                            </Box>)}
+                </Box>)}
+
+                <Typography variant={'subtitle1'}>Module APIs</Typography>
+                <Typography variant={'caption'} gutterBottom>{searchResult?.matches.modules?.length} matches</Typography>
+                {searchResult?.matches.modules?.map((match, i) =>
+                    <Box mb={1} key={i}>
                         <Link
-                            to={match.pagePath}
+                            to={match.pagePath + '#doc-module--' + match.module}
                             onClick={() => {
                                 setOpen(false)
                                 if(!isMd) {
@@ -222,114 +290,49 @@ export const SearchBox: React.ComponentType = () => {
                         >
                             <Paper variant={'outlined'} style={{borderRadius: 5}}>
                                 <Box p={1}>
-                                    <Box style={{display: 'flex', alignItems: 'center'}}>
-                                        <IcPage/>
-                                        <Typography style={{marginLeft: 12}}>
-                                            <Highlighter
-                                                searchWords={searchResult?.term.split(' ')}
-                                                textToHighlight={match.label}
-                                                highlightTag={Highlight}
-                                                autoEscape
-                                            />
-                                        </Typography>
-                                    </Box>
+                                    <Typography>
+                                        <Highlighter
+                                            searchWords={searchResult?.term.split(' ')}
+                                            textToHighlight={match.module}
+                                            autoEscape
+                                            highlightTag={Highlight}
+                                        />
+                                    </Typography>
                                     <Box style={{display: 'flex'}}>
-                                        {match.parentLabel ? <Typography variant={'body2'}>{match.parentLabel.join(' > ')}</Typography> : null}
+                                        <Typography variant={'body2'}>{match.package}</Typography>
                                         <Typography variant={'caption'} style={{marginLeft: 'auto', opacity: 0.6}}>Score: {match.score.toFixed(2)}</Typography>
                                     </Box>
                                 </Box>
                             </Paper>
                         </Link>
-
-                        {match.matchKeys?.filter((mk: any) => mk.key === 'headings.headline').map((mk: any) =>
-                            // todo: the headlines should be sorted by their level, not scoring / not random
-                            match.headings[mk.index].headline === match.label ? null :
-                                <Box key={mk.index} py={1} style={{borderLeft: '1px solid ' + palette.divider}}>
-                                    <Box key={mk.index} ml={1} py={1}>
-                                        <Link
-                                            to={match.pagePath + '#' + match.headings[mk.index].fragment}
-                                            onClick={() => {
-                                                setOpen(false)
-                                                if(!isMd) {
-                                                    setDrawerOpen(false)
-                                                }
-                                            }}
-                                            style={{textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center'}}
-                                        >
-                                            <IcTag/>
-                                            <Typography variant={'body2'} style={{marginLeft: 12}}>
-                                                <Highlighter
-                                                    searchWords={searchResult?.term.split(' ')}
-                                                    textToHighlight={match.headings[mk.index].headline}
-                                                    highlightTag={Highlight2}
-                                                    autoEscape
-                                                />
-                                            </Typography>
-                                        </Link>
-                                    </Box>
-                                </Box>)}
                     </Box>)}
-
-                    <Typography variant={'subtitle1'}>Module APIs</Typography>
-                    <Typography variant={'caption'} gutterBottom>{searchResult?.matches.modules?.length} matches</Typography>
-                    {searchResult?.matches.modules?.map((match, i) =>
-                        <Box mb={1} key={i}>
-                            <Link
-                                to={match.pagePath + '#doc-module--' + match.module}
-                                onClick={() => {
-                                    setOpen(false)
-                                    if(!isMd) {
-                                        setDrawerOpen(false)
-                                    }
-                                }}
-                                style={{textDecoration: 'none'}}
-                            >
-                                <Paper variant={'outlined'} style={{borderRadius: 5}}>
-                                    <Box p={1}>
-                                        <Typography>
-                                            <Highlighter
-                                                searchWords={searchResult?.term.split(' ')}
-                                                textToHighlight={match.module}
-                                                autoEscape
-                                                highlightTag={Highlight}
-                                            />
-                                        </Typography>
-                                        <Box style={{display: 'flex'}}>
-                                            <Typography variant={'body2'}>{match.package}</Typography>
-                                            <Typography variant={'caption'} style={{marginLeft: 'auto', opacity: 0.6}}>Score: {match.score.toFixed(2)}</Typography>
-                                        </Box>
-                                    </Box>
-                                </Paper>
-                            </Link>
-                        </Box>)}
-                </Box>
-            </Paper>
+            </Box>
         </Collapse>
 
         <Collapse
             in={history.length > 0 && !searchResult} timeout="auto" unmountOnExit
-            style={{overflow: 'auto', marginTop: 6}}
+            appear
+            sx={{overflow: 'auto', mt: 1}}
+            component={Paper}
         >
-            <Paper>
-                <Box p={2}>
-                    <Typography variant={'subtitle1'} gutterBottom style={{display: 'flex'}}>
-                        History
-                        <Tooltip title={'clear history'}>
-                            <IconButton
-                                size={'small'}
-                                onClick={() => clearHistory()}
-                                style={{marginLeft: 'auto'}}
-                            ><IcDelete/></IconButton>
-                        </Tooltip>
-                    </Typography>
-                    <List>
-                        {[...history].reverse().map((h, i) =>
-                            <ListItemButton key={i} onClick={() => setSearchTerm(h)}>
-                                <ListItemText>{h}</ListItemText>
-                            </ListItemButton>)}
-                    </List>
-                </Box>
-            </Paper>
+            <Box p={2}>
+                <Typography variant={'subtitle1'} gutterBottom style={{display: 'flex'}}>
+                    History
+                    <Tooltip title={'clear history'}>
+                        <IconButton
+                            size={'small'}
+                            onClick={() => clearHistory()}
+                            style={{marginLeft: 'auto'}}
+                        ><IcDelete/></IconButton>
+                    </Tooltip>
+                </Typography>
+                <List>
+                    {[...history].reverse().map((h, i) =>
+                        <ListItemButton key={i} onClick={() => setSearchTerm(h)}>
+                            <ListItemText>{h}</ListItemText>
+                        </ListItemButton>)}
+                </List>
+            </Box>
         </Collapse>
     </Dialog>
 }

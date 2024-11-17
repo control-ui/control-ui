@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { IconButtonProps } from '@mui/material/IconButton'
 import IcUp from '@mui/icons-material/ArrowUpward'
 import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
-import { SxProps } from '@mui/material'
+import { SxProps } from '@mui/material/styles'
 
 export interface ScrollUpButtonProps {
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>

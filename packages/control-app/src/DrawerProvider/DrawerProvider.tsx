@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTheme } from '@mui/material/styles'
-import { Breakpoint } from '@mui/system/createTheme/createBreakpoints'
+import { Breakpoint } from '@mui/system/createTheme'
 
 export type setOpenHandler = (currentOpen: boolean) => boolean
 export type setOpen = (open: boolean | setOpenHandler) => void

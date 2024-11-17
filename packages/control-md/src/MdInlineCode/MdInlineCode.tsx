@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { MdCodeProps } from '@control-ui/md/MdCode'
 
@@ -14,13 +13,13 @@ export const MdInlineCode: React.ComponentType<React.PropsWithChildren<MdCodePro
         ...props
     },
 ) => {
-    const {palette, spacing} = useTheme()
     return <Typography
         component={'code'} variant={variant}
-        style={{
-            background: palette.divider,
+        sx={{
+            backgroundColor: 'background.default',
             fontFamily,
-            padding: '0 ' + spacing(p),
+            borderRadius: 0.5,
+            px: p,
             ...style,
         }}
         gutterBottom

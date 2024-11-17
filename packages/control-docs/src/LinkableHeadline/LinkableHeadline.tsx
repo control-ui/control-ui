@@ -3,8 +3,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Tooltip from '@mui/material/Tooltip'
 import LinkIcon from '@mui/icons-material/Link'
-import { Variant } from '@mui/material/styles/createTypography'
-import { useTheme } from '@mui/material/styles'
+import { useTheme, TypographyVariant } from '@mui/material/styles'
 import { makeIdFromText } from '@control-ui/docs/makeIdFromText'
 
 export interface LinkableHeadlineStateNode {
@@ -109,7 +108,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
     }, [id, setHeadlines, level])
 
     return <Typography
-        {...p} component={'h' + (level + levelOffset) as React.ElementType} variant={('h' + (level + levelOffsetVariant)) as Variant}
+        {...p} component={'h' + (level + levelOffset) as React.ElementType} variant={('h' + (level + levelOffsetVariant)) as TypographyVariant}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         id={id}

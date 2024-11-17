@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "private": true,
+    "type": "module",
     "scripts": {
         "start": "npm run clean-dist && npm run serve",
         "docs": "npm run serve -- docs",
@@ -20,12 +21,8 @@
         "doc-gen": "lerna run doc-gen",
         "page-index": "lerna run page-index",
         "dtsgen": "lerna run dtsgen",
-        "bootstrap": "lerna bootstrap --force-local",
-        "bootstrap_": "lerna bootstrap --force-local",
-        "link": "lerna link --force-local",
-        "hoist": "lerna bootstrap --hoist -- --legacy-peer-deps",
-        "test": "jest -c=\"packages/jest.config.js\" --passWithNoTests",
-        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=packages/.eslintrc --ext=.tsx,.ts 'packages' --max-warnings 0",
+        "test": "jest -c=\"jest.config.ts\" --passWithNoTests",
+        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --ext=.tsx,.ts 'packages' --max-warnings 0",
         "tdd": "npm test -- --watch --watchman --coverage=false",
         "release": "lerna publish from-package --contents build --no-git-reset",
         "sloc": "node ./sloc.js",
@@ -35,19 +32,18 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@svgr/webpack": "^5.4.0",
-        "babel-plugin-const-enum": "^1.2.0",
         "babel-plugin-named-asset-import": "^0.3.8",
-        "cross-env": "^6.0.3",
-        "eslint-plugin-react-hooks": "^4.5.0",
-        "lerna": "^3.22.1",
-        "merge-dirs": "^0.2.1",
-        "sloc": "^0.3.2"
-    },
-    "dependencies": {
+        "cross-env": "^7.0.3",
         "eslint-plugin-deprecation": "^1.2.1",
         "eslint-plugin-import": "~2.24.0",
-        "lerna-packer": "0.10.1",
+        "eslint-plugin-react-hooks": "^4.5.0",
+        "lerna": "^8.1.9",
+        "lerna-packer": "0.10.2",
+        "sloc": "^0.3.2",
+        "ts-node": "^10.9.2",
         "typescript": "~5.3.3"
-    }
+    },
+    "workspaces": [
+        "packages/*"
+    ]
 }

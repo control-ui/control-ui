@@ -1,6 +1,6 @@
 {
     "name": "@control-ui/md",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "license": "MIT",
     "authors": [
         {
@@ -11,7 +11,7 @@
         }
     ],
     "scripts": {
-        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && rm -rf build/control-kit && merge-dirs build/control-md/src build && rm -rf build/control-md"
+        "dtsgen": "tsc -d --emitDeclarationOnly --pretty && node ../../tools/merge-dirs.js build/dts/packages/control-md/src build && rm -rf build/dts"
     },
     "main": "./cjs/index.js",
     "module": "./index.js",

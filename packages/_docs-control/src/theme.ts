@@ -47,7 +47,7 @@ const universal: Pick<PartialTheme, 'breakpoints' | 'typography' | 'shape'> = {
         },
     },
     shape: {
-        borderRadius: 0,
+        // borderRadius: 0,
     },
 }
 

@@ -144,7 +144,20 @@
                     "warn",
                     "never"
                 ],
-                "semi-style": "off"
+                "semi-style": "off",
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        "paths": [
+                            "@mui/material",
+                            "@mui/icon-material"
+                        ],
+                        "patterns": [
+                            "@mui/*/*/*",
+                            "@control-ui/*/*/*"
+                        ]
+                    }
+                ]
             }
         }
     ]

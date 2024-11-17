@@ -1,3 +1,70 @@
 {
-    "extends": "./packages/tsconfig.json"
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
+        "jsx": "preserve",
+        "removeComments": false,
+        "moduleResolution": "Node",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noEmit": false,
+        "experimentalDecorators": true,
+        "rootDir": "./",
+        "baseUrl": "./",
+        "allowSyntheticDefaultImports": true,
+        "noErrorTruncation": true,
+        "allowJs": true,
+        "declaration": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "paths": {
+            "@control-ui/kit": [
+                "packages/control-kit/src"
+            ],
+            "@control-ui/kit/*": [
+                "packages/control-kit/src/*"
+            ],
+            "@control-ui/docs": [
+                "packages/control-docs/src"
+            ],
+            "@control-ui/docs/*": [
+                "packages/control-docs/src/*"
+            ],
+            "@control-ui/docs-ts": [
+                "packages/control-docs-ts/src"
+            ],
+            "@control-ui/docs-ts/*": [
+                "packages/control-docs-ts/src/*"
+            ],
+            "@control-ui/app": [
+                "packages/control-app/src"
+            ],
+            "@control-ui/app/*": [
+                "packages/control-app/src/*"
+            ],
+            "@control-ui/routes": [
+                "packages/control-routes/src"
+            ],
+            "@control-ui/routes/*": [
+                "packages/control-routes/src/*"
+            ],
+            "@control-ui/md": [
+                "packages/control-md/src"
+            ],
+            "@control-ui/md/*": [
+                "packages/control-md/src/*"
+            ]
+        }
+    },
+    //    "include": [
+    //        "**/*"
+    //    ],
+    "exclude": [
+        "**/build/",
+        "**/*.d.ts"
+    ]
 }

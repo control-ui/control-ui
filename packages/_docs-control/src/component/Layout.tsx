@@ -14,7 +14,7 @@ import { Layout, LayoutProps } from '@control-ui/app/Layout'
 import { SearchBox } from './SearchBox'
 import { RouteCascade } from '@control-ui/routes/RouteCascade'
 import { useSearch } from '@control-ui/docs/DocsSearchProvider'
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
 import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper'
 import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
 

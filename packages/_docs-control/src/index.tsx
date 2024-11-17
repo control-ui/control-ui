@@ -1,4 +1,3 @@
-import React from 'react'
 import './index.scss'
 import { createRoot } from 'react-dom/client'
 import { themes } from './theme'
@@ -13,6 +12,5 @@ const App = AppLoader(
     onError,
 )
 
-
-const root = createRoot(document.querySelector('#root') as Element)
-root.render(<App/>)
+createRoot(document.querySelector('#root')!)
+    .render(<App/>)
