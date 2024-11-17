@@ -7,27 +7,27 @@ echo "Token length: ${#NPM_TOKEN}"
 cd ./packages
 
 cd control-app
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd control-docs
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd control-docs-ts
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd control-kit
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd control-md
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd control-routes
-cp package.json build/ && cp package-lock.json build/ && cp README.md build/ && cp LICENSE build/
+cp package.json build/ && cp README.md build/ && cp LICENSE build/
 cd ../
 
 cd ../
