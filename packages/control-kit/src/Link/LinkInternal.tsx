@@ -2,18 +2,12 @@ import React from 'react'
 import { Link, LinkProps } from '@control-ui/kit/Link'
 import { findScrollParent } from '@control-ui/kit/Helper'
 
-export interface LinkInternalProps extends LinkProps {
-    prefixRelative?: string
-}
+export type LinkInternalProps = LinkProps
 
-export const LinkInternal = ({prefixRelative = '', to, primary, ...p}: LinkInternalProps) => {
+export const LinkInternal = ({to, primary, ...p}: LinkInternalProps) => {
     return <Link
-        to={
-            0 === to?.indexOf('#') ?
-                window.location.pathname + to :
-                prefixRelative + to
-        }
-        primary={primary} color={'primary'} style={{fontWeight: 'bold'}}
+        to={to}
+        primary={primary} color={'primary'}
         onClick={
             0 === to?.indexOf('#') ?
                 () => {

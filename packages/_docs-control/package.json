@@ -23,6 +23,7 @@
         "@control-ui/docs-ts": "0.1.x",
         "@control-ui/routes": "0.0.x",
         "@control-ui/md": "0.0.x",
+        "highlight.js": "^11.10.0",
         "react-highlight-words": "~0.18.0",
         "fuse.js": "~6.5.3",
         "i18next": "^23.16.0",

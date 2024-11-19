@@ -1,10 +1,5 @@
 import React from 'react'
 
-// todo: refactor to TS compiler API helpers
-type PropType = any
-// todo: refactor to TS compiler API helpers
-type SourceLocation = any
-
 export interface TsDocModule {
     // pagePath: string
     modulePath: string
@@ -17,45 +12,78 @@ export interface TsDocModule {
     files: string[]
 }
 
-export interface TsDocModuleCollection extends TsDocModule {
-    docs: { [k: string]: TsDocModuleDefinition }
-}
-
-
-export interface TsDocModuleCollectionSimple extends TsDocModule {
-    definitions: any[]
-}
-
 /**
- * @see [structured-types PropType](https://github.com/ccontrols/structured-types/blob/master/packages/api/README.md#proptype)
- * @todo refactor to TS compiler API helpers
+ * Page location with its containing module lookup definition.
  */
-export interface TsDocModuleDefinition extends PropType {
-    name: string
-    description?: string
-    extension?: 'react'
-    // todo: where are custom TSDoc comments available? e.g. `internal`/`@internal` doesn't do anything
-    internal?: boolean
-    // kind: number
-    // deprecated?: boolean
-    generics?: PropType[]
-    types?: PropType[]
-    properties?: PropType[]
-    parameters?: PropType[]
-    returns?: PropType
-}
-
 export interface TsDocModuleFileSource extends TsDocModule {
     pagePath: string
 }
 
-export interface PropTypeWithLoc extends PropType {
-    loc: SourceLocation
+/**
+ * Generated output for an isolated module.
+ */
+export interface TsDocModuleCollectionSimple extends TsDocModule {
+    definitions: TsDocModuleDefinition[]
 }
 
-export interface TsDocModuleFileParsed extends TsDocModuleFileSource {
-    docs: {
-        [moduleId: string]: PropTypeWithLoc
+export interface TsDocModuleDefinitionSymbol {
+    name: string
+    description?: string
+    type?: {
+        text: string
+    }
+}
+
+export interface TsDocModuleDefinitionSymbolInfo extends TsDocModuleDefinitionSymbol {
+    deprecated?: true
+    internal?: true
+    comment?: TsDocTagContent[]
+    tags?: {
+        author?: TsDocTagContent[][]
+        see?: TsDocTagContent[][]
+        internal?: TsDocTagContent[][]
+        deprecated?: TsDocTagContent[][]
+        remarks?: TsDocTagContent[][]
+        example?: TsDocTagContent[][]
+    }
+}
+
+export interface TsDocModuleDefinition extends TsDocModuleDefinitionSymbolInfo {
+    exported?: boolean
+    referenced?: boolean
+    loc: TsDocLoc
+    kind:
+        'TypeAliasDeclaration' |
+        'InterfaceDeclaration' |
+        'ClassDeclaration' |
+        'FunctionDeclaration' |
+        'VariableDeclaration' |
+        string
+}
+
+export type TsDocTagContent =
+    TsDocTagContentText
+    | TsDocTagContentLink
+
+export interface TsDocTagContentText {
+    kind: 'JSDocText'
+    text: string
+}
+
+export interface TsDocTagContentLink {
+    kind: 'JSDocLink'
+    text: string
+}
+
+export interface TsDocLoc {
+    filePath: string
+    start: {
+        line: number
+        character: number
+    }
+    end: {
+        line: number
+        character: number
     }
 }
 

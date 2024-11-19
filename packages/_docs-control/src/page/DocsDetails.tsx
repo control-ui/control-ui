@@ -1,5 +1,5 @@
 import { TsDocModuleCollectionSimple } from '@control-ui/docs-ts/TsDocModule'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import Paper from '@mui/material/Paper'
 import Link from '@mui/material/Link'
@@ -13,6 +13,13 @@ import { LinkableHeadlineMenu } from '@control-ui/docs/LinkableHeadline'
 import { LoadingCircular } from '@control-ui/kit/Loading'
 import { Markdown } from '../component/Markdown'
 import { DocsDetailsModules } from './DocsDetailsModules'
+import hljs from 'highlight.js'
+
+hljs.configure({
+    // cssSelector: '.page-content pre code',
+    languages: [],
+    // noHighlightRe: true,
+})
 
 export interface DocContentProps<D extends DocRouteModule = DocRouteModule> {
     content: string
@@ -81,6 +88,10 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
         return lines.join('\n')
     }, [content])
 
+    useEffect(() => {
+        hljs.highlightAll()
+    }, [codeDocumentation, content])
+
     return <>
         {progress === 'not-found' ? <PageNotFound/> : null}
 
@@ -92,13 +103,22 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
                         href={'https://github.com/control-ui/control-ui/tree/main/packages/_docs-control/src/content/' + id + '.md'}
                     >Edit Page</Link>
                 </div>
-                <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
+                <Paper
+                    // force remount when switching pages, for hljs reset
+                    key={id}
+                    style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}}
+                    variant={'outlined'}
+                >
                     <Markdown source={mdData}/>
                 </Paper>
 
                 {docCode ?
                     <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
-                        <DocsDetailsModules codeDocumentation={codeDocumentation}/>
+                        <DocsDetailsModules
+                            // force remount when switching pages, for hljs reset
+                            key={id}
+                            codeDocumentation={codeDocumentation}
+                        />
                     </Paper> : null}
 
                 <Paper

@@ -1,5 +1,6 @@
 import { LoadableLazy } from '@control-ui/kit/LoadableLazy'
-import React from 'react'
+import { useTheme } from '@mui/material/styles'
+import React, { useEffect } from 'react'
 import IcSearch from '@mui/icons-material/Search'
 import InvertColorsIcon from '@mui/icons-material/InvertColors'
 import GitHubIcon from '../asset/GitHubIcon'
@@ -17,6 +18,10 @@ import { useSearch } from '@control-ui/docs/DocsSearchProvider'
 import Button from '@mui/material/Button'
 import { getUserCtrlKey, getUserPlatform } from '@control-ui/kit/Helper'
 import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
+// @ts-ignore
+import hljsStyleLight from 'highlight.js/styles/github.css'
+// @ts-ignore
+import hljsStyleDark from 'highlight.js/styles/github-dark.css'
 
 export const CustomHeaderBase: React.ComponentType = () => {
     const {switchTheme} = useSwitchTheme()
@@ -85,6 +90,17 @@ export const Routing: LayoutProps['Content'] = React.memo(RoutingBase)
 
 export const CustomLayout: React.ComponentType = () => {
     const location = useLocation()
+    const {palette: {mode}} = useTheme()
+
+    useEffect(() => {
+        if(mode === 'light') {
+            hljsStyleLight.use()
+            return () => hljsStyleLight.unuse()
+        }
+        hljsStyleDark.use()
+        return () => hljsStyleDark.unuse()
+    }, [mode])
+
     return <Layout
         Header={CustomHeader}
         Drawer={CustomDrawer}

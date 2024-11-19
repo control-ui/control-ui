@@ -6,7 +6,7 @@ import { MdCodeProps } from '@control-ui/md/MdCode'
 
 export const MdInlineCode: React.ComponentType<React.PropsWithChildren<MdCodeProps & { p?: number }>> = (
     {
-        variant = 'body1', fontFamily = 'monospace', style = {}, p = 0.5,
+        variant = 'inherit', fontFamily = 'monospace', style = {}, p = 0.5,
         children,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         node, language,

@@ -23,3 +23,12 @@ html, body {
 pre {
     white-space: break-spaces;
 }
+
+blockquote::before {
+    content: "“";
+    position: absolute;
+    font-size: 3rem;
+    line-height: 2rem;
+    opacity: 0.6;
+    left: 6px;
+}

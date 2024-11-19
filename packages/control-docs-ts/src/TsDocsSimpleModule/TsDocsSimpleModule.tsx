@@ -5,11 +5,12 @@ import Paper from '@mui/material/Paper'
 import IcWarn from '@mui/icons-material/Warning'
 import Chip from '@mui/material/Chip'
 import Link from '@mui/material/Link'
-import { TsDocsModuleRenderer } from '@control-ui/docs-ts/TsDocModule'
+import { TsDocModuleDefinition, TsDocsModuleRenderer, TsDocTagContent } from '@control-ui/docs-ts/TsDocModule'
 
-const kindNames = {
+const kindNames: { [K in TsDocModuleDefinition['kind']]: string } = {
     TypeAliasDeclaration: 'type',
     InterfaceDeclaration: 'interface',
+    FunctionDeclaration: 'function',
     ClassDeclaration: 'class',
     VariableDeclaration: 'variable',
 }
@@ -18,7 +19,7 @@ export interface TsDocsSimpleModuleProps {
     id: string
     repoRoot: string
     basePath: string
-    definition: any
+    definition: TsDocModuleDefinition
     renderer: TsDocsModuleRenderer
     headlineIdPrefix?: string
     hideMainKind?: boolean
@@ -65,35 +66,60 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
                 {definition.deprecated ?
                     <Box mb={1} sx={{display: 'flex', flexWrap: 'wrap'}}>
                         <Chip label={'deprecated'} color={'warning'} size={'small'} icon={<IcWarn/>}/>
-                        <PrintTag
-                            tag={definition.tags?.deprecated}
-                        />
+                        {definition.tags?.deprecated?.length ?
+                            <PrintTag
+                                tag={definition.tags?.deprecated}
+                                Markdown={Markdown}
+                            /> : null}
                     </Box> : null}
 
                 {definition.internal ?
                     <Box mb={1} sx={{display: 'flex', flexWrap: 'wrap'}}>
                         <Chip label={'internal'} color={'warning'} size={'small'} icon={<IcWarn/>}/>
-                        <PrintTag
-                            tag={definition.tags?.internal}
-                        />
+                        {definition.tags?.internal?.length ?
+                            <PrintTag
+                                tag={definition.tags?.internal}
+                                Markdown={Markdown}
+                            /> : null}
                     </Box> : null}
 
-
-                {definition.type?.text ? <Box>
-                    <Markdown
-                        source={'```ts\n' + definition.type.text + '\n```'}
-                    />
-                </Box> : null}
+                {definition.type?.text ?
+                    <Box className={'docs-ts__module-type'}>
+                        <Markdown
+                            source={'```ts\n' + definition.type.text + '\n```'}
+                        />
+                    </Box> : null}
 
                 {definition.description ? <Box mt={1} mb={2}>
                     <Markdown source={definition.description}/>
                 </Box> : null}
+
+                {definition.tags?.example ?
+                    <Box>
+                        <Typography variant={'subtitle2'} gutterBottom>{'Example'}</Typography>
+                        <PrintTag
+                            tag={definition.tags?.example}
+                            Markdown={Markdown}
+                            parseEmail
+                        />
+                    </Box> : null}
 
                 {definition.tags?.author ?
                     <Box>
                         <Typography variant={'subtitle2'} gutterBottom>{'Author'}</Typography>
                         <PrintTag
                             tag={definition.tags?.author}
+                            Markdown={null}
+                            parseEmail
+                        />
+                    </Box> : null}
+
+                {definition.tags?.remarks ?
+                    <Box>
+                        <Typography variant={'subtitle2'} gutterBottom>{'Remarks'}</Typography>
+                        <PrintTag
+                            tag={definition.tags?.remarks}
+                            Markdown={Markdown}
                             parseEmail
                         />
                     </Box> : null}
@@ -103,6 +129,7 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
                         <Typography variant={'subtitle2'} gutterBottom>{'See'}</Typography>
                         <PrintTag
                             tag={definition.tags?.see}
+                            Markdown={Markdown}
                         />
                     </Box> : null}
             </Box>
@@ -110,7 +137,7 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
     </Box>
 }
 
-const PrintTag = ({tag, parseEmail}: { tag: any, parseEmail?: boolean }) => {
+const PrintTag = ({tag, parseEmail, Markdown}: { tag: TsDocTagContent[][], parseEmail?: boolean, Markdown: null | TsDocsModuleRenderer['Markdown'] }) => {
     // todo: each tag contains one entry, which should be converted to a combined MD format
     return <Box ml={1.5}>
         {tag.map((t, i) =>
@@ -120,6 +147,7 @@ const PrintTag = ({tag, parseEmail}: { tag: any, parseEmail?: boolean }) => {
                         key={j}
                         content={content}
                         parseEmail={parseEmail}
+                        Markdown={Markdown}
                     />,
                 )}
             </Box>,
@@ -127,7 +155,7 @@ const PrintTag = ({tag, parseEmail}: { tag: any, parseEmail?: boolean }) => {
     </Box>
 }
 
-const PrintTagContent = ({content, parseEmail}: { content: any, parseEmail?: boolean }) => {
+const PrintTagContent = ({content, parseEmail, Markdown}: { content: TsDocTagContent, parseEmail?: boolean, Markdown: null | TsDocsModuleRenderer['Markdown'] }) => {
     if(content.kind === 'JSDocLink') {
         const [link, title] = content.text.split('|')
         // todo: refine linking to symbol references
@@ -153,7 +181,14 @@ const PrintTagContent = ({content, parseEmail}: { content: any, parseEmail?: boo
     }
 
     // JSDocText
-    return <Box component={'span'}>
-        {content.text}
+    return <Box
+        component={'span'}
+        sx={{'& > :last-child': {mb: 0}}}
+    >
+        {Markdown ?
+            <Markdown
+                source={content.text}
+            /> :
+            content.text}
     </Box>
 }
