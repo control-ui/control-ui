@@ -6,6 +6,7 @@ import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
 import { SxProps } from '@mui/material/styles'
 
 export interface ScrollUpButtonProps {
+    // eslint-disable-next-line deprecation/deprecation
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     bottom?: number
     right?: number

@@ -5,9 +5,11 @@ export interface LayoutProps {
     Header?: React.ComponentType
     Drawer?: React.ComponentType
     Footer?: React.ComponentType
+    // eslint-disable-next-line deprecation/deprecation
     Content: React.ComponentType<{ scrollContainer: React.MutableRefObject<null | HTMLDivElement> }>
     containerStyle?: React.CSSProperties
     mainContentStyle?: React.CSSProperties
+    // eslint-disable-next-line deprecation/deprecation
     mainContentRef?: React.MutableRefObject<null | HTMLDivElement>
     locationPath?: string
     mainId?: string

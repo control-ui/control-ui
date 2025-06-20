@@ -8,7 +8,7 @@ import { MdLink } from '@control-ui/md'
 
 const renderersContent = renderers(false)
 // @ts-ignore
-renderersContent.h1 = renderersContent.h2 = renderersContent.h3 = renderersContent.h4 = renderersContent.h5 = p => <LinkableHeadline {...p} levelOffset={0}/>
+renderersContent.h1 = renderersContent.h2 = renderersContent.h3 = renderersContent.h4 = renderersContent.h5 = p => <LinkableHeadline level={Number(p.node?.tagName.slice(1))} levelOffset={0}>{p.children}</LinkableHeadline>
 // @ts-ignore
 renderersContent.a = p => <MdLink {...p} currentDomain={window.location.protocol + '//' + window.location.host}/>
 

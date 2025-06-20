@@ -1,10 +1,11 @@
 import React from 'react'
-import AppBar, { AppBarProps } from '@mui/material/AppBar'
+import AppBar from '@mui/material/AppBar'
+import type { AppBarProps } from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IcMenu from '@mui/icons-material/Menu'
 import { useDrawer } from '@control-ui/app/DrawerProvider'
 import { IconButtonTooltip } from '@control-ui/kit/IconButtonTooltip'
-import { SxProps } from '@mui/system'
+import type { SxProps } from '@mui/material/styles'
 
 export type labelMenu = (open: boolean) => string
 

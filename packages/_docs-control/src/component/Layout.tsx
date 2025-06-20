@@ -79,6 +79,7 @@ export const CustomDrawer: React.ComponentType = React.memo(CustomDrawerBase)
 }
 export const CustomFooter: React.ComponentType = React.memo(CustomFooterBase)*/
 
+// eslint-disable-next-line deprecation/deprecation
 const PageNotFound: React.ComponentType<RouteComponentProps & { scrollContainer: React.MutableRefObject<null | HTMLDivElement> }> = LoadableLazy({
     loader: () => import('../page/PageNotFound'),
     title: 'Not Found',

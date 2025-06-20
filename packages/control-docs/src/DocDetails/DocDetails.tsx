@@ -18,6 +18,7 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
         id, doc, path, hash, Content,
         scrollContainer, scrollDelay = 75,
     }: {
+        // eslint-disable-next-line deprecation/deprecation
         scrollContainer: React.MutableRefObject<HTMLDivElement | null>
         doc: D
         id: string
@@ -99,6 +100,7 @@ export interface DocDetailsProps<D extends DocRoute = DocRoute> {
     path: string
     hash?: string
     headProps?: Omit<HeadMetaProps, 'title' | 'description'>
+    // eslint-disable-next-line deprecation/deprecation
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     scrollDelay?: number
     Content: React.ComponentType<DocDetailsContentProps<D>>
@@ -147,6 +149,7 @@ export interface DocDetailsLegacyProps<D extends DocRoute = DocRoute> {
     title: (doc: DocRoute | undefined) => string
     description?: (doc: DocRoute | undefined) => string
     headProps?: Omit<HeadMetaProps, 'title' | 'description'>
+    // eslint-disable-next-line deprecation/deprecation
     scrollContainer: React.MutableRefObject<HTMLDivElement | null>
     scope: string
     Content: React.ComponentType<DocDetailsContentProps<D>>

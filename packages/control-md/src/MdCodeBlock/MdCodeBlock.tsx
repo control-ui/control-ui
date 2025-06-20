@@ -1,11 +1,10 @@
+import { getElementProps } from '@control-ui/md/getElementProps'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import { MdCodeProps } from '@control-ui/md'
 
-export const MdCodeBlock: React.ComponentType<React.PropsWithChildren<MdCodeProps>> = (
+export const MdCodeBlock: React.ComponentType<React.PropsWithChildren<MdCodeProps & { className?: string }>> = (
     {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        node,
         variant = 'body1', fontFamily = 'monospace', children,
         ...p
     },
@@ -20,7 +19,7 @@ export const MdCodeBlock: React.ComponentType<React.PropsWithChildren<MdCodeProp
             wordWrap: 'break-word',
             overflowWrap: 'break-word',
         }}
-        {...p}
+        {...getElementProps(p)}
     >
         <Typography
             component={'code'}

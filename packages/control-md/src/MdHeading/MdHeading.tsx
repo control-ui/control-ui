@@ -1,13 +1,16 @@
+import { getElementProps } from '@control-ui/md/getElementProps'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import React from 'react'
-import { HeadingProps } from 'react-markdown/lib/ast-to-react'
+import { Components, ExtraProps } from 'react-markdown'
 
-export type MdHeadingProps = HeadingProps & Omit<TypographyProps, 'variant' | 'component' | 'gutterBottom'>
+export type MdHeadingProps = React.ComponentPropsWithoutRef<NonNullable<Components['h1']>> & ExtraProps & Omit<TypographyProps, 'variant' | 'component' | 'gutterBottom'>
 
-export const MdHeading: React.FC<MdHeadingProps> = ({level, ...p}) =>
-    <Typography
-        {...p}
-        component={('h' + level) as React.ElementType}
-        variant={('h' + level) as TypographyProps['variant']}
+export const MdHeading: React.FC<MdHeadingProps> = ({node, ...p}) => {
+    const variant = node?.tagName
+    return <Typography
+        {...getElementProps(p)}
+        component={variant as React.ElementType}
+        variant={variant as TypographyProps['variant']}
         gutterBottom
     >{p.children}</Typography>
+}

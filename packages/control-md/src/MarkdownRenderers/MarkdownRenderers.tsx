@@ -1,3 +1,4 @@
+import { getElementProps } from '@control-ui/md/getElementProps'
 import React from 'react'
 import Divider from '@mui/material/Divider'
 import { MdList, MdListItem } from '@control-ui/md/MdList'
@@ -11,7 +12,6 @@ import {
 import { MdHeading } from '@control-ui/md/MdHeading'
 import { Components } from 'react-markdown'
 import { MdLine } from '@control-ui/md/MdLine'
-import { CodeProps } from 'react-markdown/lib/ast-to-react'
 
 /**
  * Renderers for: table, thead, tbody, tr, th, td
@@ -30,8 +30,7 @@ export const renderersTable = (dense?: boolean): Components => ({
  */
 export const renderersBasic = (dense?: boolean): Components => ({
     p: p => <MdLine {...p} dense={dense}/>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    hr: ({node, ...p}) => <Divider {...p}/>,
+    hr: (p) => <Divider {...getElementProps(p)}/>,
     h1: MdHeading,
     h2: MdHeading,
     h3: MdHeading,
@@ -50,7 +49,14 @@ export const renderersBasic = (dense?: boolean): Components => ({
 export const renderers = (dense?: boolean): Components => ({
     ...renderersBasic(dense),
     ...renderersTable(dense),
-    code: MdCode as React.ComponentType<CodeProps>,
+    pre: ({node, ...p}) => {
+        const codeChild = node?.children?.[0]
+        if(!codeChild || codeChild.type !== 'element' || codeChild.tagName !== 'code') return <pre {...p}/>
+
+        // @ts-ignore
+        return <MdCode {...codeChild.properties} node={codeChild} inline={false}>{p.children}</MdCode>
+    },
+    code: (p) => <MdCode {...p} inline/>,
     blockquote: MdBlockquote,
     a: MdLink,
 })

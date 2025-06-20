@@ -143,6 +143,7 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
     </>
 }
 
+// eslint-disable-next-line deprecation/deprecation
 const DocsDetails: React.ComponentType<{ scrollContainer: React.MutableRefObject<HTMLDivElement | null> }> = ({scrollContainer}) => {
     const match = useRouteMatch()
     return <React.Fragment>

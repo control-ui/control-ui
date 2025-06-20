@@ -1,14 +1,12 @@
+import { getElementProps } from '@control-ui/md/getElementProps'
 import React from 'react'
 import Link, { LinkProps } from '@mui/material/Link'
 import { LinkInternal } from '@control-ui/kit/Link'
-import { ReactMarkdownProps } from 'react-markdown/lib/complex-types'
 
-export const MdLink: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'a'> & ReactMarkdownProps & { currentDomain?: string, linkUnderline?: LinkProps['underline'] }> = (
+export const MdLink: React.ComponentType<React.PropsWithChildren & React.ComponentPropsWithoutRef<'a'> & { currentDomain?: string, linkUnderline?: LinkProps['underline'] }> = (
     {
         currentDomain,
         href,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        node,
         linkUnderline = 'hover',
         children, ...p
     },
@@ -22,13 +20,13 @@ export const MdLink: React.ComponentType<React.PropsWithChildren & React.Compone
                 primary={children}
                 color={'primary'}
                 underline={linkUnderline}
-                {...p}
+                {...getElementProps(p)}
             /> :
             <Link
                 href={href}
                 target="_blank" rel="noreferrer noopener"
                 color={'primary'} underline={linkUnderline}
-                {...p}
+                {...getElementProps(p)}
             >
                 {children}
             </Link>

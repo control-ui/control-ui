@@ -1,10 +1,9 @@
 import React, { Suspense, lazy } from 'react'
-import { AppThemeProps } from '@control-ui/app/AppTheme'
+import type { AppThemeProps } from '@control-ui/app/AppTheme'
 import { LoadingCircular } from '@control-ui/kit/Loading'
 import { AppThemeDynamic } from '@control-ui/app/AppThemeDynamic'
 import Box from '@mui/material/Box'
-import { SxProps } from '@mui/system'
-import { Theme } from '@mui/material/styles'
+import type { SxProps, Theme } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 
 export const AppWrapper: React.ComponentType<React.PropsWithChildren<{

@@ -1,23 +1,22 @@
+import { getElementProps } from '@control-ui/md/getElementProps'
 import React from 'react'
 import { useTheme } from '@mui/material/styles'
-import { LiProps, OrderedListProps, UnorderedListProps } from 'react-markdown/lib/ast-to-react'
+import { ExtraProps } from 'react-markdown'
 import Typography from '@mui/material/Typography'
 
-export const MdList: React.ComponentType<React.PropsWithChildren & (UnorderedListProps | OrderedListProps) & {
+export const MdList: React.ComponentType<React.PropsWithChildren & ExtraProps & {
     dense?: boolean
 }> = (
     {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         node, dense,
-        ordered,
         children,
         ...p
     },
 ) => {
     const {spacing} = useTheme()
-    const Comp = ordered ? 'ol' : 'ul'
+    const Comp = node?.tagName as 'ol' | 'ul' || 'ul'
     return <Comp
-        {...p}
+        {...getElementProps(p)}
         style={{
             margin: spacing(dense ? 1 : 2) + ' 0 ' + spacing(dense ? 1 : 2) + ' ' + spacing(dense ? 1 : 2),
             paddingLeft: spacing(dense ? 2 : 4),
@@ -25,17 +24,16 @@ export const MdList: React.ComponentType<React.PropsWithChildren & (UnorderedLis
     >{children}</Comp>
 }
 
-export const MdListItem: React.ComponentType<React.PropsWithChildren & LiProps & {
+export const MdListItem: React.ComponentType<React.PropsWithChildren & {
+    style?: React.CSSProperties
     dense?: boolean
 }> = (
     {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        node, ordered,
         dense, style = {},
         children,
         ...p
     },
 ) =>
-    <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold', ...style}}{...p}>
+    <Typography component={'li'} variant={dense ? 'body2' : 'body1'} style={{fontWeight: 'bold', ...style}}{...getElementProps(p)}>
         <span style={{fontWeight: 'normal', display: 'block'}}>{children}</span>
     </Typography>
