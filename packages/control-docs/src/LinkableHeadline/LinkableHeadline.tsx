@@ -67,11 +67,10 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
     const [, setHeadlines] = useHeadlines()
     const [hovering, setHovering] = React.useState(false)
     const id = customId ? customId :
-        // @ts-ignore
-        children && children[0] && typeof children[0] === 'string' ?
-            // @ts-ignore
-            makeIdFromText(children[0], replace)
-            : undefined
+        typeof children === 'string' ? makeIdFromText(children, replace) :
+            children && children[0] && typeof children[0] === 'string' ?
+                makeIdFromText(children[0], replace)
+                : undefined
 
     React.useEffect(() => {
         if(id) {

@@ -1,6 +1,9 @@
-import { LoadableLazy } from '@control-ui/kit/LoadableLazy'
+import { LoadableLazy, LoadableLazy2 } from '@control-ui/kit/LoadableLazy'
+import { lazy } from 'react'
 import { docsKit, docsDocs, docsHowTo, docsApp, docsRoutes, docsMdMui, docsDocsTs } from './content/docs'
 import { Route } from '@control-ui/routes/Route'
+
+const LazyDocsDetails = lazy(() => import('./page/DocsDetails'))
 
 const createDocsTree = <R extends Route = Route>(scope: string, label: string, routes?: R[], loadingTitle?: string, toSection?: RegExp): Route => ({
     path: '/' + scope + '/:docId+',
@@ -12,8 +15,8 @@ const createDocsTree = <R extends Route = Route>(scope: string, label: string, r
     },
     config: {
         content: {
-            component: LoadableLazy({
-                loader: () => import('./page/DocsDetails'),
+            component: LoadableLazy2({
+                LazyComp: LazyDocsDetails,
                 title: loadingTitle,
             }),
         },

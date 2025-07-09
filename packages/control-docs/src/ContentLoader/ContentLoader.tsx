@@ -5,20 +5,17 @@ const loadedFiles: {
     [id: string]: string
 } = {}
 
-export const contentLoader = <D extends DocRoute = DocRoute>(
+const contentLoader = <D extends DocRoute = DocRoute>(
     loader: (id: string, activeDocs: D) => Promise<{ default: string }>,
     id: string,
     activeDoc: D,
     cb: (text: string | null, error?: string | number) => void,
+    signal?: AbortSignal,
 ) => {
-    if(loadedFiles[id]) {
-        cb(loadedFiles[id])
-        return
-    }
     try {
         loader(id, activeDoc)
             .then(data => {
-                fetch(data.default)
+                fetch(data.default, {signal: signal})
                     .then(response => response.text())
                     .then(text => {
                         loadedFiles[id] = text
@@ -38,24 +35,43 @@ export const contentLoader = <D extends DocRoute = DocRoute>(
 
 export const useContentLoader = (id: string, activeDoc: DocRoute) => {
     const {loader} = useDocs()
-    const [progress, setProgress] = React.useState('')
-    const [loadedDoc, setLoadedDoc] = React.useState('')
+    const [progress, setProgress] = React.useState(() => {
+        return loadedFiles[id] ? 'success' : ''
+    })
+    const [loadedDoc, setLoadedDoc] = React.useState(() => {
+        if(loadedFiles[id]) {
+            return loadedFiles[id]
+        }
+        return ''
+    })
 
     if(!loader) {
         console.error('useContentLoader: missing `loader`, did you forget the `DocsProvider`?')
     }
 
     React.useEffect(() => {
-        setProgress('start')
+        const abort = new AbortController()
+
+        if(loadedFiles[id]) {
+            setLoadedDoc(loadedFiles[id])
+            setProgress('success')
+        } else {
+            setProgress('start')
+        }
         contentLoader(loader, id, activeDoc, (data, status) => {
+            if(abort.signal.aborted) return
             if(status) {
                 setProgress(status === 'MODULE_NOT_FOUND' ? 'not-found' : 'error')
-                setLoadedDoc('')
+                if(!loadedFiles[id]) {
+                    // keep doc on error, if it was loaded previously
+                    setLoadedDoc('')
+                }
             } else if(typeof data === 'string') {
                 setLoadedDoc(data)
                 setProgress('success')
             }
-        })
+        }, abort.signal)
+        return () => abort.abort()
     }, [activeDoc, loader, setLoadedDoc, id])
 
     return {
