@@ -7,7 +7,10 @@ import { DocRoute } from '@control-ui/docs/DocsProvider'
 import { filterRoutes } from '@control-ui/routes/filterRoutes'
 
 export interface DocDetailsContentProps<D extends DocRoute = DocRoute> {
-    content: string
+    docBody: {
+        id: string
+        content: string
+    } | null
     doc: D
     id: string
     progress: string
@@ -29,7 +32,7 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
     },
 ): React.ReactElement => {
     const hasScrolled = React.useRef<boolean>(false)
-    const {progress, content: contentStr} = useContentLoader(id, doc)
+    const {progress, docBody} = useContentLoader(id, doc)
 
     React.useEffect(() => {
         const onScroll = () => {
@@ -39,49 +42,57 @@ export const DocDetailsRenderer = <D extends DocRoute = DocRoute>(
         return () => window.removeEventListener('scroll', onScroll)
     }, [hasScrolled])
 
+    const lastScrollId = React.useRef<{ id: string, hash?: string } | null>(null)
+    React.useLayoutEffect(() => {
+        if(lastScrollId.current?.id === id) {
+            return
+        }
+        const container = scrollContainer.current
+        container?.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        lastScrollId.current = {id, hash: lastScrollId.current?.hash || ''}
+        hasScrolled.current = false
+    }, [id, scrollContainer])
+
     React.useEffect(() => {
         if(!scrollContainer.current || progress !== 'success') {
             return
         }
-        if(!hash) {
-            if(hasScrolled.current) {
-                hasScrolled.current = false
-                return
-            }
-            scrollContainer.current?.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+
+        if(
+            !hash
+            || (
+                lastScrollId.current?.id === id
+                && (lastScrollId.current?.hash || '') === (hash || '')
+            )
+        ) {
             return
         }
 
         const timer = window.setTimeout(() => {
-            // if(hash && progress === 'success') {
             if(hasScrolled.current) {
                 hasScrolled.current = false
                 return
             }
             hasScrolled.current = false
+            lastScrollId.current = {id, hash}
             const target = scrollContainer.current?.querySelector(hash.replaceAll(/[".:]/g, '\\$&'))
             if(target) {
                 target.scrollIntoView()
-                // return
             }
-            /*}
-
-            if(hasScrolled.current) {
-                hasScrolled.current = false
-                return
-            }
-            scrollContainer.current?.scrollTo({top: 0, left: 0, behavior: 'smooth'})*/
-            // 75ms time for the browser to render the content / maybe load something already
-            // todo: maybe add a "waiting for ref mounting" here, e.g. pass down ref in `Content` and use an interval
         }, scrollDelay)
 
         return () => {
             window.clearTimeout(timer)
             hasScrolled.current = false
         }
-    }, [hash, path, scrollDelay, progress, hasScrolled, scrollContainer])
+    }, [hash, path, scrollDelay, progress, hasScrolled, scrollContainer, id])
 
-    return <Content content={contentStr} doc={doc} id={id} progress={progress}/>
+    return <Content
+        docBody={docBody?.id === id ? docBody : null}
+        doc={doc}
+        id={id}
+        progress={progress}
+    />
 }
 
 export const findDocFn = <D extends DocRoute = DocRoute>(routes: D, id: string): D[] =>

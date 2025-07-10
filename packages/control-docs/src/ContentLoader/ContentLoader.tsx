@@ -38,11 +38,11 @@ export const useContentLoader = (id: string, activeDoc: DocRoute) => {
     const [progress, setProgress] = React.useState(() => {
         return loadedFiles[id] ? 'success' : ''
     })
-    const [loadedDoc, setLoadedDoc] = React.useState(() => {
+    const [loadedDoc, setLoadedDoc] = React.useState<null | { id: string, content: string }>(() => {
         if(loadedFiles[id]) {
-            return loadedFiles[id]
+            return {id: id, content: loadedFiles[id]}
         }
-        return ''
+        return null
     })
 
     if(!loader) {
@@ -53,7 +53,13 @@ export const useContentLoader = (id: string, activeDoc: DocRoute) => {
         const abort = new AbortController()
 
         if(loadedFiles[id]) {
-            setLoadedDoc(loadedFiles[id])
+            setLoadedDoc(
+                doc =>
+                    doc?.id === id
+                    && doc?.content === loadedFiles[id]
+                        ? doc
+                        : {id, content: loadedFiles[id]},
+            )
             setProgress('success')
         } else {
             setProgress('start')
@@ -64,10 +70,16 @@ export const useContentLoader = (id: string, activeDoc: DocRoute) => {
                 setProgress(status === 'MODULE_NOT_FOUND' ? 'not-found' : 'error')
                 if(!loadedFiles[id]) {
                     // keep doc on error, if it was loaded previously
-                    setLoadedDoc('')
+                    setLoadedDoc(null)
                 }
             } else if(typeof data === 'string') {
-                setLoadedDoc(data)
+                setLoadedDoc(
+                    doc =>
+                        doc?.id === id
+                        && doc?.content === loadedFiles[id]
+                            ? doc
+                            : {id, content: loadedFiles[id]},
+                )
                 setProgress('success')
             }
         }, abort.signal)
@@ -75,7 +87,7 @@ export const useContentLoader = (id: string, activeDoc: DocRoute) => {
     }, [activeDoc, loader, setLoadedDoc, id])
 
     return {
-        content: loadedDoc,
+        docBody: loadedDoc,
         progress,
     }
 }

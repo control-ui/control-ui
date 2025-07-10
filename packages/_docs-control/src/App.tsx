@@ -1,6 +1,6 @@
 import React from 'react'
 import { App } from '@control-ui/app/App'
-import { routes } from './routes'
+import { routing } from './routes'
 import { DocsProvider } from '@control-ui/docs/DocsProvider'
 import { HeadlinesProvider } from '@control-ui/docs/LinkableHeadline'
 import merge from 'webpack-merge'
@@ -47,9 +47,8 @@ const i18n: I18nProviderContext = {
             }),
 }
 
-const routing = routes()
-const CustomApp = () =>
-    <BrowserRouter basename={'/'}>
+const CustomApp = () => {
+    return <BrowserRouter basename={'/'}>
         <App
             routes={routing}
             Layout={CustomLayout}
@@ -57,5 +56,6 @@ const CustomApp = () =>
             Provider={Provider}
         />
     </BrowserRouter>
+}
 
 export default CustomApp

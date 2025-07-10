@@ -22,7 +22,7 @@ hljs.configure({
 })
 
 export interface DocContentProps<D extends DocRouteModule = DocRouteModule> {
-    content: string
+    docBody: null | { id: string, content: string }
     doc: D
     id: string
     progress: string
@@ -32,7 +32,7 @@ const cachedContent = new Map<string, any>()
 
 const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContentProps<D>) => {
     const {
-        content,
+        docBody,
         doc,
         id,
         progress,
@@ -76,8 +76,8 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
     }, [docCode])
 
     const mdData = React.useMemo(() => {
-        if(!content) return undefined
-        const lines: string[] = content.split('\n')
+        if(!docBody) return undefined
+        const lines: string[] = docBody.content.split('\n')
         // todo: add correct front-matter extraction, but e.g. `front-matter` is no longer maintained/browser-optimized
         if(lines[0] === '---') {
             const i = lines.slice(1).findIndex((l: string) => l === '---')
@@ -86,60 +86,63 @@ const DocContent = <D extends DocRouteModule = DocRouteModule>(props: DocContent
             }
         }
         return lines.join('\n')
-    }, [content])
+    }, [docBody])
 
+    const loadingSuccess = progress === 'success'
     useEffect(() => {
+        Array.from(window.document.querySelectorAll('[data-highlighted="yes"]'))
+            .forEach(elem => {
+                elem.removeAttribute('data-highlighted')
+            })
         hljs.highlightAll()
-    }, [codeDocumentation, content])
+    }, [codeDocumentation, docBody?.content, loadingSuccess])
 
     return <>
-        {progress === 'not-found' ? <PageNotFound/> : null}
+        <div style={{display: 'block', textAlign: 'right', margin: '0 12px'}}>
+            <Link
+                target={'_blank'} rel="noreferrer noopener nofollow" variant={'body2'}
+                href={'https://github.com/control-ui/control-ui/tree/main/packages/_docs-control/src/content/' + id + '.md'}
+            >Edit Page</Link>
+        </div>
 
-        {progress === 'success' && !loadingCodeDocumentation ?
-            <>
-                <div style={{display: 'block', textAlign: 'right', margin: '0 12px'}}>
-                    <Link
-                        target={'_blank'} rel="noreferrer noopener nofollow" variant={'body2'}
-                        href={'https://github.com/control-ui/control-ui/tree/main/packages/_docs-control/src/content/' + id + '.md'}
-                    >Edit Page</Link>
-                </div>
-                <Paper
+        {progress === 'error' ?
+            <Box m={2}>
+                <Alert severity={'error'}>Error loading page.</Alert>
+            </Box> : null}
+
+        <Paper
+            // force remount when switching pages, for hljs reset
+            key={id}
+            style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}}
+            variant={'outlined'}
+        >
+            {!docBody && (progress === 'start' || progress === 'progress' || loadingCodeDocumentation) ?
+                <LoadingCircular title={'Loading Docs'}/> : null}
+
+            {progress === 'not-found'
+                ? <PageNotFound/>
+                : mdData ? <Markdown source={mdData}/> : null}
+        </Paper>
+
+        {docCode ?
+            <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
+                <DocsDetailsModules
                     // force remount when switching pages, for hljs reset
                     key={id}
-                    style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}}
-                    variant={'outlined'}
-                >
-                    <Markdown source={mdData}/>
-                </Paper>
+                    codeDocumentation={codeDocumentation}
+                />
+            </Paper> : null}
 
-                {docCode ?
-                    <Paper style={{margin: 12, padding: 24, display: 'flex', flexDirection: 'column', borderRadius: 5}} variant={'outlined'}>
-                        <DocsDetailsModules
-                            // force remount when switching pages, for hljs reset
-                            key={id}
-                            codeDocumentation={codeDocumentation}
-                        />
-                    </Paper> : null}
-
-                <Paper
-                    style={{
-                        margin: 12, display: 'flex', flexDirection: 'column', overflowX: 'auto', flexShrink: 0,
-                        position: 'sticky', bottom: 12, maxHeight: '85vh', borderRadius: 5,
-                        maxWidth: 420,
-                    }}
-                    // variant={'outlined'}
-                    elevation={3}
-                >
-                    <LinkableHeadlineMenu disableNavLink disablePadding btnVariant={'contained'} bindKey={'m'}/>
-                </Paper>
-            </> : null}
-
-        {progress === 'start' || progress === 'progress' || loadingCodeDocumentation ?
-            <LoadingCircular title={'Loading Docs'}/> :
-            progress === 'error' ?
-                <Box m={2}>
-                    <Alert severity={'error'}>Error loading page.</Alert>
-                </Box> : null}
+        <Paper
+            style={{
+                margin: 12, display: 'flex', flexDirection: 'column', overflowX: 'auto', flexShrink: 0,
+                position: 'sticky', bottom: 12, maxHeight: '85vh', borderRadius: 5,
+                maxWidth: 420,
+            }}
+            elevation={3}
+        >
+            <LinkableHeadlineMenu disableNavLink disablePadding btnVariant={'contained'} bindKey={'m'}/>
+        </Paper>
     </>
 }
 

@@ -51,3 +51,5 @@ export const routes = (): Route => ({
         createDocsTree('md', '@control-ui/md', docsMdMui(''), 'Loading Docs'),
     ],
 })
+
+export const routing: Route = routes()
