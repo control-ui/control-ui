@@ -16,7 +16,7 @@ export type TsDocsModuleRenderer = {
     }>
 }
 
-export interface DocsTsModulesProps extends Omit<TsDocsSimpleModuleProps, 'id' | 'definition' | 'basePath'> {
+export interface DocsTsModulesProps extends Omit<TsDocsSimpleModuleProps, 'id' | 'definition'> {
     documentation: TsDocModuleCollectionSimple
     repoRoot: string
     registryRoot?: string
@@ -49,7 +49,6 @@ export const TsDocsSimple: React.ComponentType<DocsTsModulesProps> = (
             <TsDocsSimpleModule
                 key={i}
                 definition={d}
-                basePath={documentation.modulePath}
                 renderer={renderer}
                 repoRoot={repoRoot}
                 // todo: with the new TS crawler, it may have multiple definitions for the same name,

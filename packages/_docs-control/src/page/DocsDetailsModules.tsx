@@ -22,6 +22,16 @@ const renderer: TsDocsModuleRenderer = {
     InlineCode: MdInlineCode,
     Markdown: Markdown as React.ComponentType<{ source: string, dense?: boolean }>,
     ModuleHeadline: ModuleHeadline,
+    Details: ({definition}) => {
+        return <>
+            {definition.type?.text ?
+                <Box className={'docs-ts__module-type'}>
+                    <Markdown
+                        source={'```ts\n' + definition.type.text + '\n```'}
+                    />
+                </Box> : null}
+        </>
+    },
 }
 
 export const DocsDetailsModules: React.ComponentType<{ codeDocumentation: TsDocModuleCollectionSimple | undefined }> = ({codeDocumentation}) => {

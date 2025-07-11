@@ -34,7 +34,7 @@ export const ModuleIntro: React.ComponentType<ModuleIntroProps> = (
         </Typography>
 
         <Typography variant={'body2'} gutterBottom>
-            <InlineCode>@import * from {packageName}/{fromPath}</InlineCode>
+            <InlineCode>@import * from {packageName}{fromPath ? '/' : ''}{fromPath}</InlineCode>
         </Typography>
 
         {showFiles ?

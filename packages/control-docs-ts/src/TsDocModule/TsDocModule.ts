@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 
 export interface TsDocModule {
     // pagePath: string
@@ -37,15 +37,20 @@ export interface TsDocModuleDefinitionSymbol {
 export interface TsDocModuleDefinitionSymbolInfo extends TsDocModuleDefinitionSymbol {
     deprecated?: true
     internal?: true
+    experimental?: true
     comment?: TsDocTagContent[]
-    tags?: {
-        author?: TsDocTagContent[][]
-        see?: TsDocTagContent[][]
-        internal?: TsDocTagContent[][]
-        deprecated?: TsDocTagContent[][]
-        remarks?: TsDocTagContent[][]
-        example?: TsDocTagContent[][]
-    }
+    tags?:
+        {
+            author?: TsDocTagContent[][]
+            see?: TsDocTagContent[][]
+            internal?: TsDocTagContent[][]
+            deprecated?: TsDocTagContent[][]
+            remarks?: TsDocTagContent[][]
+            example?: TsDocTagContent[][]
+        } &
+        {
+            [k: string]: TsDocTagContent[][]
+        }
 }
 
 export interface TsDocModuleDefinition extends TsDocModuleDefinitionSymbolInfo {
@@ -97,4 +102,7 @@ export type TsDocsModuleRenderer = {
         source: string
         dense?: boolean
     }>
+
+    Details?: ComponentType<{ definition: TsDocModuleDefinition }>
+    More?: ComponentType<{ definition: TsDocModuleDefinition }>
 }

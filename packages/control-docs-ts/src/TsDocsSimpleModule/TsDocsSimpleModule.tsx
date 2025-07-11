@@ -1,5 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box'
+import ButtonBase from '@mui/material/ButtonBase'
+import Tooltip from '@mui/material/Tooltip'
+import IcCode from '@mui/icons-material/Code'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import IcWarn from '@mui/icons-material/Warning'
@@ -17,8 +20,7 @@ const kindNames: { [K in TsDocModuleDefinition['kind']]: string } = {
 
 export interface TsDocsSimpleModuleProps {
     id: string
-    repoRoot: string
-    basePath: string
+    repoRoot?: string
     definition: TsDocModuleDefinition
     renderer: TsDocsModuleRenderer
     headlineIdPrefix?: string
@@ -29,7 +31,6 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
     {
         definition,
         repoRoot,
-        basePath,
         id,
         renderer,
         headlineIdPrefix = 'doc-module--',
@@ -39,27 +40,50 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
     const {
         ModuleHeadline,
         Markdown,
+        Details,
+        More,
     } = renderer
-    const filePath = definition.loc.filePath.slice(basePath.length)
+
     return <Box mb={2}>
         <Paper variant={'outlined'} style={{borderRadius: 5}}>
             <Box my={1} px={1}>
                 <ModuleHeadline level={2} id={headlineIdPrefix + id}>
-                    {definition.name || <em>{'No Name'}</em>}
+                    <Box
+                        sx={{display: 'flex', flexWrap: 'wrap', columnGap: 0.5}}
+                    >
+                        <span>{definition.name || <em>{'No Name'}</em>}</span>
+
+                        {repoRoot && definition.loc && typeof definition.loc?.start.line === 'number' ?
+                            <Tooltip
+                                title={`Source: ${definition.loc.filePath} L${definition.loc?.start.line + 1}`}
+                                enterDelay={220} enterNextDelay={220}
+                            >
+                                <Box component={'small'} ml={'auto'} sx={{justifySelf: 'flex-start'}}>
+                                    <ButtonBase
+                                        component={'a'}
+                                        focusRipple
+                                        href={repoRoot + definition.loc.filePath + '#L' + (definition.loc?.start.line + 1) + ':L' + (definition.loc?.end.line + 1)}
+                                        target={'_blank'} rel={'noreferrer'}
+                                        sx={{
+                                            display: 'flex',
+                                            borderRadius: 2,
+                                            border: '1px solid transparent',
+                                            p: 0.5,
+                                            '&:hover': {
+                                                borderColor: 'primary.main',
+                                            },
+                                        }}
+                                    ><IcCode fontSize={'small'} color={'primary'}/></ButtonBase></Box>
+                            </Tooltip> : null}
+                    </Box>
                 </ModuleHeadline>
 
-                <Typography
-                    variant={'body2'} color={'textSecondary'}
-                    sx={{display: 'flex', flexWrap: 'wrap', columnGap: 0.5}}
-                >
-                    {!hideMainKind && definition.kind ? <small>{definition.kind in kindNames ? kindNames[definition.kind] : definition.kind}</small> : null}
-
-                    {definition.loc && typeof definition.loc?.start.line === 'number' ?
-                        <Box component={'small'} ml={'auto'}><Link
-                            href={repoRoot + definition.loc.filePath + '#L' + (definition.loc?.start.line + 1) + ':L' + (definition.loc?.end.line + 1)}
-                            target={'_blank'} rel={'noreferrer'}
-                        >{filePath} L{definition.loc?.start.line + 1}</Link></Box> : null}
-                </Typography>
+                {!hideMainKind && definition.kind ?
+                    <Typography
+                        variant={'body2'} color={'textSecondary'}
+                    >
+                        <small>{definition.kind in kindNames ? kindNames[definition.kind] : definition.kind}</small>
+                    </Typography> : null}
             </Box>
 
             <Box px={1} style={{overflow: 'auto'}}>
@@ -83,16 +107,24 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
                             /> : null}
                     </Box> : null}
 
-                {definition.type?.text ?
-                    <Box className={'docs-ts__module-type'}>
-                        <Markdown
-                            source={'```ts\n' + definition.type.text + '\n```'}
-                        />
+                {definition.experimental ?
+                    <Box mb={1} sx={{display: 'flex', flexWrap: 'wrap'}}>
+                        <Chip label={'experimental'} color={'warning'} size={'small'} icon={<IcWarn/>}/>
+                        {definition.tags?.experimental?.length ?
+                            <PrintTag
+                                tag={definition.tags?.experimental}
+                                Markdown={Markdown}
+                            /> : null}
                     </Box> : null}
 
                 {definition.description ? <Box mt={1} mb={2}>
                     <Markdown source={definition.description}/>
                 </Box> : null}
+
+                {Details ?
+                    <Details
+                        definition={definition}
+                    /> : null}
 
                 {definition.tags?.example ?
                     <Box>
@@ -132,12 +164,20 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
                             Markdown={Markdown}
                         />
                     </Box> : null}
+
+                {More ?
+                    <More
+                        definition={definition}
+                    /> : null}
             </Box>
         </Paper>
     </Box>
 }
 
-const PrintTag = ({tag, parseEmail, Markdown}: { tag: TsDocTagContent[][], parseEmail?: boolean, Markdown: null | TsDocsModuleRenderer['Markdown'] }) => {
+/**
+ * @experimental
+ */
+export const PrintTag = ({tag, parseEmail, Markdown}: { tag: TsDocTagContent[][], parseEmail?: boolean, Markdown: null | TsDocsModuleRenderer['Markdown'] }) => {
     // todo: each tag contains one entry, which should be converted to a combined MD format
     return <Box ml={1.5}>
         {tag.map((t, i) =>

@@ -403,11 +403,14 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
             //       thus if a symbol exists, plain JSDoc comments shouldn't be needed
             const comment = typeof jsDoc.comment === 'string' && symbol ? undefined : getJSDocComments(jsDoc.comment)
             const {flags, tags} = jsDoc.tags?.reduce<{
-                flags: Pick<TsDocModuleDefinitionSymbolInfo, 'deprecated' | 'internal'>
+                flags: Pick<TsDocModuleDefinitionSymbolInfo, 'deprecated' | 'internal' | 'experimental'>
                 tags: NonNullable<TsDocModuleDefinitionSymbolInfo['tags']>
             }>((parsed, t) => {
                 if(t.tagName.text === 'internal') {
                     parsed.flags.internal = true
+                }
+                if(t.tagName.text === 'experimental') {
+                    parsed.flags.experimental = true
                 }
                 if(t.kind === SyntaxKind.JSDocDeprecatedTag) {
                     parsed.flags.deprecated = true
@@ -417,6 +420,7 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
                     || t.kind === SyntaxKind.JSDocAuthorTag
                     || t.kind === SyntaxKind.JSDocDeprecatedTag
                     || t.tagName.text === 'internal'
+                    || t.tagName.text === 'experimental'
                     || t.tagName.text === 'todo'
                     || t.tagName.text === 'remarks'
                     || t.tagName.text === 'example'
@@ -425,7 +429,10 @@ function extractModuleInfo(entrypointFile: ts.SourceFile, program: ts.Program) {
                     if(!(tagName in parsed.tags)) {
                         parsed.tags[tagName] = []
                     }
-                    parsed.tags[tagName].push(getJSDocComments(t.comment))
+                    const docComments = getJSDocComments(t.comment)
+                    if(docComments) {
+                        parsed.tags[tagName].push(docComments)
+                    }
                 }
                 return parsed
             }, {flags: {}, tags: {}}) || {}
