@@ -1,10 +1,11 @@
-import React from 'react'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import Tooltip from '@mui/material/Tooltip'
-import LinkIcon from '@mui/icons-material/Link'
-import { useTheme, TypographyVariant } from '@mui/material/styles'
 import { makeIdFromText } from '@control-ui/docs/makeIdFromText'
+import LinkIcon from '@mui/icons-material/Link'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import { TypographyVariant, useTheme } from '@mui/material/styles'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import React, { ReactNode } from 'react'
 
 export interface LinkableHeadlineStateNode {
     id: string
@@ -50,6 +51,7 @@ export interface LinkableHeadlineProps {
     mt?: number
     mb?: number
     style?: React.CSSProperties
+    secondary?: ReactNode
 }
 
 export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<LinkableHeadlineProps>> = (
@@ -57,6 +59,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
         level, levelOffset = 0, levelOffsetVariant = 0,
         customId = undefined,
         children,
+        secondary,
         replace = /[,:!?&.\\/\s|]/g,
         mt, mb,
         style,
@@ -121,6 +124,7 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
                         level < 5 ? 12 * (6 / level) :
                             16 * (6 / level),
             marginLeft: -24, paddingLeft: 24, position: 'relative',
+            display: 'flex',
             ...(style || {}),
         }}
     >
@@ -137,7 +141,15 @@ export const LinkableHeadline: React.ComponentType<React.PropsWithChildren<Linka
                     <LinkIcon fontSize={'small'} style={{boxSizing: 'content-box', padding: 6, display: 'block'}}/>
                 </Button>
             </Tooltip> : null}
-        {children}
+
+        <Box sx={{flexGrow: 1}}>
+            {children}
+        </Box>
+
+        {secondary ?
+            <Box sx={{flexShrink: 0}}>
+                {secondary}
+            </Box> : null}
     </Typography>
 }
 

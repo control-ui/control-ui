@@ -1,19 +1,20 @@
+import { TsDocModuleCollectionSimple, TsDocsModuleRenderer } from '@control-ui/docs-ts/TsDocModule'
 import { TsDocsSimple } from '@control-ui/docs-ts/TsDocsSimple'
-import React from 'react'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { LinkableHeadline } from '@control-ui/docs/LinkableHeadline'
+import { MdInlineCode } from '@control-ui/md/MdInlineCode'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
-import { TsDocModuleCollectionSimple, TsDocsModuleRenderer } from '@control-ui/docs-ts/TsDocModule'
-import { MdInlineCode } from '@control-ui/md/MdInlineCode'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import React, { ReactNode } from 'react'
 import { Markdown } from '../component/Markdown'
 
 const ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
     id: string
     level: number
-}>> = ({id, level, children}) => {
-    return <LinkableHeadline level={level} levelOffsetVariant={2} customId={id} mb={0} mt={0} style={{wordBreak: 'break-all'}}>
+    secondary?: ReactNode
+}>> = ({id, level, children, secondary}) => {
+    return <LinkableHeadline level={level} levelOffsetVariant={2} customId={id} mb={0} mt={0} style={{wordBreak: 'break-all'}} secondary={secondary}>
         {children}
     </LinkableHeadline>
 }

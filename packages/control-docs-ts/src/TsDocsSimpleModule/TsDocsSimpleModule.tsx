@@ -1,14 +1,14 @@
-import React from 'react'
+import { TsDocModuleDefinition, TsDocsModuleRenderer, TsDocTagContent } from '@control-ui/docs-ts/TsDocModule'
+import IcCode from '@mui/icons-material/Code'
+import IcWarn from '@mui/icons-material/Warning'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
-import Tooltip from '@mui/material/Tooltip'
-import IcCode from '@mui/icons-material/Code'
-import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
-import IcWarn from '@mui/icons-material/Warning'
 import Chip from '@mui/material/Chip'
 import Link from '@mui/material/Link'
-import { TsDocModuleDefinition, TsDocsModuleRenderer, TsDocTagContent } from '@control-ui/docs-ts/TsDocModule'
+import Paper from '@mui/material/Paper'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import React from 'react'
 
 const kindNames: { [K in TsDocModuleDefinition['kind']]: string } = {
     TypeAliasDeclaration: 'type',
@@ -47,13 +47,10 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
     return <Box mb={2}>
         <Paper variant={'outlined'} style={{borderRadius: 5}}>
             <Box my={1} px={1}>
-                <ModuleHeadline level={2} id={headlineIdPrefix + id}>
-                    <Box
-                        sx={{display: 'flex', flexWrap: 'wrap', columnGap: 0.5}}
-                    >
-                        <span>{definition.name || <em>{'No Name'}</em>}</span>
-
-                        {repoRoot && definition.loc && typeof definition.loc?.start.line === 'number' ?
+                <ModuleHeadline
+                    level={2} id={headlineIdPrefix + id}
+                    secondary={
+                        repoRoot && definition.loc && typeof definition.loc?.start.line === 'number' ?
                             <Tooltip
                                 title={`Source: ${definition.loc.filePath} L${definition.loc?.start.line + 1}`}
                                 enterDelay={220} enterNextDelay={220}
@@ -74,8 +71,10 @@ export const TsDocsSimpleModule: React.ComponentType<TsDocsSimpleModuleProps> = 
                                             },
                                         }}
                                     ><IcCode fontSize={'small'} color={'primary'}/></ButtonBase></Box>
-                            </Tooltip> : null}
-                    </Box>
+                            </Tooltip> : null
+                    }
+                >
+                    <span>{definition.name || <em>{'No Name'}</em>}</span>
                 </ModuleHeadline>
 
                 {!hideMainKind && definition.kind ?

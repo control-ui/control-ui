@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react'
+import React, { ComponentType, ReactNode } from 'react'
 
 export interface TsDocModule {
     // pagePath: string
@@ -97,6 +97,7 @@ export type TsDocsModuleRenderer = {
     ModuleHeadline: React.ComponentType<React.PropsWithChildren<{
         id: string
         level: number
+        secondary?: ReactNode
     }>>
     Markdown: React.ComponentType<{
         source: string
